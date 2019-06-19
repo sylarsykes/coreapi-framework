@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <groupId>org.sylrsykssoft</groupId>
+    <artifactId>coreapi-framework</artifactId>
+    <version>${project.version}</version>
+    <relativePath>../</relativePath>
+  </parent>
+
+  <artifactId>coreapi-framework.web</artifactId>
+  <name>coreapi-framework.web</name>
+  <url>http://maven.apache.org</url>
+  
+  <properties>
+    <main.basedir>${basedir}/../</main.basedir>
+  </properties>
+  
+  <dependencies>
+    
+    <!-- Corea API Framework Libraries -->
+    <dependency>
+		<groupId>org.sylrsykssoft</groupId>
+		<artifactId>coreapi-framework.service</artifactId>
+		<version>${coreapi-framework.service.version}</version>
+	</dependency>
+    
+  </dependencies>
+</project>

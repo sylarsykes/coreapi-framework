@@ -10,10 +10,10 @@
     <relativePath>../</relativePath>
   </parent>
   
-  <artifactId>coreapi-framework.library</artifactId>
-  <name>coreapi-framework.library</name>
+  <artifactId>coreapi-framework.api</artifactId>
+  <name>coreapi-framework.api</name>
   <description>Core API Framework Api</description>
-  <url>https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.library</url>
+  <url>https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.api</url>
   
   <properties>
     <main.basedir>${basedir}/../</main.basedir>
@@ -21,19 +21,20 @@
   
   <dependencies>
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-beans</artifactId>
+		<groupId>org.sylrsykssoft</groupId>
+    	<artifactId>coreapi-framework.library</artifactId>
+    	<version>${coreapi-framework.library.version}</version>
 	</dependency>
+    
     <dependency>
-      <groupId>org.springframework</groupId>
-      <artifactId>spring-context</artifactId>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-web</artifactId>
 	</dependency>
 	
 	<dependency>
-		<groupId>org.modelmapper.extensions</groupId>
-		<artifactId>modelmapper-spring</artifactId>
-		<version>${modelmapper-spring.version}</version>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-hateoas</artifactId>
 	</dependency>
-    
+	
   </dependencies>
 </project>
