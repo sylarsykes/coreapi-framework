@@ -5,12 +5,13 @@
   
   <parent>
     <groupId>org.sylrsykssoft</groupId>
-    <artifactId>coreapi-framework</artifactId>
+    <artifactId>coreapi-framework.parent-service</artifactId>
     <version>${project.version}</version>
-    <relativePath>../</relativePath>
+    <relativePath>../coreapi-framework.parent-service</relativePath>
   </parent>
 
   <artifactId>coreapi-framework.service</artifactId>
+  <packaging>jar</packaging>
   <name>coreapi-framework.service</name>
   <description>Core API Framework Service</description>
   <url>https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.service</url>	
@@ -19,24 +20,4 @@
   	<main.basedir>${basedir}/../</main.basedir>
   </properties>
 
-  <dependencies>
-    
-    <!-- Corea API Framework Libraries -->
-    <dependency>
-		<groupId>org.sylrsykssoft</groupId>
-		<artifactId>coreapi-framework.library</artifactId>
-		<version>${coreapi-framework.library.version}</version>
-	</dependency>
-    <dependency>
-		<groupId>org.sylrsykssoft</groupId>
-		<artifactId>coreapi-framework.api</artifactId>
-		<version>${coreapi-framework.api.version}</version>
-	</dependency>
-    <dependency>
-		<groupId>org.sylrsykssoft</groupId>
-		<artifactId>coreapi-framework.database</artifactId>
-		<version>${coreapi-framework.database.version}</version>
-	</dependency>
-    
-  </dependencies>
 </project>

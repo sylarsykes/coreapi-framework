@@ -9,33 +9,25 @@
     <version>${project.version}</version>
     <relativePath>../</relativePath>
   </parent>
-  
-  <artifactId>coreapi-framework.api</artifactId>
-  <packaging>jar</packaging>
-  <name>coreapi-framework.api</name>
-  <description>Core API Framework Api</description>
-  <url>https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.api</url>
+
+  <artifactId>coreapi-framework.parent-web</artifactId>
+  <packaging>pom</packaging>
+  <name>coreapi-framework.parent-web</name>
+  <description>Core API Framework Dependencies Web</description>
+  <url>https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.parent-web</url>
   
   <properties>
     <main.basedir>${basedir}/../</main.basedir>
   </properties>
   
   <dependencies>
+  
+    <!-- Corea API Framework Libraries -->
     <dependency>
 		<groupId>org.sylrsykssoft</groupId>
-    	<artifactId>coreapi-framework.library</artifactId>
-    	<version>${coreapi-framework.library.version}</version>
+		<artifactId>coreapi-framework.service</artifactId>
+		<version>${coreapi-framework.service.version}</version>
 	</dependency>
     
-    <dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-web</artifactId>
-	</dependency>
-	
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-starter-hateoas</artifactId>
-	</dependency>
-	
   </dependencies>
 </project>
