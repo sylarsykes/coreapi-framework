@@ -108,11 +108,12 @@
     </build>
     
 	<modules>
-    	<module>coreapi-framework.dependencies</module>
     	<module>coreapi-framework.library</module>
     	<module>coreapi-framework.api</module>
 		<module>coreapi-framework.database</module>
+		<module>coreapi-framework.parent-service</module>
 		<module>coreapi-framework.service</module>
+		<module>coreapi-framework.parent-web</module>
 		<module>coreapi-framework.web</module>
 	</modules>
 </project>

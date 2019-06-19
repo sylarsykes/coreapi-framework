@@ -5,10 +5,9 @@ module coreapi.framework.web {
 	requires coreapi.framework.database;
 	requires coreapi.framework.library;
 	requires coreapi.framework.service;
-	
 	requires lombok;
+	requires slf4j.api;
 	requires spring.beans;
 	requires spring.hateoas;
 	requires spring.web;
-	requires slf4j.api;
 }

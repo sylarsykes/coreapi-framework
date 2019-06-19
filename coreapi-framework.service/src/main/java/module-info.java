@@ -4,7 +4,6 @@ module coreapi.framework.service {
 	requires coreapi.framework.api;
 	requires coreapi.framework.database;
 	requires coreapi.framework.library;
-	
 	requires java.persistence;
 	requires spring.beans;
 	requires spring.data.commons;
