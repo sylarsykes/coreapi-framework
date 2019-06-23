@@ -1,6 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
-	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
 	<modelVersion>4.0.0</modelVersion>
 	
 	<parent>
@@ -50,8 +49,11 @@
 		<coreapi-framework.library.version>${project.version}</coreapi-framework.library.version>
 		<coreapi-framework.api.version>${project.version}</coreapi-framework.api.version>
 		<coreapi-framework.database.version>${project.version}</coreapi-framework.database.version>
+		<coreapi-framework.parent-service.version>${project.version}</coreapi-framework.parent-service.version>
 		<coreapi-framework.service.version>${project.version}</coreapi-framework.service.version>
+		<coreapi-framework.parent-web.version>${project.version}</coreapi-framework.parent-web.version>
 		<coreapi-framework.web.version>${project.version}</coreapi-framework.web.version>
+		<coreapi-framework.parent-project-rest-api.version>${project.version}</coreapi-framework.parent-project-rest-api.version>
 	
 	    <!-- Dependency versions -->
 	    <spring-boot.version>2.1.5.RELEASE</spring-boot.version>
@@ -115,5 +117,6 @@
 		<module>coreapi-framework.service</module>
 		<module>coreapi-framework.parent-web</module>
 		<module>coreapi-framework.web</module>
-	</modules>
+	   	<module>coreapi-framework.parent-project-rest-api</module>
+  </modules>
 </project>
