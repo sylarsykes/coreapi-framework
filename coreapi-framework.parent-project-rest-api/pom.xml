@@ -9,24 +9,24 @@
     <version>${project.version}</version>
     <relativePath>../</relativePath>
   </parent>
-
-  <artifactId>coreapi-framework.parent-web</artifactId>
-  <packaging>pom</packaging>
-  <name>coreapi-framework.parent-web</name>
-  <description>Core API Framework Dependencies Web</description>
-  <url>https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.parent-web</url>
   
+  <artifactId>coreapi-framework.parent-project-rest-api</artifactId>
+  <packaging>pom</packaging>
+  <name>coreapi-framework.parent-project-rest-api</name>
+  <description>Core API Framework Dependencies Rest API</description>
+  <url>https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.parent-project-rest-api</url>
+
   <properties>
     <main.basedir>${basedir}/../</main.basedir>
   </properties>
   
   <dependencies>
-  
+    
     <!-- Core API Framework Libraries -->
     <dependency>
 		<groupId>org.sylrsykssoft</groupId>
-		<artifactId>coreapi-framework.service</artifactId>
-		<version>${coreapi-framework.service.version}</version>
+		<artifactId>coreapi-framework.web</artifactId>
+		<version>${coreapi-framework.web.version}</version>
 	</dependency>
     
   </dependencies>
