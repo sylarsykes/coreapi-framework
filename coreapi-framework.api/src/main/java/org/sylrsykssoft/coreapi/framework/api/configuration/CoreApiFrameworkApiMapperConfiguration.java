@@ -23,39 +23,36 @@ public class CoreApiFrameworkApiMapperConfiguration {
 	/**
 	 * Base resource model mapper function.
 	 *
-	 * @param <T> the generic type
 	 * @return the model mapper function
 	 */
 	@Bean
 	@Scope(value = "prototype")
 	@Lazy(value = true)
-	public <T> ModelMapperFunction<Base, BaseResource> baseResourceModelMapperFunction() {
+	public ModelMapperFunction<Base, BaseResource> baseResourceModelMapperFunction() {
 		return new ModelMapperFunction<Base, BaseResource>();
 	}
 	
 	/**
 	 * Base entity resource model mapper function.
 	 *
-	 * @param <T> the generic type
 	 * @return the model mapper function
 	 */
 	@Bean
 	@Scope(value = "prototype")
 	@Lazy(value = true)
-	public <T> ModelMapperFunction<BaseEntity, BaseEntityResource> baseEntityResourceModelMapperFunction() {
+	public ModelMapperFunction<BaseEntity, BaseEntityResource> baseEntityResourceModelMapperFunction() {
 		return new ModelMapperFunction<BaseEntity, BaseEntityResource>();
 	}
 	
 	/**
 	 * Base admin resource model mapper function.
 	 *
-	 * @param <T> the generic type
 	 * @return the model mapper function
 	 */
 	@Bean
 	@Scope(value = "prototype")
 	@Lazy(value = true)
-	public <T> ModelMapperFunction<BaseAdmin, BaseAdminResource> baseAdminResourceModelMapperFunction() {
+	public ModelMapperFunction<BaseAdmin, BaseAdminResource> baseAdminResourceModelMapperFunction() {
 		return new ModelMapperFunction<BaseAdmin, BaseAdminResource>();
 	}
 
