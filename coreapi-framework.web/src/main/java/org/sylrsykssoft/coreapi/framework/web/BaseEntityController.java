@@ -14,7 +14,7 @@ import org.sylrsykssoft.coreapi.framework.api.model.BaseEntity;
 import org.sylrsykssoft.coreapi.framework.api.resource.BaseEntityResource;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityException;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotIdMismatchEntityException;
-import org.sylrsykssoft.coreapi.framework.library.error.exception.CoreApiLibraryException;
+import org.sylrsykssoft.coreapi.framework.library.error.exception.CoreApiFrameworkLibraryException;
 import org.sylrsykssoft.coreapi.framework.library.mapper.ModelMapperFunction;
 import org.sylrsykssoft.coreapi.framework.service.BaseEntityService;
 
@@ -145,7 +145,7 @@ public class BaseEntityController<R extends BaseEntityResource, T extends BaseEn
 	 * @throws AppException
 	 */
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable final Long id) throws NotFoundEntityException, CoreApiLibraryException {
+	public void delete(@PathVariable final Long id) throws NotFoundEntityException, CoreApiFrameworkLibraryException {
 		LOGGER.info("BaseController:delete Deleting a entry with id: {}", id);
 
 		final Optional<R> old = entityService.findById(id);
@@ -156,7 +156,7 @@ public class BaseEntityController<R extends BaseEntityResource, T extends BaseEn
 		try {
 			entityService.deleteById(id);
 		} catch (Exception e) {
-			throw new CoreApiLibraryException(e);
+			throw new CoreApiFrameworkLibraryException(e);
 		}
 	}
 

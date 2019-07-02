@@ -6,7 +6,7 @@
   <parent>
     <groupId>org.sylrsykssoft</groupId>
     <artifactId>coreapi-framework.parent-web</artifactId>
-    <version>${project.version}</version>
+    <version>0.0.1-SNAPSHOT</version>
     <relativePath>../coreapi-framework.parent-web</relativePath>
   </parent>
 

@@ -8,13 +8,13 @@ import java.beans.ConstructorProperties;
  * @author juan.gonzalez.fernandez.jgf
  *
  */
-public final class CoreApiLibraryException extends Exception {
+public class CoreApiFrameworkLibraryException extends Exception {
 	private static final long serialVersionUID = 2363674934985036006L;
 
 	/**
 	 * Deafult constructor
 	 */
-	public CoreApiLibraryException() {
+	public CoreApiFrameworkLibraryException() {
 		super();
 	}
 
@@ -24,7 +24,7 @@ public final class CoreApiLibraryException extends Exception {
 	 * @param message
 	 */
 	@ConstructorProperties({ "message"})
-	public CoreApiLibraryException(final String message) {
+	public CoreApiFrameworkLibraryException(final String message) {
 		super(message);
 	}
 	
@@ -34,7 +34,7 @@ public final class CoreApiLibraryException extends Exception {
 	 * @param cause
 	 */
 	@ConstructorProperties({ "cause"})
-	public CoreApiLibraryException(final Throwable cause) {
+	public CoreApiFrameworkLibraryException(final Throwable cause) {
 		super(cause);
 	}
 	
@@ -45,7 +45,7 @@ public final class CoreApiLibraryException extends Exception {
 	 * @param cause
 	 */
 	@ConstructorProperties({ "message", "cause"})
-	public CoreApiLibraryException(final String message, final Throwable cause) {
+	public CoreApiFrameworkLibraryException(final String message, final Throwable cause) {
 		super(message, cause);
 	}
 

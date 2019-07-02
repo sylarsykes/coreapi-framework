@@ -2,6 +2,7 @@ package org.sylrsykssoft.coreapi.framework.api.resource;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -16,6 +17,7 @@ import lombok.Setter;
  *
  */
 @Data()
+@Builder()
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @Setter()
@@ -26,4 +28,5 @@ public class BaseAdminResource extends BaseResource {
 	protected Integer adminId;
 	protected @NonNull String name;
 	protected String description;
+
 }

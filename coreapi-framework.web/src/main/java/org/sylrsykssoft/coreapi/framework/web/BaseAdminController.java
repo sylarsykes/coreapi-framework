@@ -14,7 +14,7 @@ import org.sylrsykssoft.coreapi.framework.api.model.BaseAdmin;
 import org.sylrsykssoft.coreapi.framework.api.resource.BaseAdminResource;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityException;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotIdMismatchEntityException;
-import org.sylrsykssoft.coreapi.framework.library.error.exception.CoreApiLibraryException;
+import org.sylrsykssoft.coreapi.framework.library.error.exception.CoreApiFrameworkLibraryException;
 import org.sylrsykssoft.coreapi.framework.library.mapper.ModelMapperFunction;
 import org.sylrsykssoft.coreapi.framework.service.BaseAdminService;
 
@@ -141,7 +141,7 @@ public class BaseAdminController<R extends BaseAdminResource, T extends BaseAdmi
 	 * @throws AppException
 	 */
 	@DeleteMapping("/{id}")
-	public void delete(@PathVariable final Integer id) throws NotFoundEntityException, CoreApiLibraryException {
+	public void delete(@PathVariable final Integer id) throws NotFoundEntityException, CoreApiFrameworkLibraryException {
 		LOGGER.info("BaseController:delete Deleting a entry with id: {}", id);
 
 		final Optional<R> old = adminService.findById(id);
@@ -152,7 +152,7 @@ public class BaseAdminController<R extends BaseAdminResource, T extends BaseAdmi
 		try {
 			adminService.deleteById(id);
 		} catch (Exception e) {
-			throw new CoreApiLibraryException(e);
+			throw new CoreApiFrameworkLibraryException(e);
 		}
 	}
 

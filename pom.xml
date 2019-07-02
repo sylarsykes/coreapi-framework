@@ -11,7 +11,7 @@
 	
 	<groupId>org.sylrsykssoft</groupId>
 	<artifactId>coreapi-framework</artifactId>
-	<version>${project.version}</version>
+	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 		
 	<name>coreapi-framework</name>
@@ -40,7 +40,6 @@
 
 	<properties>
 		<!-- Common -->
-		<project.version>0.0.1-SNAPSHOT</project.version>
 		<developer.email>juan.gonzalez.fernandez.jgf@outlook.com</developer.email>
 		<main.basedir>${basedir}</main.basedir>
 		<java.version>11</java.version>
