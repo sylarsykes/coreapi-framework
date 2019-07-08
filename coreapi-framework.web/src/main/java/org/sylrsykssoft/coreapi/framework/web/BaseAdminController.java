@@ -115,7 +115,7 @@ public class BaseAdminController<R extends BaseAdminResource, T extends BaseAdmi
 	public R update(@RequestBody final R entity, @PathVariable final Integer id) throws NotIdMismatchEntityException, NotFoundEntityException {
 		LOGGER.info("BaseController:update Updating a entry with id: {}", id);
 
-		if (entity.getAdminId() != id) {
+		if (entity.getEntityId() != id) {
 			throw new NotIdMismatchEntityException();
 		}
 
