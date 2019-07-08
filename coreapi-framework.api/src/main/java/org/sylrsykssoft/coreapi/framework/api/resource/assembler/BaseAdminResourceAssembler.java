@@ -66,7 +66,7 @@ public class BaseAdminResourceAssembler extends ResourceAssemblerSupport<BaseAdm
 	@Override
 	public BaseAdminResource toResource(BaseAdmin entity) {
 		final BaseAdminResource instance = baseEntityResourceModelMapperFunction.apply(entity);
-		instance.add(linkTo(entityClass, parameters).slash(entity.getAdminId()).withSelfRel());
+		instance.add(linkTo(entityClass, parameters).slash(entity.getEntityId()).withSelfRel());
 		
 		return instance;
 	}

@@ -12,4 +12,6 @@ module coreapi.framework.api {
 	requires spring.core;
 	requires spring.hateoas;
 	requires spring.web;
+	requires java.persistence;
+	requires spring.data.commons;
 }

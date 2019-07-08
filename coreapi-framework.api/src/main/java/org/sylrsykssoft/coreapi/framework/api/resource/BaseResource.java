@@ -3,6 +3,7 @@ package org.sylrsykssoft.coreapi.framework.api.resource;
 import java.time.LocalDateTime;
 
 import org.springframework.hateoas.ResourceSupport;
+import org.springframework.lang.Nullable;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -18,14 +19,15 @@ import lombok.Setter;
  * @author juan.gonzalez.fernandez.jgf
  *
  */
-@Data()
+@Data
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-@Setter()
-@Getter()
+@Setter
+@Getter
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
-public class BaseResource extends ResourceSupport {
+public class BaseResource<ID> extends ResourceSupport {
 
+	protected ID entityId;
 	protected LocalDateTime createdAt;
-	protected LocalDateTime updatedAt;
+	protected @Nullable LocalDateTime updatedAt;
 }

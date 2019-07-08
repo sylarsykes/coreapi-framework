@@ -1,11 +1,10 @@
 package org.sylrsykssoft.coreapi.framework.api.model;
 
-import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import javax.persistence.MappedSuperclass;
+
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
-import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 /**
@@ -14,14 +13,11 @@ import lombok.Setter;
  * @author juan.gonzalez.fernandez.jgf
  * 
  */
-@Data()
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
-@NoArgsConstructor(access = AccessLevel.PUBLIC)
-@Setter()
-@Getter()
+@MappedSuperclass
+@Data
+@Setter
+@Getter
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
-public class BaseEntity extends Base {
+public class BaseEntity extends Base<Long> {
 
-	protected Long entityId;
-	
 }

@@ -99,7 +99,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 */
 	@Override
 	public R save(final R entity) throws NotFoundEntityException {
-		if (entity.getAdminId() != null && !existsById(entity.getAdminId())) {
+		if (entity.getEntityId() != null && !existsById(entity.getEntityId())) {
 			throw new NotFoundEntityException();
 		}
 		
@@ -136,7 +136,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 */
 	@Override
 	public void delete(R source) throws NotFoundEntityException {
-		if (source.getAdminId() != null && !existsById(source.getAdminId())) {
+		if (source.getEntityId() != null && !existsById(source.getEntityId())) {
 			throw new NotFoundEntityException();
 		}
 		
