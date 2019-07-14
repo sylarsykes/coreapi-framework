@@ -7,8 +7,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.springframework.data.domain.Persistable;
 import org.springframework.lang.Nullable;
@@ -42,11 +40,9 @@ public class Base<ID> implements Persistable<ID> {
 	protected ID entityId;
 	
 	@Column(name = "created_at", nullable = false, insertable = true, updatable = false)
-	@Temporal(TemporalType.TIMESTAMP)
 	protected LocalDateTime createdAt;
 
 	@Column(name = "updated_at", nullable = true, insertable = false, updatable = true)
-	@Temporal(TemporalType.TIMESTAMP)
 	protected @Nullable LocalDateTime updatedAt;
 	
 	/*

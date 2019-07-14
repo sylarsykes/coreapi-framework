@@ -2,6 +2,8 @@ package org.sylrsykssoft.coreapi.framework.api.resource;
 
 import java.time.LocalDateTime;
 
+import org.springframework.lang.Nullable;
+
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,7 +29,8 @@ import lombok.Setter;
 public class BaseAdminResource extends BaseResource<Integer> {
 
 	protected @NonNull String name;
-	protected String description;
+	protected @NonNull String description;
+	protected @Nullable LocalDateTime removedAt;
 	
 	/**
 	 * AllArgsConstructor
@@ -39,12 +42,13 @@ public class BaseAdminResource extends BaseResource<Integer> {
 	 * @param updatedAt
 	 */
 	@Builder(builderMethodName = "baseAdminResourceBuilder")
-	public BaseAdminResource(final Integer entityId, final String name, final String description, final LocalDateTime createdAt, final LocalDateTime updatedAt) {
+	public BaseAdminResource(final Integer entityId, final String name, final String description, final LocalDateTime createdAt, final LocalDateTime updatedAt, final LocalDateTime removedAt) {
 		this.entityId = entityId;
 		this.name = name;
 		this.description = description;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
+		this.removedAt = removedAt;
 	}
 
 }
