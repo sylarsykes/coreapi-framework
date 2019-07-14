@@ -10,4 +10,5 @@ module coreapi.framework.database {
 	requires spring.data.commons;
 	requires spring.data.jpa;
 	requires spring.tx;
+	requires spring.web;
 }
