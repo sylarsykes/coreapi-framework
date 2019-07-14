@@ -1,5 +1,6 @@
 package org.sylrsykssoft.coreapi.framework.api.resource;
 
+import java.beans.ConstructorProperties;
 import java.time.LocalDateTime;
 
 import org.springframework.lang.Nullable;
@@ -42,6 +43,7 @@ public class BaseAdminResource extends BaseResource<Integer> {
 	 * @param updatedAt
 	 */
 	@Builder(builderMethodName = "baseAdminResourceBuilder")
+	@ConstructorProperties({ "entityId", "name", "description", "createdAt", "updatedAt", "removedAt" })
 	public BaseAdminResource(final Integer entityId, final String name, final String description, final LocalDateTime createdAt, final LocalDateTime updatedAt, final LocalDateTime removedAt) {
 		this.entityId = entityId;
 		this.name = name;

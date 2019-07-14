@@ -1,5 +1,6 @@
 package org.sylrsykssoft.coreapi.framework.api.model;
 
+import java.beans.ConstructorProperties;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
@@ -55,6 +56,7 @@ public class BaseAdmin extends Base<Integer> {
 	 * @param removedAt
 	 */
 	@Builder(builderMethodName = "baseAdminBuilder")
+	@ConstructorProperties({ "entityId", "name", "description", "createdAt", "updatedAt", "removedAt" })
 	public BaseAdmin(final Integer entityId, final String name, final String description, final LocalDateTime createdAt, final LocalDateTime updatedAt, final LocalDateTime removedAt) {
 		this.entityId = entityId;
 		this.name = name;

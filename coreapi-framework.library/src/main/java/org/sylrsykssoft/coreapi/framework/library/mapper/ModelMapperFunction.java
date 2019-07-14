@@ -1,6 +1,6 @@
 package org.sylrsykssoft.coreapi.framework.library.mapper;
 
-import java.lang.reflect.ParameterizedType;
+import java.beans.ConstructorProperties;
 import java.util.function.Function;
 
 import org.modelmapper.ModelMapper;
@@ -18,16 +18,30 @@ public class ModelMapperFunction<T, R> implements Function<T, R> {
 	/** The model mapper. */
 	@Autowired
 	private ModelMapper modelMapper;
+	
+	private Class<T> sourceClass;
+	private Class<R> targetClass;
+	
+	/**
+	 * AllArgsContructor
+	 * 
+	 * @param sourceClass
+	 * @param targetClass
+	 */
+	@ConstructorProperties({ "sourceClass", "targetClass" })
+	public ModelMapperFunction(final Class<T> sourceClass, final Class<R> targetClass) {
+		this.sourceClass = sourceClass;
+		this.targetClass = targetClass;
+	}
+	
+	
 
 	/**
 	 * {@inherit}
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
-	public R apply(T t) {
-		Class<R> resourceClass = (Class<R>) ((ParameterizedType) getClass()
-                .getGenericSuperclass()).getActualTypeArguments()[1];
-		return modelMapper.map(t, resourceClass);
+	public R apply(T source) {
+		return modelMapper.map(source, targetClass);
 	}
 
 
