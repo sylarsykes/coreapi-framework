@@ -41,6 +41,9 @@ public class BaseAdmin extends Base<Integer> {
 	@Column(name = "descriptiom", nullable = true, columnDefinition = "TEXT", length = MAX_LENGTH_DESCRIPTION)
 	protected @Nullable String description;
 	
+	@Column(name = "removed_at", nullable = true, insertable = false, updatable = true)
+	protected @Nullable LocalDateTime removedAt;
+	
 	/**
 	 * AllArgsConstructor
 	 * 
@@ -49,14 +52,15 @@ public class BaseAdmin extends Base<Integer> {
 	 * @param description
 	 * @param createdAt
 	 * @param updatedAt
+	 * @param removedAt
 	 */
 	@Builder(builderMethodName = "baseAdminBuilder")
-	public BaseAdmin(final Integer entityId, final String name, final String description, final LocalDateTime createdAt, final LocalDateTime updatedAt) {
+	public BaseAdmin(final Integer entityId, final String name, final String description, final LocalDateTime createdAt, final LocalDateTime updatedAt, final LocalDateTime removedAt) {
 		this.entityId = entityId;
 		this.name = name;
 		this.description = description;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;
-		
+		this.removedAt = removedAt;
 	}
 }
