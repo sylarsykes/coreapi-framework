@@ -14,4 +14,5 @@ module coreapi.framework.api {
 	requires spring.web;
 	requires java.persistence;
 	requires spring.data.commons;
+	requires spring.data.jpa;
 }
