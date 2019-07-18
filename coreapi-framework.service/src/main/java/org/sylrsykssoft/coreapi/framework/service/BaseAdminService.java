@@ -6,8 +6,10 @@ import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Example;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseAdmin;
 import org.sylrsykssoft.coreapi.framework.api.resource.BaseAdminResource;
+import org.sylrsykssoft.coreapi.framework.database.exception.IncorrectResultSizeException;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityException;
 import org.sylrsykssoft.coreapi.framework.database.repository.BaseAdminRepository;
 import org.sylrsykssoft.coreapi.framework.library.mapper.IMapperFunction;
@@ -28,7 +30,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Optional<R> findByName(final String name) throws NotFoundEntityException {
+	public Optional<R> findByName(final String name) throws NotFoundEntityException, IncorrectResultSizeException {
 		final Optional<T> source = superAdminRepository.findByName(name);
 		// Convert entity to resource
 		return Optional.of(source.flatMap(
@@ -56,6 +58,21 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 		final T source = superAdminRepository.getOne(id);
 		// Convert entity to resource
 		return mapperToResource().apply(source);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Optional<R> findOne(Example<R> example) throws NotFoundEntityException, IncorrectResultSizeException {
+		final T entity = mapperToEntity().apply(example.getProbe());
+		final Example<T> exampleToFind = Example.of(entity, example.getMatcher());
+		
+		final Optional<T> source = superAdminRepository.findOne(exampleToFind);
+		// Convert entity to resource
+		return Optional.of(source.flatMap(
+				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().apply(input)))
+				.orElseThrow(NotFoundEntityException::new));
 	}
 
 	/**

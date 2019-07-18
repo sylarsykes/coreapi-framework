@@ -6,8 +6,10 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.data.domain.Example;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseAdmin;
 import org.sylrsykssoft.coreapi.framework.api.resource.BaseAdminResource;
+import org.sylrsykssoft.coreapi.framework.database.exception.IncorrectResultSizeException;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityException;
 
 public interface IAdminService<T extends BaseAdmin, R extends BaseAdminResource, ID extends Serializable> {
@@ -15,10 +17,11 @@ public interface IAdminService<T extends BaseAdmin, R extends BaseAdminResource,
 	 * Find by name.
 	 * 
 	 * @param name Value of the attribute name
-	 * 
 	 * @return T entity.
+	 * @throws NotFoundEntityException if no entity exists for given {@code id}.
+	 * @throws IncorrectResultSizeException if there is more than one result.
 	 */
-	Optional<R> findByName(final String name) throws NotFoundEntityException;
+	Optional<R> findByName(final String name) throws NotFoundEntityException, IncorrectResultSizeException;
 	
 	/**
 	 * Retrieves an entity by its id.
@@ -35,16 +38,19 @@ public interface IAdminService<T extends BaseAdmin, R extends BaseAdminResource,
 	 * @param id must not be {@literal null}.
 	 * @return a reference to the entity with the given identifier.
 	 * @see EntityManager#getReference(Class, Object)
-	 * @throws javax.persistence.EntityNotFoundException if no entity exists for given {@code id}.
+	 * @throws NotFoundEntityException if no entity exists for given {@code id}.
 	 */
 	R getOne(ID id) throws NotFoundEntityException;
-
+	
 	/**
-	 * Returns all instances of the type.
-	 * 
-	 * @return all entities
+	 * Returns a single entity matching the given {@link Example} or {@literal null} if none was found.
+	 *
+	 * @param example must not be {@literal null}.
+	 * @return a single entity matching the given {@link Example} or {@link Optional#empty()} if none was found.
+	 * @throws NotFoundEntityException if no entity exists for given {@code id}.
+	 * @throws IncorrectResultSizeException if the Example yields more than one result.
 	 */
-	List<R> findAll();
+	Optional<R> findOne(Example<R> example) throws NotFoundEntityException, IncorrectResultSizeException;
 
 	/**
 	 * Returns all instances of the type with the given IDs.
@@ -53,7 +59,32 @@ public interface IAdminService<T extends BaseAdmin, R extends BaseAdminResource,
 	 * @return
 	 */
 	List<R> findAllById(Iterable<ID> ids);
+	
+	/**
+	 * Returns all instances of the type.
+	 * 
+	 * @return all entities
+	 */
+	List<R> findAll();
 
+//	/**
+//	 * Returns all entities matching the given {@link Example}. In case no match could be found an empty {@link Iterable}
+//	 * is returned.
+//	 *
+//	 * @param example must not be {@literal null}.
+//	 * @return all entities matching the given {@link Example}.
+//	 */
+//	List<R> findAll(Example<R> example);
+//
+//	/**
+//	 * Returns all entities matching the given {@link Example} applying the given {@link Sort}. In case no match could be
+//	 * found an empty {@link Iterable} is returned.
+//	 *
+//	 * @param example must not be {@literal null}.
+//	 * @param sort the {@link Sort} specification to sort the results by, must not be {@literal null}.
+//	 * @return all entities matching the given {@link Example}.
+//	 */
+//	List<R> findAll(Example<R> example, Sort sort);
 	
 	/**
 	 * Returns whether an entity with the given id exists.

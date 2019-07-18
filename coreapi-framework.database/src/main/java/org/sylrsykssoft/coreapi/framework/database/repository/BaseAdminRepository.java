@@ -27,4 +27,5 @@ public interface BaseAdminRepository<T extends BaseAdmin> extends JpaRepository<
 	 * @return T entity.
 	 */
 	Optional<T> findByName(final String name);
+	
 }
