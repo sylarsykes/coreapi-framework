@@ -30,6 +30,18 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 * {@inheritDoc}
 	 */
 	@Override
+	public Optional<R> findById(Integer id) throws NotFoundEntityException {
+		final Optional<T> source = superAdminRepository.findById(id);
+		// Convert entity to resource
+		return Optional.of(source.flatMap(
+				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().apply(input)))
+				.orElseThrow(NotFoundEntityException::new));
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
 	public Optional<R> findByName(final String name) throws NotFoundEntityException, IncorrectResultSizeException {
 		final Optional<T> source = superAdminRepository.findByName(name);
 		// Convert entity to resource
@@ -42,8 +54,11 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Optional<R> findById(Integer id) throws NotFoundEntityException {
-		final Optional<T> source = superAdminRepository.findById(id);
+	public Optional<R> findByExample(Example<R> example) throws NotFoundEntityException, IncorrectResultSizeException {
+		final T entity = mapperToEntity().apply(example.getProbe());
+		final Example<T> exampleToFind = Example.of(entity, example.getMatcher());
+		
+		final Optional<T> source = superAdminRepository.findOne(exampleToFind);
 		// Convert entity to resource
 		return Optional.of(source.flatMap(
 				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().apply(input)))
@@ -64,17 +79,12 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Optional<R> findOne(Example<R> example) throws NotFoundEntityException, IncorrectResultSizeException {
-		final T entity = mapperToEntity().apply(example.getProbe());
-		final Example<T> exampleToFind = Example.of(entity, example.getMatcher());
-		
-		final Optional<T> source = superAdminRepository.findOne(exampleToFind);
+	public List<R> findAllById(Iterable<Integer> ids) {
+		final List<T> sources = superAdminRepository.findAllById(ids);
 		// Convert entity to resource
-		return Optional.of(source.flatMap(
-				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().apply(input)))
-				.orElseThrow(NotFoundEntityException::new));
+		return sources.stream().map(mapperToResource()::apply).collect(Collectors.toList());
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -89,12 +99,15 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<R> findAllById(Iterable<Integer> ids) {
-		final List<T> sources = superAdminRepository.findAllById(ids);
+	public List<R> findAllByExample(Example<R> example) {
+		final T entity = mapperToEntity().apply(example.getProbe());
+		final Example<T> exampleToFind = Example.of(entity, example.getMatcher());
+		
+		final List<T> sources = superAdminRepository.findAll(exampleToFind);
 		// Convert entity to resource
 		return sources.stream().map(mapperToResource()::apply).collect(Collectors.toList());
 	}
-
+	
 	/**
 	 * {@inheritDoc}
 	 */

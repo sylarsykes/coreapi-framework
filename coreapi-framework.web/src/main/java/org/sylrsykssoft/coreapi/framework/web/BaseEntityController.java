@@ -3,19 +3,13 @@ package org.sylrsykssoft.coreapi.framework.web;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.data.domain.Example;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseEntity;
 import org.sylrsykssoft.coreapi.framework.api.resource.BaseEntityResource;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityException;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotIdMismatchEntityException;
 import org.sylrsykssoft.coreapi.framework.library.error.exception.CoreApiFrameworkLibraryException;
-import org.sylrsykssoft.coreapi.framework.library.mapper.ModelMapperFunction;
 import org.sylrsykssoft.coreapi.framework.service.BaseEntityService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -28,15 +22,50 @@ import lombok.extern.slf4j.Slf4j;
  * @param <R> Resource class
  * @param <T> Admin class
  */
-@Slf4j()
-public class BaseEntityController<R extends BaseEntityResource, T extends BaseEntity> {
+@Slf4j
+public abstract class BaseEntityController<R extends BaseEntityResource, T extends BaseEntity> {
 
-	@Autowired()
-	protected BaseEntityService<T, R> entityService;
-	
 	@Autowired
-	protected ModelMapperFunction<T, R> modelMapperFunction;
+	protected BaseEntityService<T, R> entityService;
 
+	/**
+	 * Find one entry.
+	 * 
+	 * @param id
+	 *            Id
+	 * 
+	 * @return T entry.
+	 * 
+	 * @throws NotFoundEntityException
+	 */
+	public R findOne(final Long id) throws NotFoundEntityException {
+		LOGGER.info("BaseController:findOne Find entry with id {}", id);
+		final R result = entityService.getOne(id);
+
+		LOGGER.info("BaseController:findOne Found {} entry.", result);
+		return result;
+	}
+	
+	/**
+	 * Find one entry.
+	 * 
+	 * @param id
+	 *            Id
+	 * 
+	 * @return T entry.
+	 * 
+	 * @throws NotFoundEntityException
+	 */
+	public @ResponseBody R findById(final Long id) throws NotFoundEntityException {
+		LOGGER.info("BaseController::findOne Finding a entry with id: {}", id);
+		
+		final Optional<R> result = entityService.findById(id);
+		
+		LOGGER.info("BaseController::findOne Result -> {}", result.get());
+		
+		return result.get();
+	}
+	
 	/**
 	 * Find all entries.
 	 * 
@@ -44,7 +73,6 @@ public class BaseEntityController<R extends BaseEntityResource, T extends BaseEn
 	 * 
 	 * @throws NotFoundEntityException
 	 */
-	@GetMapping("")
 	public Iterable<R> findAll() throws NotFoundEntityException {
 		LOGGER.info("BaseController:findAll Finding all entries");
 
@@ -57,28 +85,25 @@ public class BaseEntityController<R extends BaseEntityResource, T extends BaseEn
 
 		return entities;
 	}
-
+	
 	/**
-	 * Find one entry.
+	 * Find all entries by example.
 	 * 
-	 * @param id
-	 *            Id
-	 * 
-	 * @return T entry.
+	 * @return Iterable<T> entries.
 	 * 
 	 * @throws NotFoundEntityException
 	 */
-	@GetMapping("/{id}")
-	public Optional<R> findOne(@PathVariable final Long id) throws NotFoundEntityException {
-		LOGGER.info("BaseController:findOne Find entry with id {}", id);
-		final Optional<R> entity = entityService.findById(id);
+	public Iterable<R> findAllByExample(final Example<R> example) throws NotFoundEntityException {
+		LOGGER.info("BaseController:findAll Finding all entries");
 
-		if (entity == null) {
+		final Iterable<R> entities = entityService.findAllByExample(example);
+		if (entities == null) {
 			throw new NotFoundEntityException();
 		}
 
-		LOGGER.info("BaseController:findOne Found {} entry.", entity);
-		return entity;
+		LOGGER.info("BaseController:findAll Found {} entries.", entities);
+
+		return entities;
 	}
 
 	/**
@@ -89,9 +114,7 @@ public class BaseEntityController<R extends BaseEntityResource, T extends BaseEn
 	 * 
 	 * @return T entity.
 	 */
-	@PutMapping("")
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public R create(@RequestBody final R entity) {
+	public R create(final R entity) {
 		LOGGER.info("BaseController:create Creating a new todo entry by using information: {}", entity);
 
 		final R created = entityService.save(entity);
@@ -114,9 +137,7 @@ public class BaseEntityController<R extends BaseEntityResource, T extends BaseEn
 	 * @throws NotIdMismatchEntityException
 	 * @throws NotFoundEntityException
 	 */
-	@PutMapping("/{id}")
-	public R update(@RequestBody final R entity, @PathVariable final Long id)
-			throws NotIdMismatchEntityException, NotFoundEntityException {
+	public R update(final R entity, final Long id) throws NotIdMismatchEntityException, NotFoundEntityException {
 		LOGGER.info("BaseController:update Updating a entry with id: {}", id);
 
 		if (entity.getEntityId() != id) {
@@ -144,8 +165,7 @@ public class BaseEntityController<R extends BaseEntityResource, T extends BaseEn
 	 * @throws NotFoundEntityException
 	 * @throws AppException
 	 */
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable final Long id) throws NotFoundEntityException, CoreApiFrameworkLibraryException {
+	public void delete(final Long id) throws NotFoundEntityException, CoreApiFrameworkLibraryException {
 		LOGGER.info("BaseController:delete Deleting a entry with id: {}", id);
 
 		final Optional<R> old = entityService.findById(id);

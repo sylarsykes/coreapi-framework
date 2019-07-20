@@ -3,19 +3,14 @@ package org.sylrsykssoft.coreapi.framework.web;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.ResponseStatus;
+import org.springframework.data.domain.Example;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseAdmin;
 import org.sylrsykssoft.coreapi.framework.api.resource.BaseAdminResource;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityException;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotIdMismatchEntityException;
 import org.sylrsykssoft.coreapi.framework.library.error.exception.CoreApiFrameworkLibraryException;
-import org.sylrsykssoft.coreapi.framework.library.mapper.ModelMapperFunction;
 import org.sylrsykssoft.coreapi.framework.service.BaseAdminService;
 
 import lombok.extern.slf4j.Slf4j;
@@ -28,37 +23,12 @@ import lombok.extern.slf4j.Slf4j;
  * @param <R> Resource class
  * @param <T> Admin class
  */
-@Slf4j()
-public class BaseAdminController<R extends BaseAdminResource, T extends BaseAdmin> {
+@Slf4j
+public abstract class BaseAdminController<R extends BaseAdminResource, T extends BaseAdmin> {
 
-	@Autowired()
+	@Autowired
 	protected BaseAdminService<T, R> adminService;
 	
-	@Autowired
-	protected ModelMapperFunction<T, R> modelMapperFunction;
-
-	
-	/**
-	 * Find all entries.
-	 * 
-	 * @return Iterable<T> entries.
-	 * 
-	 * @throws NotFoundEntityException
-	 */
-	@GetMapping("")
-	public Iterable<R> findAll() throws NotFoundEntityException {
-		LOGGER.info("BaseController:findAll Finding all entries");
-
-		final Iterable<R> entities = adminService.findAll();
-		if (entities == null) {
-			throw new NotFoundEntityException();
-		}
-
-		LOGGER.info("BaseController:findAll Found {} entries.", entities);
-
-		return entities;
-	}
-
 	/**
 	 * Find one entry.
 	 * 
@@ -69,15 +39,98 @@ public class BaseAdminController<R extends BaseAdminResource, T extends BaseAdmi
 	 * 
 	 * @throws NotFoundEntityException
 	 */
-	@GetMapping("/{id}")
-	public R findOne(@PathVariable final Integer id) throws NotFoundEntityException {
-		LOGGER.info("BaseController:findOne Find entry with id {}", id);
-		final Optional<R> entity = adminService.findById(id);
+	public R findOne(final Integer id) throws NotFoundEntityException {
+		LOGGER.info("BaseAdminController:findOne Find entry with id {}", id);
+		final R result = adminService.getOne(id);
 
-		LOGGER.info("BaseController:findOne Found {} entry.", entity);
-		return entity.get();
+		LOGGER.info("BaseAdminController:findOne Found {} entry.", result);
+		return result;
+	}
+	
+	/**
+	 * Find one entry.
+	 * 
+	 * @param id
+	 *            Id
+	 * 
+	 * @return T entry.
+	 * 
+	 * @throws NotFoundEntityException
+	 */
+	public R findById(final Integer id) throws NotFoundEntityException {
+		LOGGER.info("BaseAdminController::findOne Finding a entry with id: {}", id);
+		
+		final Optional<R> result = adminService.findById(id);
+		
+		LOGGER.info("BaseAdminController::findOne Result -> {}", result.get());
+		
+		return result.get();
+	}
+	
+	/**
+	 * Find by example
+	 * 
+	 * @param resource
+	 *            Entity to find.
+	 * 
+	 * @return T entity.
+	 * 
+	 * @throws NotFoundEntityException
+	 */
+	public @ResponseBody R findOneByExample(final R resource) {
+		LOGGER.info("BaseAdminController::findOne Finding a entry with id: {}", resource);
+		
+		Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
+		
+		final Optional<R> result = adminService.findByExample(example);
+		
+		LOGGER.info("BaseAdminController::findOne Result -> {}", result.get());
+		
+		return result.get();
+	}
+	
+	/**
+	 * Find all entries.
+	 * 
+	 * @return Iterable<T> entries.
+	 * 
+	 * @throws NotFoundEntityException
+	 */
+	public Iterable<R> findAll() throws NotFoundEntityException {
+		LOGGER.info("BaseAdminController:findAll Finding all entries");
+
+		final Iterable<R> entities = adminService.findAll();
+		if (entities == null) {
+			throw new NotFoundEntityException();
+		}
+
+		LOGGER.info("BaseAdminController:findAll Found {} entries.", entities);
+
+		return entities;
 	}
 
+	/**
+	 * Find all entries by example.
+	 * 
+	 * @return Iterable<T> entries.
+	 * 
+	 * @throws NotFoundEntityException
+	 */
+	public Iterable<R> findAllByExample(final R resource) throws NotFoundEntityException {
+		LOGGER.info("BaseAdminController:findAll Finding all entries");
+
+		final Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
+		
+		final Iterable<R> entities = adminService.findAllByExample(example);
+		if (entities == null) {
+			throw new NotFoundEntityException();
+		}
+
+		LOGGER.info("BaseAdminController:findAll Found {} entries.", entities);
+
+		return entities;
+	}
+	
 	/**
 	 * Create entry.
 	 * 
@@ -86,14 +139,12 @@ public class BaseAdminController<R extends BaseAdminResource, T extends BaseAdmi
 	 * 
 	 * @return T entity.
 	 */
-	@PutMapping("")
-	@ResponseStatus(code = HttpStatus.CREATED)
-	public R create(@RequestBody final R entity) {
-		LOGGER.info("BaseController:create Creating a new todo entry by using information: {}", entity);
+	public R create(final R entity) {
+		LOGGER.info("BaseAdminController:create Creating a new todo entry by using information: {}", entity);
 
 		final R created = adminService.save(entity);
 
-		LOGGER.info("BaseController:create Created a new todo entry: {}", created);
+		LOGGER.info("BaseAdminController:create Created a new todo entry: {}", created);
 
 		return created;
 	}
@@ -111,9 +162,8 @@ public class BaseAdminController<R extends BaseAdminResource, T extends BaseAdmi
 	 * @throws NotIdMismatchEntityException
 	 * @throws NotFoundEntityException
 	 */
-	@PutMapping("/{id}")
-	public R update(@RequestBody final R entity, @PathVariable final Integer id) throws NotIdMismatchEntityException, NotFoundEntityException {
-		LOGGER.info("BaseController:update Updating a entry with id: {}", id);
+	public R update(final R entity, final Integer id) throws NotIdMismatchEntityException, NotFoundEntityException {
+		LOGGER.info("BaseAdminController:update Updating a entry with id: {}", id);
 
 		if (entity.getEntityId() != id) {
 			throw new NotIdMismatchEntityException();
@@ -126,7 +176,7 @@ public class BaseAdminController<R extends BaseAdminResource, T extends BaseAdmi
 
 		final R updated = adminService.save(entity);
 
-		LOGGER.info("BaseController:update Updated the entry: {}", updated);
+		LOGGER.info("BaseAdminController:update Updated the entry: {}", updated);
 
 		return updated;
 	}
@@ -140,9 +190,8 @@ public class BaseAdminController<R extends BaseAdminResource, T extends BaseAdmi
 	 * @throws NotFoundEntityException
 	 * @throws AppException
 	 */
-	@DeleteMapping("/{id}")
-	public void delete(@PathVariable final Integer id) throws NotFoundEntityException, CoreApiFrameworkLibraryException {
-		LOGGER.info("BaseController:delete Deleting a entry with id: {}", id);
+	public void delete(final Integer id) throws NotFoundEntityException, CoreApiFrameworkLibraryException {
+		LOGGER.info("BaseAdminController:delete Deleting a entry with id: {}", id);
 
 		final Optional<R> old = adminService.findById(id);
 		if (old == null) {

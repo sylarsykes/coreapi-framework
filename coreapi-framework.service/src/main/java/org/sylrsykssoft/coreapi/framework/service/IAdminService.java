@@ -12,7 +12,26 @@ import org.sylrsykssoft.coreapi.framework.api.resource.BaseAdminResource;
 import org.sylrsykssoft.coreapi.framework.database.exception.IncorrectResultSizeException;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityException;
 
+/**
+ * Service.
+ * 
+ * @author juan.gonzalez.fernandez.jgf
+ *
+ * @param <T> Type of class.
+ * @param <R> Resourse of class.
+ * @param <ID> Class of identificator.
+ */
 public interface IAdminService<T extends BaseAdmin, R extends BaseAdminResource, ID extends Serializable> {
+
+	/**
+	 * Retrieves an entity by its id.
+	 * 
+	 * @param id must not be {@literal null}.
+	 * @return the entity with the given id or {@literal Optional#empty()} if none found
+	 * @throws IllegalArgumentException if {@code id} is {@literal null}.
+	 */
+	Optional<R> findById(ID id) throws NotFoundEntityException;
+	
 	/**
 	 * Find by name.
 	 * 
@@ -24,13 +43,14 @@ public interface IAdminService<T extends BaseAdmin, R extends BaseAdminResource,
 	Optional<R> findByName(final String name) throws NotFoundEntityException, IncorrectResultSizeException;
 	
 	/**
-	 * Retrieves an entity by its id.
-	 * 
-	 * @param id must not be {@literal null}.
-	 * @return the entity with the given id or {@literal Optional#empty()} if none found
-	 * @throws IllegalArgumentException if {@code id} is {@literal null}.
+	 * Returns a single entity matching the given {@link Example} or {@literal null} if none was found.
+	 *
+	 * @param example must not be {@literal null}.
+	 * @return a single entity matching the given {@link Example} or {@link Optional#empty()} if none was found.
+	 * @throws NotFoundEntityException if no entity exists for given {@code id}.
+	 * @throws IncorrectResultSizeException if the Example yields more than one result.
 	 */
-	Optional<R> findById(ID id) throws NotFoundEntityException;
+	Optional<R> findByExample(Example<R> example) throws NotFoundEntityException, IncorrectResultSizeException;
 	
 	/**
 	 * Returns a reference to the entity with the given identifier.
@@ -42,16 +62,6 @@ public interface IAdminService<T extends BaseAdmin, R extends BaseAdminResource,
 	 */
 	R getOne(ID id) throws NotFoundEntityException;
 	
-	/**
-	 * Returns a single entity matching the given {@link Example} or {@literal null} if none was found.
-	 *
-	 * @param example must not be {@literal null}.
-	 * @return a single entity matching the given {@link Example} or {@link Optional#empty()} if none was found.
-	 * @throws NotFoundEntityException if no entity exists for given {@code id}.
-	 * @throws IncorrectResultSizeException if the Example yields more than one result.
-	 */
-	Optional<R> findOne(Example<R> example) throws NotFoundEntityException, IncorrectResultSizeException;
-
 	/**
 	 * Returns all instances of the type with the given IDs.
 	 * 
@@ -67,15 +77,15 @@ public interface IAdminService<T extends BaseAdmin, R extends BaseAdminResource,
 	 */
 	List<R> findAll();
 
-//	/**
-//	 * Returns all entities matching the given {@link Example}. In case no match could be found an empty {@link Iterable}
-//	 * is returned.
-//	 *
-//	 * @param example must not be {@literal null}.
-//	 * @return all entities matching the given {@link Example}.
-//	 */
-//	List<R> findAll(Example<R> example);
-//
+	/**
+	 * Returns all entities matching the given {@link Example}. In case no match could be found an empty {@link Iterable}
+	 * is returned.
+	 *
+	 * @param example must not be {@literal null}.
+	 * @return all entities matching the given {@link Example}.
+	 */
+	List<R> findAllByExample(Example<R> example);
+
 //	/**
 //	 * Returns all entities matching the given {@link Example} applying the given {@link Sort}. In case no match could be
 //	 * found an empty {@link Iterable} is returned.
