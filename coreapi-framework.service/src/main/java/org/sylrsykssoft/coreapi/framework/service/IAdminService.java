@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Sort;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseAdmin;
 import org.sylrsykssoft.coreapi.framework.api.resource.BaseAdminResource;
 import org.sylrsykssoft.coreapi.framework.database.exception.IncorrectResultSizeException;
@@ -86,15 +87,15 @@ public interface IAdminService<T extends BaseAdmin, R extends BaseAdminResource,
 	 */
 	List<R> findAllByExample(Example<R> example);
 
-//	/**
-//	 * Returns all entities matching the given {@link Example} applying the given {@link Sort}. In case no match could be
-//	 * found an empty {@link Iterable} is returned.
-//	 *
-//	 * @param example must not be {@literal null}.
-//	 * @param sort the {@link Sort} specification to sort the results by, must not be {@literal null}.
-//	 * @return all entities matching the given {@link Example}.
-//	 */
-//	List<R> findAll(Example<R> example, Sort sort);
+	/**
+	 * Returns all entities matching the given {@link Example} applying the given {@link Sort}. In case no match could be
+	 * found an empty {@link Iterable} is returned.
+	 *
+	 * @param example must not be {@literal null}.
+	 * @param sort the {@link Sort} specification to sort the results by, must not be {@literal null}.
+	 * @return all entities matching the given {@link Example}.
+	 */
+	List<R> findAllByExampleSortable(Example<R> example, Sort sort);
 	
 	/**
 	 * Returns whether an entity with the given id exists.
