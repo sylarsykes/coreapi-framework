@@ -6,8 +6,10 @@ import java.util.Optional;
 
 import javax.persistence.EntityManager;
 
+import org.springframework.data.domain.Example;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseEntity;
 import org.sylrsykssoft.coreapi.framework.api.resource.BaseEntityResource;
+import org.sylrsykssoft.coreapi.framework.database.exception.IncorrectResultSizeException;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityException;
 
 /**
@@ -16,6 +18,7 @@ import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityExcep
  * @author juan.gonzalez.fernandez.jgf
  *
  * @param <T> Type of class.
+ * @param <R> Resourse of class.
  * @param <ID> Class of identificator.
  */
 public interface IEntityService<T extends BaseEntity, R extends BaseEntityResource, ID extends Serializable> {
@@ -30,15 +33,43 @@ public interface IEntityService<T extends BaseEntity, R extends BaseEntityResour
 	Optional<R> findById(ID id) throws NotFoundEntityException;
 	
 	/**
+	 * Find by name.
+	 * 
+	 * @param name Value of the attribute name
+	 * @return T entity.
+	 * @throws NotFoundEntityException if no entity exists for given {@code id}.
+	 * @throws IncorrectResultSizeException if there is more than one result.
+	 */
+	Optional<R> findByName(final String name) throws NotFoundEntityException, IncorrectResultSizeException;
+	
+	/**
+	 * Returns a single entity matching the given {@link Example} or {@literal null} if none was found.
+	 *
+	 * @param example must not be {@literal null}.
+	 * @return a single entity matching the given {@link Example} or {@link Optional#empty()} if none was found.
+	 * @throws NotFoundEntityException if no entity exists for given {@code id}.
+	 * @throws IncorrectResultSizeException if the Example yields more than one result.
+	 */
+	Optional<R> findByExample(Example<R> example) throws NotFoundEntityException, IncorrectResultSizeException;
+	
+	/**
 	 * Returns a reference to the entity with the given identifier.
 	 *
 	 * @param id must not be {@literal null}.
 	 * @return a reference to the entity with the given identifier.
 	 * @see EntityManager#getReference(Class, Object)
-	 * @throws javax.persistence.EntityNotFoundException if no entity exists for given {@code id}.
+	 * @throws NotFoundEntityException if no entity exists for given {@code id}.
 	 */
 	R getOne(ID id) throws NotFoundEntityException;
-
+	
+	/**
+	 * Returns all instances of the type with the given IDs.
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	List<R> findAllById(Iterable<ID> ids);
+	
 	/**
 	 * Returns all instances of the type.
 	 * 
@@ -47,12 +78,13 @@ public interface IEntityService<T extends BaseEntity, R extends BaseEntityResour
 	List<R> findAll();
 
 	/**
-	 * Returns all instances of the type with the given IDs.
-	 * 
-	 * @param ids
-	 * @return
+	 * Returns all entities matching the given {@link Example}. In case no match could be found an empty {@link Iterable}
+	 * is returned.
+	 *
+	 * @param example must not be {@literal null}.
+	 * @return all entities matching the given {@link Example}.
 	 */
-	List<R> findAllById(Iterable<ID> ids);
+	List<R> findAllByExample(Example<R> example);
 	
 	/**
 	 * Returns whether an entity with the given id exists.
