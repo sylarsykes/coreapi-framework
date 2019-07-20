@@ -7,6 +7,7 @@ import java.util.stream.StreamSupport;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Sort;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseAdmin;
 import org.sylrsykssoft.coreapi.framework.api.resource.BaseAdminResource;
 import org.sylrsykssoft.coreapi.framework.database.exception.IncorrectResultSizeException;
@@ -26,6 +27,16 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	@Autowired
 	protected BaseAdminRepository<T> superAdminRepository;
 
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public R getOne(Integer id) throws NotFoundEntityException {
+		final T source = superAdminRepository.getOne(id);
+		// Convert entity to resource
+		return mapperToResource().apply(source);
+	}
+	
 	/**
 	 * {@inheritDoc}
 	 */
@@ -69,16 +80,6 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 * {@inheritDoc}
 	 */
 	@Override
-	public R getOne(Integer id) throws NotFoundEntityException {
-		final T source = superAdminRepository.getOne(id);
-		// Convert entity to resource
-		return mapperToResource().apply(source);
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public List<R> findAllById(Iterable<Integer> ids) {
 		final List<T> sources = superAdminRepository.findAllById(ids);
 		// Convert entity to resource
@@ -104,6 +105,19 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 		final Example<T> exampleToFind = Example.of(entity, example.getMatcher());
 		
 		final List<T> sources = superAdminRepository.findAll(exampleToFind);
+		// Convert entity to resource
+		return sources.stream().map(mapperToResource()::apply).collect(Collectors.toList());
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public List<R> findAllByExampleSortable(Example<R> example, Sort sort) {
+		final T entity = mapperToEntity().apply(example.getProbe());
+		final Example<T> exampleToFind = Example.of(entity, example.getMatcher());
+		
+		final List<T> sources = superAdminRepository.findAll(exampleToFind, sort);
 		// Convert entity to resource
 		return sources.stream().map(mapperToResource()::apply).collect(Collectors.toList());
 	}

@@ -1,10 +1,13 @@
 package org.sylrsykssoft.coreapi.framework.web;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.data.domain.ExampleMatcher;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseEntity;
 import org.sylrsykssoft.coreapi.framework.api.resource.BaseEntityResource;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityException;
@@ -39,10 +42,10 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 * @throws NotFoundEntityException
 	 */
 	public R findOne(final Long id) throws NotFoundEntityException {
-		LOGGER.info("BaseController:findOne Find entry with id {}", id);
+		LOGGER.info("BaseEntityController:findOne Find entry with id {}", id);
 		final R result = entityService.getOne(id);
 
-		LOGGER.info("BaseController:findOne Found {} entry.", result);
+		LOGGER.info("BaseEntityController:findOne Found {} entry.", result);
 		return result;
 	}
 	
@@ -56,12 +59,34 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 * 
 	 * @throws NotFoundEntityException
 	 */
-	public @ResponseBody R findById(final Long id) throws NotFoundEntityException {
-		LOGGER.info("BaseController::findOne Finding a entry with id: {}", id);
+	public R findById(final Long id) throws NotFoundEntityException {
+		LOGGER.info("BaseEntityController::findOne Finding a entry with id: {}", id);
 		
 		final Optional<R> result = entityService.findById(id);
 		
-		LOGGER.info("BaseController::findOne Result -> {}", result.get());
+		LOGGER.info("BaseEntityController::findOne Result -> {}", result.get());
+		
+		return result.get();
+	}
+	
+	/**
+	 * Find by example
+	 * 
+	 * @param resource
+	 *            Entity to find.
+	 * 
+	 * @return T entity.
+	 * 
+	 * @throws NotFoundEntityException
+	 */
+	public R findOneByExample(final R resource) {
+		LOGGER.info("BaseEntityController::findOne Finding a entry with id: {}", resource);
+		
+		Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
+		
+		final Optional<R> result = entityService.findByExample(example);
+		
+		LOGGER.info("BaseEntityController::findOne Result -> {}", result.get());
 		
 		return result.get();
 	}
@@ -74,18 +99,18 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 * @throws NotFoundEntityException
 	 */
 	public Iterable<R> findAll() throws NotFoundEntityException {
-		LOGGER.info("BaseController:findAll Finding all entries");
+		LOGGER.info("BaseEntityController:findAll Finding all entries");
 
 		final Iterable<R> entities = entityService.findAll();
 		if (entities == null) {
 			throw new NotFoundEntityException();
 		}
 
-		LOGGER.info("BaseController:findAll Found {} entries.", entities);
+		LOGGER.info("BaseEntityController:findAll Found {} entries.", entities);
 
 		return entities;
 	}
-	
+
 	/**
 	 * Find all entries by example.
 	 * 
@@ -93,19 +118,51 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 * 
 	 * @throws NotFoundEntityException
 	 */
-	public Iterable<R> findAllByExample(final Example<R> example) throws NotFoundEntityException {
-		LOGGER.info("BaseController:findAll Finding all entries");
+	public Iterable<R> findAllByExample(final R resource) throws NotFoundEntityException {
+		LOGGER.info("BaseEntityController:findAll Finding all entries");
 
+		final Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
+		
 		final Iterable<R> entities = entityService.findAllByExample(example);
 		if (entities == null) {
 			throw new NotFoundEntityException();
 		}
 
-		LOGGER.info("BaseController:findAll Found {} entries.", entities);
+		LOGGER.info("BaseEntityController:findAll Found {} entries.", entities);
 
 		return entities;
 	}
+	
+	/**
+	 * Find all entries by example.
+	 * 
+	 * @param resource MusicalGenreResource object
+	 * @param direction Sorting direction values "asc" or "desc"
+	 * @param properties List of properties
+	 * 
+	 * @return List<MusicalGenreResource> entries.
+	 * 
+	 * @throws NotFoundEntityException
+	 */
+	public Iterable<R> findAllByExampleSortable(final R resource, 
+			final String direction, final List<String> properties) throws NotFoundEntityException {
+		LOGGER.info("BaseEntityController:findAllByExampleSortable Finding all entries with example {} with direction {} and properties {}", resource, direction, properties);
 
+		final Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
+		
+		final Direction sortDirection = Direction.fromString(direction);
+		final Sort sort = new Sort(sortDirection, properties);
+		
+		final Iterable<R> entities = entityService.findAllByExampleSortable(example, sort);
+		if (entities == null) {
+			throw new NotFoundEntityException();
+		}
+
+		LOGGER.info("BaseEntityController:findAllByExampleSortable Found {} entries.", entities);
+
+		return entities;
+	}
+	
 	/**
 	 * Create entry.
 	 * 
@@ -115,11 +172,11 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 * @return T entity.
 	 */
 	public R create(final R entity) {
-		LOGGER.info("BaseController:create Creating a new todo entry by using information: {}", entity);
+		LOGGER.info("BaseEntityController:create Creating a new todo entry by using information: {}", entity);
 
 		final R created = entityService.save(entity);
 
-		LOGGER.info("BaseController:create Created a new todo entry: {}", created);
+		LOGGER.info("BaseEntityController:create Created a new todo entry: {}", created);
 
 		return created;
 	}
@@ -138,7 +195,7 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 * @throws NotFoundEntityException
 	 */
 	public R update(final R entity, final Long id) throws NotIdMismatchEntityException, NotFoundEntityException {
-		LOGGER.info("BaseController:update Updating a entry with id: {}", id);
+		LOGGER.info("BaseEntityController:update Updating a entry with id: {}", id);
 
 		if (entity.getEntityId() != id) {
 			throw new NotIdMismatchEntityException();
@@ -151,7 +208,7 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 
 		final R updated = entityService.save(entity);
 
-		LOGGER.info("BaseController:update Updated the entry: {}", updated);
+		LOGGER.info("BaseEntityController:update Updated the entry: {}", updated);
 
 		return updated;
 	}
@@ -166,7 +223,7 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 * @throws AppException
 	 */
 	public void delete(final Long id) throws NotFoundEntityException, CoreApiFrameworkLibraryException {
-		LOGGER.info("BaseController:delete Deleting a entry with id: {}", id);
+		LOGGER.info("BaseEntityController:delete Deleting a entry with id: {}", id);
 
 		final Optional<R> old = entityService.findById(id);
 		if (old == null) {
@@ -179,6 +236,5 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 			throw new CoreApiFrameworkLibraryException(e);
 		}
 	}
-
 	
 }

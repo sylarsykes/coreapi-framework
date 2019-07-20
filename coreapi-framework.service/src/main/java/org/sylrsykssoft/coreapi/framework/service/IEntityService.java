@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.persistence.EntityManager;
 
 import org.springframework.data.domain.Example;
+import org.springframework.data.domain.Sort;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseEntity;
 import org.sylrsykssoft.coreapi.framework.api.resource.BaseEntityResource;
 import org.sylrsykssoft.coreapi.framework.database.exception.IncorrectResultSizeException;
@@ -31,16 +32,6 @@ public interface IEntityService<T extends BaseEntity, R extends BaseEntityResour
 	 * @throws IllegalArgumentException if {@code id} is {@literal null}.
 	 */
 	Optional<R> findById(ID id) throws NotFoundEntityException;
-	
-	/**
-	 * Find by name.
-	 * 
-	 * @param name Value of the attribute name
-	 * @return T entity.
-	 * @throws NotFoundEntityException if no entity exists for given {@code id}.
-	 * @throws IncorrectResultSizeException if there is more than one result.
-	 */
-	Optional<R> findByName(final String name) throws NotFoundEntityException, IncorrectResultSizeException;
 	
 	/**
 	 * Returns a single entity matching the given {@link Example} or {@literal null} if none was found.
@@ -85,6 +76,16 @@ public interface IEntityService<T extends BaseEntity, R extends BaseEntityResour
 	 * @return all entities matching the given {@link Example}.
 	 */
 	List<R> findAllByExample(Example<R> example);
+
+	/**
+	 * Returns all entities matching the given {@link Example} applying the given {@link Sort}. In case no match could be
+	 * found an empty {@link Iterable} is returned.
+	 *
+	 * @param example must not be {@literal null}.
+	 * @param sort the {@link Sort} specification to sort the results by, must not be {@literal null}.
+	 * @return all entities matching the given {@link Example}.
+	 */
+	List<R> findAllByExampleSortable(Example<R> example, Sort sort);
 	
 	/**
 	 * Returns whether an entity with the given id exists.

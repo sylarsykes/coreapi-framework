@@ -1,11 +1,13 @@
 package org.sylrsykssoft.coreapi.framework.web;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.data.domain.Sort;
+import org.springframework.data.domain.Sort.Direction;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseAdmin;
 import org.sylrsykssoft.coreapi.framework.api.resource.BaseAdminResource;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityException;
@@ -68,6 +70,27 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	}
 	
 	/**
+	 * Find by name.
+	 * 
+	 * @param name Value of attribute name.
+	 * 
+	 * @example /admin/musicalGenres/name/{name}]
+	 * 
+	 * @return T entity.
+	 * 
+	 * @throws NotFoundEntityException
+	 */
+	public R findByName(final String name) throws NotFoundEntityException {
+		LOGGER.info("BaseAdminController::findByName Finding a entry with name: {}", name);
+		
+		final Optional<R> result = adminService.findByName(name);
+		
+		LOGGER.info("BaseAdminController::findByName Result -> {}", result.get());
+		
+		return result.get();
+	}
+	
+	/**
 	 * Find by example
 	 * 
 	 * @param resource
@@ -77,7 +100,7 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * 
 	 * @throws NotFoundEntityException
 	 */
-	public @ResponseBody R findOneByExample(final R resource) {
+	public R findOneByExample(final R resource) {
 		LOGGER.info("BaseAdminController::findOne Finding a entry with id: {}", resource);
 		
 		Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
@@ -127,6 +150,36 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 		}
 
 		LOGGER.info("BaseAdminController:findAll Found {} entries.", entities);
+
+		return entities;
+	}
+	
+	/**
+	 * Find all entries by example.
+	 * 
+	 * @param resource MusicalGenreResource object
+	 * @param direction Sorting direction values "asc" or "desc"
+	 * @param properties List of properties
+	 * 
+	 * @return List<MusicalGenreResource> entries.
+	 * 
+	 * @throws NotFoundEntityException
+	 */
+	public Iterable<R> findAllByExampleSortable(final R resource, 
+			final String direction, final List<String> properties) throws NotFoundEntityException {
+		LOGGER.info("BaseAdminController:findAllByExampleSortable Finding all entries with example {} with direction {} and properties {}", resource, direction, properties);
+
+		final Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
+		
+		final Direction sortDirection = Direction.fromString(direction);
+		final Sort sort = new Sort(sortDirection, properties);
+		
+		final Iterable<R> entities = adminService.findAllByExampleSortable(example, sort);
+		if (entities == null) {
+			throw new NotFoundEntityException();
+		}
+
+		LOGGER.info("BaseAdminController:findAllByExampleSortable Found {} entries.", entities);
 
 		return entities;
 	}
