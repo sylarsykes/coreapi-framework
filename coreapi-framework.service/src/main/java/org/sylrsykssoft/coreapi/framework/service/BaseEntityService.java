@@ -31,16 +31,6 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 	 * {@inheritDoc}
 	 */
 	@Override
-	public R getOne(Long id) throws NotFoundEntityException {
-		final T source = superEntityRepository.getOne(id);
-		// Convert entity to resource
-		return mapperToResource().apply(source);
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public Optional<R> findById(Long id) throws NotFoundEntityException {
 		final Optional<T> source = superEntityRepository.findById(id);
 		// Convert entity to resource
