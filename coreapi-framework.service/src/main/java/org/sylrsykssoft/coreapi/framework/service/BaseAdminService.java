@@ -31,16 +31,6 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 * {@inheritDoc}
 	 */
 	@Override
-	public R getOne(Integer id) throws NotFoundEntityException {
-		final T source = superAdminRepository.getOne(id);
-		// Convert entity to resource
-		return mapperToResource().apply(source);
-	}
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
 	public Optional<R> findById(Integer id) throws NotFoundEntityException {
 		final Optional<T> source = superAdminRepository.findById(id);
 		// Convert entity to resource

@@ -4,8 +4,6 @@ import java.io.Serializable;
 import java.util.List;
 import java.util.Optional;
 
-import javax.persistence.EntityManager;
-
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Sort;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseEntity;
@@ -42,16 +40,6 @@ public interface IEntityService<T extends BaseEntity, R extends BaseEntityResour
 	 * @throws IncorrectResultSizeException if the Example yields more than one result.
 	 */
 	Optional<R> findByExample(Example<R> example) throws NotFoundEntityException, IncorrectResultSizeException;
-	
-	/**
-	 * Returns a reference to the entity with the given identifier.
-	 *
-	 * @param id must not be {@literal null}.
-	 * @return a reference to the entity with the given identifier.
-	 * @see EntityManager#getReference(Class, Object)
-	 * @throws NotFoundEntityException if no entity exists for given {@code id}.
-	 */
-	R getOne(ID id) throws NotFoundEntityException;
 	
 	/**
 	 * Returns all instances of the type with the given IDs.

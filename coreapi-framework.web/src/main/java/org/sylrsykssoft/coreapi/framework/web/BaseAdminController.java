@@ -3,11 +3,21 @@ package org.sylrsykssoft.coreapi.framework.web;
 import java.util.List;
 import java.util.Optional;
 
-import org.springframework.beans.factory.annotation.Autowired;
+import javax.validation.Valid;
+
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.web.bind.annotation.DeleteMapping;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseAdmin;
 import org.sylrsykssoft.coreapi.framework.api.resource.BaseAdminResource;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityException;
@@ -28,8 +38,12 @@ import lombok.extern.slf4j.Slf4j;
 @Slf4j
 public abstract class BaseAdminController<R extends BaseAdminResource, T extends BaseAdmin> {
 
-	@Autowired
-	protected BaseAdminService<T, R> adminService;
+	/**
+	 * Getter admin service implementation
+	 * 
+	 * @return BaseAdminService<T, R>
+	 */
+	public abstract BaseAdminService<T, R> getAdminService(); 
 	
 	/**
 	 * Find one entry.
@@ -41,28 +55,11 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * 
 	 * @throws NotFoundEntityException
 	 */
-	public R findOne(final Integer id) throws NotFoundEntityException {
-		LOGGER.info("BaseAdminController:findOne Find entry with id {}", id);
-		final R result = adminService.getOne(id);
-
-		LOGGER.info("BaseAdminController:findOne Found {} entry.", result);
-		return result;
-	}
-	
-	/**
-	 * Find one entry.
-	 * 
-	 * @param id
-	 *            Id
-	 * 
-	 * @return T entry.
-	 * 
-	 * @throws NotFoundEntityException
-	 */
-	public R findById(final Integer id) throws NotFoundEntityException {
+	@GetMapping(path = "/findOne/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public R findById(final @PathVariable Integer id) throws NotFoundEntityException {
 		LOGGER.info("BaseAdminController::findOne Finding a entry with id: {}", id);
 		
-		final Optional<R> result = adminService.findById(id);
+		final Optional<R> result = getAdminService().findById(id);
 		
 		LOGGER.info("BaseAdminController::findOne Result -> {}", result.get());
 		
@@ -80,10 +77,11 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * 
 	 * @throws NotFoundEntityException
 	 */
-	public R findByName(final String name) throws NotFoundEntityException {
+	@GetMapping(path = "/findOne/name/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+	public R findByName(final @PathVariable String name) throws NotFoundEntityException {
 		LOGGER.info("BaseAdminController::findByName Finding a entry with name: {}", name);
 		
-		final Optional<R> result = adminService.findByName(name);
+		final Optional<R> result = getAdminService().findByName(name);
 		
 		LOGGER.info("BaseAdminController::findByName Result -> {}", result.get());
 		
@@ -100,12 +98,13 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * 
 	 * @throws NotFoundEntityException
 	 */
-	public R findOneByExample(final R resource) {
+	@PostMapping(path = "/findOne/example", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public R findOneByExample(final @RequestBody R resource) {
 		LOGGER.info("BaseAdminController::findOne Finding a entry with id: {}", resource);
 		
 		Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
 		
-		final Optional<R> result = adminService.findByExample(example);
+		final Optional<R> result = getAdminService().findByExample(example);
 		
 		LOGGER.info("BaseAdminController::findOne Result -> {}", result.get());
 		
@@ -119,10 +118,11 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * 
 	 * @throws NotFoundEntityException
 	 */
+	@GetMapping
 	public Iterable<R> findAll() throws NotFoundEntityException {
 		LOGGER.info("BaseAdminController:findAll Finding all entries");
 
-		final Iterable<R> entities = adminService.findAll();
+		final Iterable<R> entities = getAdminService().findAll();
 		if (entities == null) {
 			throw new NotFoundEntityException();
 		}
@@ -139,12 +139,13 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * 
 	 * @throws NotFoundEntityException
 	 */
-	public Iterable<R> findAllByExample(final R resource) throws NotFoundEntityException {
+	@PostMapping(path = "/findAll/example", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Iterable<R> findAllByExample(final @RequestBody R resource) throws NotFoundEntityException {
 		LOGGER.info("BaseAdminController:findAll Finding all entries");
 
 		final Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
 		
-		final Iterable<R> entities = adminService.findAllByExample(example);
+		final Iterable<R> entities = getAdminService().findAllByExample(example);
 		if (entities == null) {
 			throw new NotFoundEntityException();
 		}
@@ -165,8 +166,9 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * 
 	 * @throws NotFoundEntityException
 	 */
-	public Iterable<R> findAllByExampleSortable(final R resource, 
-			final String direction, final List<String> properties) throws NotFoundEntityException {
+	@PostMapping(path = "/findAll/example/sort", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	public Iterable<R> findAllByExampleSortable(final @RequestBody R resource, 
+			final @PathVariable String direction, final @PathVariable List<String> properties) throws NotFoundEntityException {
 		LOGGER.info("BaseAdminController:findAllByExampleSortable Finding all entries with example {} with direction {} and properties {}", resource, direction, properties);
 
 		final Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
@@ -174,7 +176,7 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 		final Direction sortDirection = Direction.fromString(direction);
 		final Sort sort = new Sort(sortDirection, properties);
 		
-		final Iterable<R> entities = adminService.findAllByExampleSortable(example, sort);
+		final Iterable<R> entities = getAdminService().findAllByExampleSortable(example, sort);
 		if (entities == null) {
 			throw new NotFoundEntityException();
 		}
@@ -192,10 +194,12 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * 
 	 * @return T entity.
 	 */
-	public R create(final R entity) {
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.CREATED)
+	public R create(final @Valid @RequestBody R entity) {
 		LOGGER.info("BaseAdminController:create Creating a new todo entry by using information: {}", entity);
 
-		final R created = adminService.save(entity);
+		final R created = getAdminService().save(entity);
 
 		LOGGER.info("BaseAdminController:create Created a new todo entry: {}", created);
 
@@ -215,19 +219,21 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * @throws NotIdMismatchEntityException
 	 * @throws NotFoundEntityException
 	 */
-	public R update(final R entity, final Integer id) throws NotIdMismatchEntityException, NotFoundEntityException {
+	@PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ResponseStatus(HttpStatus.OK)
+	public R update(final @Valid @RequestBody R entity, final @PathVariable Integer id) throws NotIdMismatchEntityException, NotFoundEntityException {
 		LOGGER.info("BaseAdminController:update Updating a entry with id: {}", id);
 
 		if (entity.getEntityId() != id) {
 			throw new NotIdMismatchEntityException();
 		}
 
-		final Optional<R> old = adminService.findById(id);
+		final Optional<R> old = getAdminService().findById(id);
 		if (old == null) {
 			throw new NotFoundEntityException();
 		}
 
-		final R updated = adminService.save(entity);
+		final R updated = getAdminService().save(entity);
 
 		LOGGER.info("BaseAdminController:update Updated the entry: {}", updated);
 
@@ -243,16 +249,18 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * @throws NotFoundEntityException
 	 * @throws AppException
 	 */
-	public void delete(final Integer id) throws NotFoundEntityException, CoreApiFrameworkLibraryException {
+	@DeleteMapping(path = "/{id}")
+	@ResponseStatus(HttpStatus.OK)
+	public void delete(final @PathVariable Integer id) throws NotFoundEntityException, CoreApiFrameworkLibraryException {
 		LOGGER.info("BaseAdminController:delete Deleting a entry with id: {}", id);
 
-		final Optional<R> old = adminService.findById(id);
+		final Optional<R> old = getAdminService().findById(id);
 		if (old == null) {
 			throw new NotFoundEntityException();
 		}
 
 		try {
-			adminService.deleteById(id);
+			getAdminService().deleteById(id);
 		} catch (Exception e) {
 			throw new CoreApiFrameworkLibraryException(e);
 		}
