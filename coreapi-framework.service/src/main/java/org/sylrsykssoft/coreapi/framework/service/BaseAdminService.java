@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Sort;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseAdmin;
@@ -24,15 +23,19 @@ import org.sylrsykssoft.coreapi.framework.library.mapper.IMapperFunction;
  */
 public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminResource> implements IAdminService<T, R, Integer>, IMapperFunction<T, R> {
 
-	@Autowired
-	protected BaseAdminRepository<T> superAdminRepository;
+	/**
+	 * Getter admin repository implementation
+	 * 
+	 * @return BaseAdminRepository<T>
+	 */
+	public abstract BaseAdminRepository<T> getAdminRepository(); 
 
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public Optional<R> findById(Integer id) throws NotFoundEntityException {
-		final Optional<T> source = superAdminRepository.findById(id);
+		final Optional<T> source = getAdminRepository().findById(id);
 		// Convert entity to resource
 		return Optional.of(source.flatMap(
 				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().apply(input)))
@@ -44,7 +47,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 */
 	@Override
 	public Optional<R> findByName(final String name) throws NotFoundEntityException, IncorrectResultSizeException {
-		final Optional<T> source = superAdminRepository.findByName(name);
+		final Optional<T> source = getAdminRepository().findByName(name);
 		// Convert entity to resource
 		return Optional.of(source.flatMap(
 				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().apply(input)))
@@ -59,7 +62,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 		final T entity = mapperToEntity().apply(example.getProbe());
 		final Example<T> exampleToFind = Example.of(entity, example.getMatcher());
 		
-		final Optional<T> source = superAdminRepository.findOne(exampleToFind);
+		final Optional<T> source = getAdminRepository().findOne(exampleToFind);
 		// Convert entity to resource
 		return Optional.of(source.flatMap(
 				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().apply(input)))
@@ -71,7 +74,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 */
 	@Override
 	public List<R> findAllById(Iterable<Integer> ids) {
-		final List<T> sources = superAdminRepository.findAllById(ids);
+		final List<T> sources = getAdminRepository().findAllById(ids);
 		// Convert entity to resource
 		return sources.stream().map(mapperToResource()::apply).collect(Collectors.toList());
 	}
@@ -81,7 +84,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 */
 	@Override
 	public List<R> findAll() {
-		final List<T> sources = superAdminRepository.findAll();
+		final List<T> sources = getAdminRepository().findAll();
 		// Convert entity to resource
 		return sources.stream().map(mapperToResource()::apply).collect(Collectors.toList());
 	}
@@ -94,7 +97,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 		final T entity = mapperToEntity().apply(example.getProbe());
 		final Example<T> exampleToFind = Example.of(entity, example.getMatcher());
 		
-		final List<T> sources = superAdminRepository.findAll(exampleToFind);
+		final List<T> sources = getAdminRepository().findAll(exampleToFind);
 		// Convert entity to resource
 		return sources.stream().map(mapperToResource()::apply).collect(Collectors.toList());
 	}
@@ -107,7 +110,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 		final T entity = mapperToEntity().apply(example.getProbe());
 		final Example<T> exampleToFind = Example.of(entity, example.getMatcher());
 		
-		final List<T> sources = superAdminRepository.findAll(exampleToFind, sort);
+		final List<T> sources = getAdminRepository().findAll(exampleToFind, sort);
 		// Convert entity to resource
 		return sources.stream().map(mapperToResource()::apply).collect(Collectors.toList());
 	}
@@ -117,7 +120,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 */
 	@Override
 	public long count() {
-		return superAdminRepository.count();
+		return getAdminRepository().count();
 	}
 
 	/**
@@ -125,7 +128,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 */
 	@Override
 	public boolean existsById(Integer id) {
-		return superAdminRepository.existsById(id);
+		return getAdminRepository().existsById(id);
 	}
 
 	/**
@@ -137,7 +140,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 			throw new NotFoundEntityException();
 		}
 		
-		final T source = superAdminRepository.save(mapperToEntity().apply(entity));
+		final T source = getAdminRepository().save(mapperToEntity().apply(entity));
 		// Convert entity to resource
 		return mapperToResource().apply(source);
 	}
@@ -162,7 +165,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 */
 	@Override
 	public void deleteById(Integer id) throws NotFoundEntityException {
-		superAdminRepository.deleteById(id);
+		getAdminRepository().deleteById(id);
 	}
 
 	/**
@@ -175,7 +178,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 		}
 		
 		final T entity = mapperToEntity().apply(source);
-		superAdminRepository.delete(entity);
+		getAdminRepository().delete(entity);
 	}
 
 	/**
@@ -187,7 +190,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 				.map(mapperToEntity()::apply)
 				.collect(Collectors.toList());
 		
-		superAdminRepository.deleteAll(entities);
+		getAdminRepository().deleteAll(entities);
 	}
 
 	/**
@@ -195,7 +198,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 */
 	@Override
 	public void deleteAll() {
-		superAdminRepository.deleteAll();
+		getAdminRepository().deleteAll();
 	}
 
 }
