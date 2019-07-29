@@ -1,5 +1,7 @@
 module coreapi.framework.web {
 	exports org.sylrsykssoft.coreapi.framework.web;
+	exports org.sylrsykssoft.coreapi.framework.web.configuration;
+	exports org.sylrsykssoft.coreapi.framework.web.resource.assembler;
 
 	requires coreapi.framework.api;
 	requires coreapi.framework.database;
@@ -11,4 +13,5 @@ module coreapi.framework.web {
 	requires spring.data.commons;
 	requires transitive spring.hateoas;
 	requires spring.web;
+	requires java.desktop;
 }

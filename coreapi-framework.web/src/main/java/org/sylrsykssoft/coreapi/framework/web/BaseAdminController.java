@@ -9,6 +9,7 @@ import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Sort;
 import org.springframework.data.domain.Sort.Direction;
+import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
@@ -24,6 +25,7 @@ import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityExcep
 import org.sylrsykssoft.coreapi.framework.database.exception.NotIdMismatchEntityException;
 import org.sylrsykssoft.coreapi.framework.library.error.exception.CoreApiFrameworkLibraryException;
 import org.sylrsykssoft.coreapi.framework.service.BaseAdminService;
+import org.sylrsykssoft.coreapi.framework.web.configuration.BaseAdminConstants;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -55,7 +57,7 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * 
 	 * @throws NotFoundEntityException
 	 */
-	@GetMapping(path = "/findOne/id/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = BaseAdminConstants.CONTROLLER_GET_FIND_ONE_BY_ID, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public R findById(final @PathVariable Integer id) throws NotFoundEntityException {
 		LOGGER.info("BaseAdminController::findOne Finding a entry with id: {}", id);
 		
@@ -77,7 +79,7 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * 
 	 * @throws NotFoundEntityException
 	 */
-	@GetMapping(path = "/findOne/name/{name}", produces = MediaType.APPLICATION_JSON_VALUE)
+	@GetMapping(path = BaseAdminConstants.CONTROLLER_GET_FIND_ONE_BY_NAME, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public R findByName(final @PathVariable String name) throws NotFoundEntityException {
 		LOGGER.info("BaseAdminController::findByName Finding a entry with name: {}", name);
 		
@@ -98,7 +100,7 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * 
 	 * @throws NotFoundEntityException
 	 */
-	@PostMapping(path = "/findOne/example", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(path = BaseAdminConstants.CONTROLLER_GET_FIND_BY_EXAMPLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public R findOneByExample(final @RequestBody R resource) {
 		LOGGER.info("BaseAdminController::findOne Finding a entry with id: {}", resource);
 		
@@ -139,7 +141,7 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * 
 	 * @throws NotFoundEntityException
 	 */
-	@PostMapping(path = "/findAll/example", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(path = BaseAdminConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public Iterable<R> findAllByExample(final @RequestBody R resource) throws NotFoundEntityException {
 		LOGGER.info("BaseAdminController:findAll Finding all entries");
 
@@ -166,7 +168,7 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * 
 	 * @throws NotFoundEntityException
 	 */
-	@PostMapping(path = "/findAll/example/sort", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(path = BaseAdminConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE_SORTABLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public Iterable<R> findAllByExampleSortable(final @RequestBody R resource, 
 			final @PathVariable String direction, final @PathVariable List<String> properties) throws NotFoundEntityException {
 		LOGGER.info("BaseAdminController:findAllByExampleSortable Finding all entries with example {} with direction {} and properties {}", resource, direction, properties);
@@ -194,7 +196,7 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * 
 	 * @return T entity.
 	 */
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(HttpStatus.CREATED)
 	public R create(final @Valid @RequestBody R entity) {
 		LOGGER.info("BaseAdminController:create Creating a new todo entry by using information: {}", entity);
@@ -219,7 +221,7 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * @throws NotIdMismatchEntityException
 	 * @throws NotFoundEntityException
 	 */
-	@PutMapping(path = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@PutMapping(path = BaseAdminConstants.CONTROLLER_PUT_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(HttpStatus.OK)
 	public R update(final @Valid @RequestBody R entity, final @PathVariable Integer id) throws NotIdMismatchEntityException, NotFoundEntityException {
 		LOGGER.info("BaseAdminController:update Updating a entry with id: {}", id);
@@ -249,7 +251,7 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * @throws NotFoundEntityException
 	 * @throws AppException
 	 */
-	@DeleteMapping(path = "/{id}")
+	@DeleteMapping(path = BaseAdminConstants.CONTROLLER_DELETE_DELETE)
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(final @PathVariable Integer id) throws NotFoundEntityException, CoreApiFrameworkLibraryException {
 		LOGGER.info("BaseAdminController:delete Deleting a entry with id: {}", id);

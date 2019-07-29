@@ -35,7 +35,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 		final Optional<T> source = superEntityRepository.findById(id);
 		// Convert entity to resource
 		return Optional.of(source.flatMap(
-				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().apply(input)))
+				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().toResource(input)))
 				.orElseThrow(NotFoundEntityException::new));
 	}
 	
@@ -50,7 +50,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 		final Optional<T> source = superEntityRepository.findOne(exampleToFind);
 		// Convert entity to resource
 		return Optional.of(source.flatMap(
-				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().apply(input)))
+				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().toResource(input)))
 				.orElseThrow(NotFoundEntityException::new));
 	}
 	
@@ -61,7 +61,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 	public List<R> findAllById(Iterable<Long> ids) {
 		final List<T> sources = superEntityRepository.findAllById(ids);
 		// Convert entity to resource
-		return sources.stream().map(mapperToResource()::apply).collect(Collectors.toList());
+		return sources.stream().map(mapperToResource()::toResource).collect(Collectors.toList());
 	}
 	
 	/**
@@ -71,7 +71,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 	public List<R> findAll() {
 		final List<T> sources = superEntityRepository.findAll();
 		// Convert entity to resource
-		return sources.stream().map(mapperToResource()::apply).collect(Collectors.toList());
+		return sources.stream().map(mapperToResource()::toResource).collect(Collectors.toList());
 	}
 
 	/**
@@ -84,7 +84,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 		
 		final List<T> sources = superEntityRepository.findAll(exampleToFind);
 		// Convert entity to resource
-		return sources.stream().map(mapperToResource()::apply).collect(Collectors.toList());
+		return sources.stream().map(mapperToResource()::toResource).collect(Collectors.toList());
 	}
 	
 	/**
@@ -97,7 +97,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 		
 		final List<T> sources = superEntityRepository.findAll(exampleToFind, sort);
 		// Convert entity to resource
-		return sources.stream().map(mapperToResource()::apply).collect(Collectors.toList());
+		return sources.stream().map(mapperToResource()::toResource).collect(Collectors.toList());
 	}
 	
 	/**
@@ -127,7 +127,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 		
 		final T source = superEntityRepository.save(mapperToEntity().apply(entity));
 		// Convert entity to resource
-		return mapperToResource().apply(source);
+		return mapperToResource().toResource(source);
 	}
 
 	/**
@@ -141,7 +141,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 		
 		// Convert entity to resource
 		return StreamSupport.stream(entities.spliterator(), false)
-				.map(mapperToResource()::apply)
+				.map(mapperToResource()::toResource)
 				.collect(Collectors.toList());
 	}
 
