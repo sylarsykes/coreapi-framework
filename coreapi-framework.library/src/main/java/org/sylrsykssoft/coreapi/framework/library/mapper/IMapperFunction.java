@@ -1,19 +1,22 @@
 package org.sylrsykssoft.coreapi.framework.library.mapper;
 
+import org.springframework.hateoas.ResourceSupport;
+import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
+
 /**
  * Create a instance of mapper
  * 
  * @author juan.gonzalez.fernandez.jgf
  *
  */
-public interface IMapperFunction<T, R> {
+public interface IMapperFunction<T, R extends ResourceSupport> {
 
 	/**
 	 * Get concrete entity to resource mapper
 	 * 
 	 * @return ModelMapperFunction<T, R>
 	 */
-	ModelMapperFunction<T, R> mapperToResource();
+	ResourceAssemblerSupport<T, R> mapperToResource();
 	
 	/**
 	 * Get concrete resource to entity mapper

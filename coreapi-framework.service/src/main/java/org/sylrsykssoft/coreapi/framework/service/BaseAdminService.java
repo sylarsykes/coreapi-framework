@@ -38,7 +38,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 		final Optional<T> source = getAdminRepository().findById(id);
 		// Convert entity to resource
 		return Optional.of(source.flatMap(
-				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().apply(input)))
+				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().toResource(input)))
 				.orElseThrow(NotFoundEntityException::new));
 	}
 	
@@ -50,7 +50,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 		final Optional<T> source = getAdminRepository().findByName(name);
 		// Convert entity to resource
 		return Optional.of(source.flatMap(
-				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().apply(input)))
+				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().toResource(input)))
 				.orElseThrow(NotFoundEntityException::new));
 	}
 
@@ -65,7 +65,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 		final Optional<T> source = getAdminRepository().findOne(exampleToFind);
 		// Convert entity to resource
 		return Optional.of(source.flatMap(
-				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().apply(input)))
+				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().toResource(input)))
 				.orElseThrow(NotFoundEntityException::new));
 	}
 	
@@ -76,7 +76,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	public List<R> findAllById(Iterable<Integer> ids) {
 		final List<T> sources = getAdminRepository().findAllById(ids);
 		// Convert entity to resource
-		return sources.stream().map(mapperToResource()::apply).collect(Collectors.toList());
+		return sources.stream().map(mapperToResource()::toResource).collect(Collectors.toList());
 	}
 	
 	/**
@@ -86,7 +86,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	public List<R> findAll() {
 		final List<T> sources = getAdminRepository().findAll();
 		// Convert entity to resource
-		return sources.stream().map(mapperToResource()::apply).collect(Collectors.toList());
+		return sources.stream().map(mapperToResource()::toResource).collect(Collectors.toList());
 	}
 
 	/**
@@ -99,7 +99,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 		
 		final List<T> sources = getAdminRepository().findAll(exampleToFind);
 		// Convert entity to resource
-		return sources.stream().map(mapperToResource()::apply).collect(Collectors.toList());
+		return sources.stream().map(mapperToResource()::toResource).collect(Collectors.toList());
 	}
 	
 	/**
@@ -112,7 +112,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 		
 		final List<T> sources = getAdminRepository().findAll(exampleToFind, sort);
 		// Convert entity to resource
-		return sources.stream().map(mapperToResource()::apply).collect(Collectors.toList());
+		return sources.stream().map(mapperToResource()::toResource).collect(Collectors.toList());
 	}
 	
 	/**
@@ -142,7 +142,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 		
 		final T source = getAdminRepository().save(mapperToEntity().apply(entity));
 		// Convert entity to resource
-		return mapperToResource().apply(source);
+		return mapperToResource().toResource(source);
 	}
 
 	/**
@@ -156,7 +156,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 		
 		// Convert entity to resource
 		return StreamSupport.stream(entities.spliterator(), false)
-				.map(mapperToResource()::apply)
+				.map(mapperToResource()::toResource)
 				.collect(Collectors.toList());
 	}
 

@@ -28,7 +28,7 @@
 		<artifactId>coreapi-framework.web</artifactId>
 		<version>${coreapi-framework.web.version}</version>
 	</dependency>
-    
+	
   </dependencies>
   
 </project>
