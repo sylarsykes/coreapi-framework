@@ -5,7 +5,6 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 import java.util.stream.StreamSupport;
 
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.Sort;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseEntity;
@@ -24,15 +23,19 @@ import org.sylrsykssoft.coreapi.framework.library.mapper.IMapperFunction;
  */
 public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEntityResource> implements IEntityService<T, R, Long>, IMapperFunction<T, R> {
 
-	@Autowired
-	private BaseEntityRepository<T> superEntityRepository;
-
+	/**
+	 * Getter repository implementation
+	 * 
+	 * @return BaseAdminRepository<T>
+	 */
+	public abstract BaseEntityRepository<T> getEntityRepository();
+	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public Optional<R> findById(Long id) throws NotFoundEntityException {
-		final Optional<T> source = superEntityRepository.findById(id);
+		final Optional<T> source = getEntityRepository().findById(id);
 		// Convert entity to resource
 		return Optional.of(source.flatMap(
 				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().toResource(input)))
@@ -47,7 +50,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 		final T entity = mapperToEntity().apply(example.getProbe());
 		final Example<T> exampleToFind = Example.of(entity, example.getMatcher());
 		
-		final Optional<T> source = superEntityRepository.findOne(exampleToFind);
+		final Optional<T> source = getEntityRepository().findOne(exampleToFind);
 		// Convert entity to resource
 		return Optional.of(source.flatMap(
 				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().toResource(input)))
@@ -59,7 +62,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 	 */
 	@Override
 	public List<R> findAllById(Iterable<Long> ids) {
-		final List<T> sources = superEntityRepository.findAllById(ids);
+		final List<T> sources = getEntityRepository().findAllById(ids);
 		// Convert entity to resource
 		return sources.stream().map(mapperToResource()::toResource).collect(Collectors.toList());
 	}
@@ -69,7 +72,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 	 */
 	@Override
 	public List<R> findAll() {
-		final List<T> sources = superEntityRepository.findAll();
+		final List<T> sources = getEntityRepository().findAll();
 		// Convert entity to resource
 		return sources.stream().map(mapperToResource()::toResource).collect(Collectors.toList());
 	}
@@ -82,7 +85,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 		final T entity = mapperToEntity().apply(example.getProbe());
 		final Example<T> exampleToFind = Example.of(entity, example.getMatcher());
 		
-		final List<T> sources = superEntityRepository.findAll(exampleToFind);
+		final List<T> sources = getEntityRepository().findAll(exampleToFind);
 		// Convert entity to resource
 		return sources.stream().map(mapperToResource()::toResource).collect(Collectors.toList());
 	}
@@ -95,7 +98,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 		final T entity = mapperToEntity().apply(example.getProbe());
 		final Example<T> exampleToFind = Example.of(entity, example.getMatcher());
 		
-		final List<T> sources = superEntityRepository.findAll(exampleToFind, sort);
+		final List<T> sources = getEntityRepository().findAll(exampleToFind, sort);
 		// Convert entity to resource
 		return sources.stream().map(mapperToResource()::toResource).collect(Collectors.toList());
 	}
@@ -105,7 +108,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 	 */
 	@Override
 	public long count() {
-		return superEntityRepository.count();
+		return getEntityRepository().count();
 	}
 
 	/**
@@ -113,7 +116,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 	 */
 	@Override
 	public boolean existsById(Long id) {
-		return superEntityRepository.existsById(id);
+		return getEntityRepository().existsById(id);
 	}
 
 	/**
@@ -125,7 +128,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 			throw new NotFoundEntityException();
 		}
 		
-		final T source = superEntityRepository.save(mapperToEntity().apply(entity));
+		final T source = getEntityRepository().save(mapperToEntity().apply(entity));
 		// Convert entity to resource
 		return mapperToResource().toResource(source);
 	}
@@ -150,7 +153,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 	 */
 	@Override
 	public void deleteById(Long id) throws NotFoundEntityException {
-		superEntityRepository.deleteById(id);
+		getEntityRepository().deleteById(id);
 	}
 
 	/**
@@ -163,7 +166,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 		}
 		
 		final T entity = mapperToEntity().apply(source);
-		superEntityRepository.delete(entity);
+		getEntityRepository().delete(entity);
 	}
 
 	/**
@@ -175,7 +178,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 				.map(mapperToEntity()::apply)
 				.collect(Collectors.toList());
 		
-		superEntityRepository.deleteAll(entities);
+		getEntityRepository().deleteAll(entities);
 	}
 
 	/**
@@ -183,7 +186,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 	 */
 	@Override
 	public void deleteAll() {
-		superEntityRepository.deleteAll();
+		getEntityRepository().deleteAll();
 	}
 	
 }

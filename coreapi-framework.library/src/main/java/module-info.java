@@ -12,4 +12,5 @@ module coreapi.framework.library {
 	requires spring.context;
 	requires spring.core;
 	requires spring.hateoas;
+	requires org.apache.commons.collections4;
 }
