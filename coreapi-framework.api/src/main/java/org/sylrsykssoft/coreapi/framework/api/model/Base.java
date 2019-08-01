@@ -18,6 +18,7 @@ import lombok.EqualsAndHashCode;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+import lombok.experimental.SuperBuilder;
 
 /**
  * Entity base.
@@ -27,8 +28,9 @@ import lombok.Setter;
  */
 @MappedSuperclass
 @Data
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Setter
 @Getter
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)

@@ -6,7 +6,7 @@ import org.springframework.hateoas.ResourceSupport;
 import org.springframework.lang.Nullable;
 
 import lombok.AccessLevel;
-import lombok.AllArgsConstructor;
+import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.Getter;
@@ -21,7 +21,6 @@ import lombok.Setter;
  */
 @Data
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @Setter
 @Getter
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
@@ -30,4 +29,18 @@ public class BaseResource<ID> extends ResourceSupport {
 	protected ID entityId;
 	protected LocalDateTime createdAt;
 	protected @Nullable LocalDateTime updatedAt;
+	
+	/**
+	 * AllArgsConstructor
+	 * 
+	 * @param entityId
+	 * @param createdAt
+	 * @param updatedAt
+	 */
+	@Builder(builderMethodName = "baseResourceBuilder")
+	public BaseResource(final ID entityId, final LocalDateTime createdAt, final LocalDateTime updatedAt) {
+		this.entityId = entityId;
+		this.createdAt = createdAt;
+		this.updatedAt = updatedAt;
+	}
 }
