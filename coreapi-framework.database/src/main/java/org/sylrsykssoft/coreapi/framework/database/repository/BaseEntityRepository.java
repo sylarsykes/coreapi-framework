@@ -4,7 +4,6 @@ import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.transaction.annotation.Transactional;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseEntity;
 
-
 /**
  * The Interface BaseEntityRepository.
  *

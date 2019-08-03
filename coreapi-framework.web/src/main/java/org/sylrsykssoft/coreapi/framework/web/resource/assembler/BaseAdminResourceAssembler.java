@@ -22,7 +22,7 @@ import org.sylrsykssoft.coreapi.framework.web.BaseAdminController;
  * 
  * @author juan.gonzalez.fernandez.jgf
  */
-public abstract class BaseAdminResourceAssembler<C extends BaseAdminController, T extends BaseAdmin, R extends BaseAdminResource> extends ResourceAssemblerSupport<T, R> {
+public abstract class BaseAdminResourceAssembler<C extends BaseAdminController<R, T>, T extends BaseAdmin, R extends BaseAdminResource> extends ResourceAssemblerSupport<T, R> {
 
 	protected Class<C> controllerClass;
 	/** The entity class. */
@@ -69,7 +69,6 @@ public abstract class BaseAdminResourceAssembler<C extends BaseAdminController, 
 	 * @param entity the entity
 	 * @return the base resource
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public R toResource(final T entity) {
 		final R instance = getAdminMapperToResourceFunction().apply(entity);
