@@ -29,6 +29,7 @@ public class ModelMapperFunction<T, R> implements Function<T, R> {
 	private Class<T> sourceClass;
 	private Class<R> targetClass;
 	
+	@SuppressWarnings("rawtypes")
 	private List<PropertyMap> mappings;
 	
 	/**

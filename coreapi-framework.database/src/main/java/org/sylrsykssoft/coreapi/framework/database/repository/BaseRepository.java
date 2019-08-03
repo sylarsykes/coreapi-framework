@@ -1,7 +1,5 @@
 package org.sylrsykssoft.coreapi.framework.database.repository;
 
-import java.io.Serializable;
-
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.transaction.annotation.Transactional;
@@ -18,6 +16,6 @@ import org.sylrsykssoft.coreapi.framework.api.model.Base;
  */
 @NoRepositoryBean
 @Transactional
-public interface BaseRepository<T extends Base, ID extends Serializable> extends JpaRepository<T, ID> {
+public interface BaseRepository<T extends Base<ID>, ID extends Number> extends JpaRepository<T, ID> {
 
 }

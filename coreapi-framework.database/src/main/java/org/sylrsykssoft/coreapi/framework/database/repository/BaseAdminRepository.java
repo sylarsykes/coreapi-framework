@@ -1,14 +1,11 @@
 package org.sylrsykssoft.coreapi.framework.database.repository;
 
-import java.util.List;
 import java.util.Optional;
 
-import org.springframework.data.domain.Example;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.transaction.annotation.Transactional;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseAdmin;
-
 
 /**
  * The Interface BaseAdminRepository.
@@ -28,11 +25,6 @@ public interface BaseAdminRepository<T extends BaseAdmin> extends JpaRepository<
 	 * 
 	 * @return T entity.
 	 */
-	Optional<T> findByName(final String name);
-	
-	/**
-	 * {@inheritDoc}
-	 */
-	<S extends T> List<S> findAll(Example<S> example);
+	Optional<T> findByName(String name);
 	
 }

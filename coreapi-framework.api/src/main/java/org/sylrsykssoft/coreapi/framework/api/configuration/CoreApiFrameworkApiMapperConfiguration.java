@@ -28,6 +28,7 @@ public class CoreApiFrameworkApiMapperConfiguration {
 	@Bean
 	@Scope(value = "prototype")
 	@Lazy(value = true)
+	@SuppressWarnings("rawtypes")
 	public ModelMapperFunction<Base, BaseResource> baseMapperToResourceFunction() {
 		return new ModelMapperFunction<Base, BaseResource>(Base.class, BaseResource.class);
 	}
@@ -40,6 +41,7 @@ public class CoreApiFrameworkApiMapperConfiguration {
 	@Bean
 	@Scope(value = "prototype")
 	@Lazy(value = true)
+	@SuppressWarnings("rawtypes")
 	public ModelMapperFunction<BaseResource, Base> baseMapperToEntityFunction() {
 		return new ModelMapperFunction<BaseResource, Base>(BaseResource.class, Base.class);
 	}

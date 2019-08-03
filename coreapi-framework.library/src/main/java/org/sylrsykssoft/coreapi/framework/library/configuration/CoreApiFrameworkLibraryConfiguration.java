@@ -20,10 +20,11 @@ public class CoreApiFrameworkLibraryConfiguration {
 	 * Logger bean
 	 * 
 	 * @param injectionPoint
-	 * @return
+	 * @return Logger
 	 */
 	@Bean
 	@Scope("prototype")
+	@SuppressWarnings("exports")
 	public Logger logger(final InjectionPoint injectionPoint) {
 		return LoggerFactory.getLogger(injectionPoint.getMethodParameter().getContainingClass());
 	}
@@ -33,6 +34,8 @@ public class CoreApiFrameworkLibraryConfiguration {
 	 * @return
 	 */
 	@Bean
+	@Scope("prototype")
+	@SuppressWarnings("exports")
 	public ModelMapper modelMapper() {
 	    return new ModelMapper();
 	}

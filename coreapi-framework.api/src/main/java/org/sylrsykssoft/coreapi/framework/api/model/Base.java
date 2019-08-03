@@ -34,7 +34,7 @@ import lombok.experimental.SuperBuilder;
 @Setter
 @Getter
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
-public class Base<ID> implements Persistable<ID> {
+public class Base<ID extends Number> implements Persistable<ID> {
 
 	@Id()
 	@GeneratedValue(strategy = GenerationType.AUTO)

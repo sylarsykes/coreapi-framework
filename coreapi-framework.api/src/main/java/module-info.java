@@ -13,5 +13,5 @@ module coreapi.framework.api {
 	requires spring.data.commons;
 	requires spring.data.jpa;
 	requires java.desktop;
-	requires spring.hateoas;
+	requires transitive spring.hateoas;
 }

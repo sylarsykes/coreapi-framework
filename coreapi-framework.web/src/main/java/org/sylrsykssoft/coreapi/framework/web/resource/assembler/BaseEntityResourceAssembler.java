@@ -22,7 +22,7 @@ import org.sylrsykssoft.coreapi.framework.web.BaseEntityController;
  * 
  * @author juan.gonzalez.fernandez.jgf
  */
-public abstract class BaseEntityResourceAssembler<C extends BaseEntityController, T extends BaseEntity, R extends BaseEntityResource> extends ResourceAssemblerSupport<T, R> {
+public abstract class BaseEntityResourceAssembler<C extends BaseEntityController<R, T>, T extends BaseEntity, R extends BaseEntityResource> extends ResourceAssemblerSupport<T, R> {
 
 	protected Class<C> controllerClass;
 	/** The entity class. */
@@ -69,7 +69,6 @@ public abstract class BaseEntityResourceAssembler<C extends BaseEntityController
 	 * @param entity the entity
 	 * @return the base resource
 	 */
-	@SuppressWarnings("unchecked")
 	@Override
 	public R toResource(final T entity) {
 		final R instance = getEntityMapperToResourceFunction().apply(entity);
