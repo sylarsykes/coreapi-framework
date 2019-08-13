@@ -9,4 +9,5 @@ module coreapi.framework.service {
 	requires transitive spring.data.commons;
 	requires spring.data.jpa;
 	requires spring.hateoas;
+	requires lombok;
 }

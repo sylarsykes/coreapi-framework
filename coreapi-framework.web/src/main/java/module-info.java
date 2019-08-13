@@ -12,6 +12,9 @@ module coreapi.framework.web {
 	requires transitive slf4j.api;
 	requires spring.data.commons;
 	requires transitive spring.hateoas;
-	requires spring.web;
+	requires transitive spring.web;
 	requires java.desktop;
+	requires spring.context;
+	requires transitive spring.boot;
+	requires spring.beans;
 }
