@@ -123,8 +123,18 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 	 * {@inheritDoc}
 	 */
 	@Override
-	public R save(final R entity) throws NotFoundEntityException {
-		if (entity.getEntityId() != null && !existsById(entity.getEntityId())) {
+	public R create(final R entity) throws NotFoundEntityException {
+		final T source = getEntityRepository().save(mapperToEntity().apply(entity));
+		// Convert entity to resource
+		return mapperToResource().toResource(source);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public R update(final R entity) throws NotFoundEntityException {
+		if (entity.getEntityId() == null) {
 			throw new NotFoundEntityException();
 		}
 		

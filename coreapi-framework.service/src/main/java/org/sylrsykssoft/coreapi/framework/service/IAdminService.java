@@ -108,7 +108,16 @@ public interface IAdminService<T extends BaseAdmin, R extends BaseAdminResource,
 	 * @param entity must not be {@literal null}.
 	 * @return the saved entity will never be {@literal null}.
 	 */
-	R save(R entity) throws NotFoundEntityException;
+	R create(R entity);
+	
+	/**
+	 * Saves a given entity. Use the returned instance for further operations as the save operation might have changed the
+	 * entity instance completely.
+	 * 
+	 * @param entity must not be {@literal null}.
+	 * @return the saved entity will never be {@literal null}.
+	 */
+	R update(R entity) throws NotFoundEntityException;
 
 	/**
 	 * Saves all given entities.

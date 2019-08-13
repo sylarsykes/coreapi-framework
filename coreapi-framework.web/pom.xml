@@ -18,6 +18,9 @@
   
   <properties>
     <main.basedir>${basedir}/../</main.basedir>
+    
+    <coreapi-framework.web.base.admin.controller.base.path></coreapi-framework.web.base.admin.controller.base.path>
+    <coreapi-framework.web.base.entity.controller.base.path></coreapi-framework.web.base.entity.controller.base.path>
   </properties>
   
   <dependencies>
