@@ -14,4 +14,5 @@ module coreapi.framework.api {
 	requires spring.data.jpa;
 	requires java.desktop;
 	requires transitive spring.hateoas;
+	requires org.hibernate.orm.core;
 }

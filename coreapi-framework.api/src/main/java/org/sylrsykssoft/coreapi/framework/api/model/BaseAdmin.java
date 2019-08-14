@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
 
+import org.hibernate.annotations.Where;
 import org.springframework.lang.Nullable;
 
 import lombok.AccessLevel;
@@ -25,6 +26,7 @@ import lombok.Setter;
  *
  */
 @MappedSuperclass
+@Where(clause = "removedAt = null")
 @Data
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
