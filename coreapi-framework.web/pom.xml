@@ -5,9 +5,9 @@
   
   <parent>
     <groupId>org.sylrsykssoft</groupId>
-    <artifactId>coreapi-framework.parent-web</artifactId>
+    <artifactId>coreapi-framework</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <relativePath>../coreapi-framework.parent-web</relativePath>
+    <relativePath>../</relativePath>
   </parent>
 
   <artifactId>coreapi-framework.web</artifactId>
@@ -18,15 +18,20 @@
   
   <properties>
     <main.basedir>${basedir}/../</main.basedir>
-    
-    <coreapi-framework.web.base.admin.controller.base.path></coreapi-framework.web.base.admin.controller.base.path>
-    <coreapi-framework.web.base.entity.controller.base.path></coreapi-framework.web.base.entity.controller.base.path>
   </properties>
   
   <dependencies>
   	<dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-hateoas</artifactId>
+		<version>${spring-boot.version}</version>
+	</dependency>
+	
+	<!-- Core API Framework Libraries -->
+    <dependency>
+		<groupId>org.sylrsykssoft</groupId>
+		<artifactId>coreapi-framework.service</artifactId>
+		<version>${coreapi-framework.service.version}</version>
 	</dependency>
   </dependencies>
 </project>

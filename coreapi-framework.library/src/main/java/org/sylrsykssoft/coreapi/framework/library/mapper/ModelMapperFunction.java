@@ -1,13 +1,9 @@
 package org.sylrsykssoft.coreapi.framework.library.mapper;
 
 import java.beans.ConstructorProperties;
-import java.util.List;
 import java.util.function.Function;
 
-import org.apache.commons.collections4.CollectionUtils;
 import org.modelmapper.ModelMapper;
-import org.modelmapper.PropertyMap;
-import org.modelmapper.convention.MatchingStrategies;
 import org.springframework.beans.factory.annotation.Autowired;
 
 import lombok.extern.slf4j.Slf4j;
@@ -29,9 +25,6 @@ public class ModelMapperFunction<T, R> implements Function<T, R> {
 	private Class<T> sourceClass;
 	private Class<R> targetClass;
 	
-	@SuppressWarnings("rawtypes")
-	private List<PropertyMap> mappings;
-	
 	/**
 	 * AllArgsContructor
 	 * 
@@ -43,43 +36,19 @@ public class ModelMapperFunction<T, R> implements Function<T, R> {
 		this.sourceClass = sourceClass;
 		this.targetClass = targetClass;
 	}
-	
-	/**
-	 * AllArgsContructor
-	 * 
-	 * @param sourceClass
-	 * @param targetClass
-	 */
-	@SuppressWarnings({ "rawtypes", "exports" })
-	@ConstructorProperties({ "sourceClass", "targetClass", "mappings" })
-	public ModelMapperFunction(final Class<T> sourceClass, final Class<R> targetClass, final List<PropertyMap> mappings) {
-		this.sourceClass = sourceClass;
-		this.targetClass = targetClass;
-		this.mappings = mappings;
-	}
-	
+		
 	/**
 	 * {@inherit}
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
 	@Override
-	public R apply(T source) {
-		//modelMapper.getConfiguration().setMatchingStrategy(MatchingStrategies.STRICT);
+	public R apply(final T source) {
+		LOGGER.info("ModelMapperFunction::apply Mapper a source: {}", source);
 		
-		if (CollectionUtils.isNotEmpty(this.mappings)) {
-			for (PropertyMap propertyMap : mappings) {
-				modelMapper.addMappings(propertyMap);
-			}
-		}
+		final R target = modelMapper.map(source, targetClass);
 		
-//		try {
-//			// test that all fields are mapped
-//			modelMapper.validate();
-//		} catch (ValidationException e) {
-//			LOGGER.warn("ModelMapperFunction::validate Validating a entry: {} and exception {}", source, e);
-//		}
+		LOGGER.info("ModelMapperFunction::apply Result -> {}", target);
 		
-		return modelMapper.map(source, targetClass);
+		return target;
 	}
 
 

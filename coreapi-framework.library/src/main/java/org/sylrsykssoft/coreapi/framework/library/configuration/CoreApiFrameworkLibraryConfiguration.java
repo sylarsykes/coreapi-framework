@@ -24,7 +24,6 @@ public class CoreApiFrameworkLibraryConfiguration {
 	 */
 	@Bean
 	@Scope("prototype")
-	@SuppressWarnings("exports")
 	public Logger logger(final InjectionPoint injectionPoint) {
 		return LoggerFactory.getLogger(injectionPoint.getMethodParameter().getContainingClass());
 	}
@@ -35,7 +34,6 @@ public class CoreApiFrameworkLibraryConfiguration {
 	 */
 	@Bean
 	@Scope("prototype")
-	@SuppressWarnings("exports")
 	public ModelMapper modelMapper() {
 	    return new ModelMapper();
 	}

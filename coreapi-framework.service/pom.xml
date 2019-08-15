@@ -5,9 +5,9 @@
   
   <parent>
     <groupId>org.sylrsykssoft</groupId>
-    <artifactId>coreapi-framework.parent-service</artifactId>
+    <artifactId>coreapi-framework</artifactId>
     <version>0.0.1-SNAPSHOT</version>
-    <relativePath>../coreapi-framework.parent-service</relativePath>
+    <relativePath>../</relativePath>
   </parent>
 
   <artifactId>coreapi-framework.service</artifactId>
@@ -19,4 +19,25 @@
   <properties>
   	<main.basedir>${basedir}/../</main.basedir>
   </properties>
+  
+  <dependencies>
+    
+    <!-- Corea API Framework Libraries -->
+    <dependency>
+		<groupId>org.sylrsykssoft</groupId>
+		<artifactId>coreapi-framework.library</artifactId>
+		<version>${coreapi-framework.library.version}</version>
+	</dependency>
+    <dependency>
+		<groupId>org.sylrsykssoft</groupId>
+		<artifactId>coreapi-framework.api</artifactId>
+		<version>${coreapi-framework.api.version}</version>
+	</dependency>
+    <dependency>
+		<groupId>org.sylrsykssoft</groupId>
+		<artifactId>coreapi-framework.database</artifactId>
+		<version>${coreapi-framework.database.version}</version>
+	</dependency>
+    
+  </dependencies>
 </project>
