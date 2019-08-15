@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 https://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+	
+	<parent>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-starter-parent</artifactId>
+		<version>2.1.7.RELEASE</version>
+		<relativePath/> <!-- lookup parent from repository -->
+	</parent>
+	
+	<groupId>org.sylrsykssoft</groupId>
+	<artifactId>coreapi-framework.boot</artifactId>
+	<version>0.0.1-SNAPSHOT</version>
+	<packaging>pom</packaging>
+		
+	<name>coreapi-framework.boot</name>
+	<description>Demo project for Spring Boot</description>
+	<url>https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.boot</url>
+
+	<developers>
+		<developer>
+			<id>juan.gonzalez.fernandez.jgf</id>
+			<name>Juan Gonzalez Fernandez</name>
+			<email>${developer.email}</email>
+			<url>https://github.com/sylarsykes</url>
+		</developer>
+	</developers>
+	<licenses>
+		<license>
+			<name>Apache License, Version 2.0</name>
+			<url>https://www.apache.org/licenses/LICENSE-2.0</url>
+		</license>
+	</licenses>
+	<scm>
+		<url>https://github.com/sylarsykes/coreapi-framework</url>
+		<connection>https://github.com/sylarsykes/coreapi-framework.git</connection>
+		<developerConnection>ps://github.com/sylarsykes</developerConnection>
+	</scm>
+
+	<properties>
+		<!-- Common -->
+		<developer.email>juan.gonzalez.fernandez.jgf@outlook.com</developer.email>
+		<main.basedir>${basedir}</main.basedir>
+		<java.version>11</java.version>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+    	<maven.compiler.source>${java.version}</maven.compiler.source>
+    	<maven.compiler.target>${java.version}</maven.compiler.target>
+    	<maven.compiler.release>${java.version}</maven.compiler.release>
+		
+		<!-- Core API Dependencies -->
+		<coreapi-framework.library.version>${project.version}</coreapi-framework.library.version>
+		<coreapi-framework.api.version>${project.version}</coreapi-framework.api.version>
+		<coreapi-framework.database.version>${project.version}</coreapi-framework.database.version>
+		<coreapi-framework.service.version>${project.version}</coreapi-framework.service.version>
+		<coreapi-framework.web.version>${project.version}</coreapi-framework.web.version>
+	
+	    <!-- Dependency versions -->
+	    <spring-boot.version>2.1.7.RELEASE</spring-boot.version>
+	    <commons-lang3.version>3.8.1</commons-lang3.version>
+		<commons-collections4.version>4.4</commons-collections4.version>
+		<log4j.version>1.2.17</log4j.version>
+		<modelmapper-spring.version>2.3.4</modelmapper-spring.version>
+		<slf4j.version>1.7.26</slf4j.version>
+		<lombok-maven-plugin.version>1.18.6.0</lombok-maven-plugin.version>
+	</properties>
+	
+	<dependencies>
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter</artifactId>
+		</dependency>
+		
+		<!-- Configure lombok in your IDE -->
+		<!-- https://www.baeldung.com/lombok-ide -->
+		<dependency>
+			<groupId>org.projectlombok</groupId>
+			<artifactId>lombok</artifactId>
+			<scope>provided</scope>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.slf4j</groupId>
+			<artifactId>slf4j-api</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>log4j</groupId>
+			<artifactId>log4j</artifactId>
+			<version>${log4j.version}</version>
+		</dependency>
+		
+		<!-- Core API Dependencies -->
+		<dependency>
+			<groupId>org.sylrsykssoft</groupId>
+	    	<artifactId>coreapi-framework.library</artifactId>
+	    	<version>${coreapi-framework.library.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.sylrsykssoft</groupId>
+	    	<artifactId>coreapi-framework.api</artifactId>
+	    	<version>${coreapi-framework.api.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.sylrsykssoft</groupId>
+	    	<artifactId>coreapi-framework.database</artifactId>
+	    	<version>${coreapi-framework.database.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.sylrsykssoft</groupId>
+	    	<artifactId>coreapi-framework.service</artifactId>
+	    	<version>${coreapi-framework.service.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.sylrsykssoft</groupId>
+	    	<artifactId>coreapi-framework.web</artifactId>
+	    	<version>${coreapi-framework.web.version}</version>
+		</dependency>
+		
+		<dependency>
+			<groupId>org.springframework.boot</groupId>
+			<artifactId>spring-boot-starter-test</artifactId>
+			<scope>test</scope>
+			            <exclusions>
+                <exclusion>
+                    <groupId>junit</groupId>
+                    <artifactId>junit</artifactId>
+                </exclusion>
+            </exclusions>
+		</dependency>	 
+		
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-api</artifactId>
+            <scope>test</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.junit.jupiter</groupId>
+            <artifactId>junit-jupiter-engine</artifactId>
+            <scope>test</scope>
+        </dependency>
+        
+	</dependencies>
+    
+    <build>
+    	<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.springframework.boot</groupId>
+					<artifactId>spring-boot-maven-plugin</artifactId>
+				</plugin>
+				
+			    <plugin>
+			        <groupId>org.apache.maven.plugins</groupId>
+			        <artifactId>maven-compiler-plugin</artifactId>
+			        <version>${maven-compiler-plugin.version}</version>
+			        <configuration>
+			        	<source>${maven.compiler.source}</source>
+			        	<target>${maven.compiler.target}</target>
+			        	<release>${maven.compiler.release}</release>
+			        	<!-- Unable to use Lombok with Java 11 -->
+			        	<annotationProcessorPaths>
+			        		<annotationProcessorPath>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok</artifactId>
+								<version>${lombok.version}</version>
+			        		</annotationProcessorPath>
+			        	</annotationProcessorPaths>
+			        </configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+    </build>
+</project>
