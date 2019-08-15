@@ -1,6 +1,5 @@
 package org.sylrsykssoft.coreapi.framework.web.resource.assembler;
 
-
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.linkTo;
 import static org.springframework.hateoas.mvc.ControllerLinkBuilder.methodOn;
 
@@ -16,7 +15,6 @@ import org.sylrsykssoft.coreapi.framework.api.resource.BaseEntityResource;
 import org.sylrsykssoft.coreapi.framework.library.mapper.ModelMapperFunction;
 import org.sylrsykssoft.coreapi.framework.web.BaseEntityController;
 
-
 /**
  * The Class BaseResourceAssembler.
  * 
@@ -30,9 +28,6 @@ public abstract class BaseEntityResourceAssembler<C extends BaseEntityController
 	
 	/** The parameters. */
 	protected Object[] parameters;
-	
-	/** The base entity resource model mapper function. */
-	public abstract ModelMapperFunction<T, R> getEntityMapperToResourceFunction();
 	
 	/**
 	 * Instantiates a new base resource assembler.
@@ -63,6 +58,9 @@ public abstract class BaseEntityResourceAssembler<C extends BaseEntityController
 		this.parameters = parameters;
 	}
 	
+	/** The base entity resource model mapper function. */
+	public abstract ModelMapperFunction<T, R> getEntityMapperToResourceFunction();
+	
 	/**
 	 * To resource.
 	 *
@@ -72,7 +70,7 @@ public abstract class BaseEntityResourceAssembler<C extends BaseEntityController
 	@Override
 	public R toResource(final T entity) {
 		final R instance = getEntityMapperToResourceFunction().apply(entity);
-		final List<Link> links = new ArrayList<Link>();
+		final List<Link> links = new ArrayList<>();
 		
 		final Link idLink = linkTo(methodOn(controllerClass).findById(instance.getEntityId())).withSelfRel();
 		idLink.withType("GET");

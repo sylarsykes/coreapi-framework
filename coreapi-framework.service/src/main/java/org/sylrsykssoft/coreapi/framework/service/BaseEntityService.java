@@ -24,47 +24,69 @@ import org.sylrsykssoft.coreapi.framework.library.mapper.IMapperFunction;
 public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEntityResource> implements IEntityService<T, R, Long>, IMapperFunction<T, R> {
 
 	/**
-	 * Getter repository implementation
-	 * 
-	 * @return BaseAdminRepository<T>
-	 */
-	public abstract BaseEntityRepository<T> getEntityRepository();
-	
-	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Optional<R> findById(Long id) throws NotFoundEntityException {
-		final Optional<T> source = getEntityRepository().findById(id);
-		// Convert entity to resource
-		return Optional.of(source.flatMap(
-				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().toResource(input)))
-				.orElseThrow(NotFoundEntityException::new));
+	public long count() {
+		return getEntityRepository().count();
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public Optional<R> findByExample(Example<R> example) throws NotFoundEntityException, IncorrectResultSizeException {
-		final T entity = mapperToEntity().apply(example.getProbe());
-		final Example<T> exampleToFind = Example.of(entity, example.getMatcher());
+	public R create(final R entity) throws NotFoundEntityException {
+		final T source = getEntityRepository().save(mapperToEntity().apply(entity));
+		// Convert entity to resource
+		return mapperToResource().toResource(source);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void delete(final R source) throws NotFoundEntityException {
+		if (source.getEntityId() != null && !existsById(source.getEntityId()))
+			throw new NotFoundEntityException();
 		
-		final Optional<T> source = getEntityRepository().findOne(exampleToFind);
-		// Convert entity to resource
-		return Optional.of(source.flatMap(
-				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().toResource(input)))
-				.orElseThrow(NotFoundEntityException::new));
+		final T entity = mapperToEntity().apply(source);
+		getEntityRepository().delete(entity);
 	}
 	
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<R> findAllById(Iterable<Long> ids) {
-		final List<T> sources = getEntityRepository().findAllById(ids);
-		// Convert entity to resource
-		return sources.stream().map(mapperToResource()::toResource).collect(Collectors.toList());
+	public void deleteAll() {
+		getEntityRepository().deleteAll();
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void deleteAll(final Iterable<? extends R> sources) throws NotFoundEntityException {
+		final Iterable<T> entities = StreamSupport.stream(sources.spliterator(), false)
+				.map(mapperToEntity()::apply)
+				.collect(Collectors.toList());
+		
+		getEntityRepository().deleteAll(entities);
+	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public void deleteById(final Long id) throws NotFoundEntityException {
+		getEntityRepository().deleteById(id);
+	}
+	
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public boolean existsById(final Long id) {
+		return getEntityRepository().existsById(id);
 	}
 	
 	/**
@@ -81,7 +103,7 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<R> findAllByExample(Example<R> example) {
+	public List<R> findAllByExample(final Example<R> example) {
 		final T entity = mapperToEntity().apply(example.getProbe());
 		final Example<T> exampleToFind = Example.of(entity, example.getMatcher());
 		
@@ -89,12 +111,12 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 		// Convert entity to resource
 		return sources.stream().map(mapperToResource()::toResource).collect(Collectors.toList());
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public List<R> findAllByExampleSortable(Example<R> example, Sort sort) {
+	public List<R> findAllByExampleSortable(final Example<R> example, final Sort sort) {
 		final T entity = mapperToEntity().apply(example.getProbe());
 		final Example<T> exampleToFind = Example.of(entity, example.getMatcher());
 		
@@ -107,41 +129,45 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 	 * {@inheritDoc}
 	 */
 	@Override
-	public long count() {
-		return getEntityRepository().count();
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public boolean existsById(Long id) {
-		return getEntityRepository().existsById(id);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public R create(final R entity) throws NotFoundEntityException {
-		final T source = getEntityRepository().save(mapperToEntity().apply(entity));
+	public List<R> findAllById(final Iterable<Long> ids) {
+		final List<T> sources = getEntityRepository().findAllById(ids);
 		// Convert entity to resource
-		return mapperToResource().toResource(source);
+		return sources.stream().map(mapperToResource()::toResource).collect(Collectors.toList());
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
-	public R update(final R entity) throws NotFoundEntityException {
-		if (entity.getEntityId() == null) {
-			throw new NotFoundEntityException();
-		}
+	public Optional<R> findByExample(final Example<R> example) throws NotFoundEntityException, IncorrectResultSizeException {
+		final T entity = mapperToEntity().apply(example.getProbe());
+		final Example<T> exampleToFind = Example.of(entity, example.getMatcher());
 		
-		final T source = getEntityRepository().save(mapperToEntity().apply(entity));
+		final Optional<T> source = getEntityRepository().findOne(exampleToFind);
 		// Convert entity to resource
-		return mapperToResource().toResource(source);
+		return Optional.of(source.flatMap(
+				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().toResource(input)))
+				.orElseThrow(NotFoundEntityException::new));
 	}
+
+	/**
+	 * {@inheritDoc}
+	 */
+	@Override
+	public Optional<R> findById(final Long id) throws NotFoundEntityException {
+		final Optional<T> source = getEntityRepository().findById(id);
+		// Convert entity to resource
+		return Optional.of(source.flatMap(
+				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().toResource(input)))
+				.orElseThrow(NotFoundEntityException::new));
+	}
+
+	/**
+	 * Getter repository implementation
+	 * 
+	 * @return BaseAdminRepository<T>
+	 */
+	public abstract BaseEntityRepository<T> getEntityRepository();
 
 	/**
 	 * {@inheritDoc}
@@ -162,41 +188,13 @@ public abstract class BaseEntityService<T extends BaseEntity, R extends BaseEnti
 	 * {@inheritDoc}
 	 */
 	@Override
-	public void deleteById(Long id) throws NotFoundEntityException {
-		getEntityRepository().deleteById(id);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void delete(R source) throws NotFoundEntityException {
-		if (source.getEntityId() != null && !existsById(source.getEntityId())) {
+	public R update(final R entity) throws NotFoundEntityException {
+		if (entity.getEntityId() == null)
 			throw new NotFoundEntityException();
-		}
 		
-		final T entity = mapperToEntity().apply(source);
-		getEntityRepository().delete(entity);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void deleteAll(Iterable<? extends R> sources) throws NotFoundEntityException {
-		final Iterable<T> entities = StreamSupport.stream(sources.spliterator(), false)
-				.map(mapperToEntity()::apply)
-				.collect(Collectors.toList());
-		
-		getEntityRepository().deleteAll(entities);
-	}
-
-	/**
-	 * {@inheritDoc}
-	 */
-	@Override
-	public void deleteAll() {
-		getEntityRepository().deleteAll();
+		final T source = getEntityRepository().save(mapperToEntity().apply(entity));
+		// Convert entity to resource
+		return mapperToResource().toResource(source);
 	}
 	
 }

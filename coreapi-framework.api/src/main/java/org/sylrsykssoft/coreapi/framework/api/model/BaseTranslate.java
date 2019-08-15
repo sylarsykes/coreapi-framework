@@ -14,11 +14,11 @@ import lombok.Setter;
  * @author juan.gonzalez.fernandez.jgf
  *
  */
-@Data()
+@Data
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-@Setter()
-@Getter()
+@Setter
+@Getter
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
 public class BaseTranslate {
 

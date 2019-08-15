@@ -39,9 +39,6 @@ import lombok.Setter;
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
 public class OneAddress<T extends Base<ID>, ID extends Number> extends Address<T, ID> {
 
-	@OneToOne
-    private T person;
-
 	/**
 	 * OneAddressBuilder
 	 * 
@@ -59,4 +56,7 @@ public class OneAddress<T extends Base<ID>, ID extends Number> extends Address<T
 			return this;
 		}
     }
+
+	@OneToOne
+    private T person;
 }

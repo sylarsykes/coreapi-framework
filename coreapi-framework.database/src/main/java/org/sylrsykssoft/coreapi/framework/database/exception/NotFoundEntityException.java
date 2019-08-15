@@ -33,16 +33,6 @@ public final class NotFoundEntityException extends RuntimeException {
 	}
 	
 	/**
-	 * Cause constructor
-	 * 
-	 * @param cause
-	 */
-	@ConstructorProperties({ "cause"})
-	public NotFoundEntityException(final Throwable cause) {
-		super(cause);
-	}
-	
-	/**
 	 * AllArgsConstructor
 	 * 
 	 * @param message
@@ -51,6 +41,16 @@ public final class NotFoundEntityException extends RuntimeException {
 	@ConstructorProperties({ "message", "cause"})
 	public NotFoundEntityException(final String message, final Throwable cause) {
 		super(message, cause);
+	}
+	
+	/**
+	 * Cause constructor
+	 * 
+	 * @param cause
+	 */
+	@ConstructorProperties({ "cause"})
+	public NotFoundEntityException(final Throwable cause) {
+		super(cause);
 	}
 
 }

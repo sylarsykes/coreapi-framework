@@ -23,68 +23,6 @@ import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityExcep
 public interface IEntityService<T extends BaseEntity, R extends BaseEntityResource, ID extends Serializable> {
 	
 	/**
-	 * Retrieves an entity by its id.
-	 * 
-	 * @param id must not be {@literal null}.
-	 * @return the entity with the given id or {@literal Optional#empty()} if none found
-	 * @throws IllegalArgumentException if {@code id} is {@literal null}.
-	 */
-	Optional<R> findById(ID id) throws NotFoundEntityException;
-	
-	/**
-	 * Returns a single entity matching the given {@link Example} or {@literal null} if none was found.
-	 *
-	 * @param example must not be {@literal null}.
-	 * @return a single entity matching the given {@link Example} or {@link Optional#empty()} if none was found.
-	 * @throws NotFoundEntityException if no entity exists for given {@code id}.
-	 * @throws IncorrectResultSizeException if the Example yields more than one result.
-	 */
-	Optional<R> findByExample(Example<R> example) throws NotFoundEntityException, IncorrectResultSizeException;
-	
-	/**
-	 * Returns all instances of the type with the given IDs.
-	 * 
-	 * @param ids
-	 * @return
-	 */
-	List<R> findAllById(Iterable<ID> ids);
-	
-	/**
-	 * Returns all instances of the type.
-	 * 
-	 * @return all entities
-	 */
-	List<R> findAll();
-
-	/**
-	 * Returns all entities matching the given {@link Example}. In case no match could be found an empty {@link Iterable}
-	 * is returned.
-	 *
-	 * @param example must not be {@literal null}.
-	 * @return all entities matching the given {@link Example}.
-	 */
-	List<R> findAllByExample(Example<R> example);
-
-	/**
-	 * Returns all entities matching the given {@link Example} applying the given {@link Sort}. In case no match could be
-	 * found an empty {@link Iterable} is returned.
-	 *
-	 * @param example must not be {@literal null}.
-	 * @param sort the {@link Sort} specification to sort the results by, must not be {@literal null}.
-	 * @return all entities matching the given {@link Example}.
-	 */
-	List<R> findAllByExampleSortable(Example<R> example, Sort sort);
-	
-	/**
-	 * Returns whether an entity with the given id exists.
-	 * 
-	 * @param id must not be {@literal null}.
-	 * @return {@literal true} if an entity with the given id exists, {@literal false} otherwise.
-	 * @throws IllegalArgumentException if {@code id} is {@literal null}.
-	 */
-	boolean existsById(ID id);
-	
-	/**
 	 * Returns the number of entities available.
 	 * 
 	 * @return the number of entities
@@ -101,13 +39,95 @@ public interface IEntityService<T extends BaseEntity, R extends BaseEntityResour
 	R create(R entity);
 	
 	/**
-	 * Saves a given entity. Use the returned instance for further operations as the save operation might have changed the
-	 * entity instance completely.
+	 * Deletes a given entity.
 	 * 
-	 * @param entity must not be {@literal null}.
-	 * @return the saved entity will never be {@literal null}.
+	 * @param entity
+	 * @throws IllegalArgumentException in case the given entity is {@literal null}.
 	 */
-	R update(R entity) throws NotFoundEntityException;
+	void delete(R entity) throws NotFoundEntityException;
+	
+	/**
+	 * Deletes all entities managed by the repository.
+	 */
+	void deleteAll();
+
+	/**
+	 * Deletes the given entities.
+	 * 
+	 * @param entities
+	 * @throws IllegalArgumentException in case the given {@link Iterable} is {@literal null}.
+	 */
+	void deleteAll(Iterable<? extends R> entities) throws NotFoundEntityException;
+
+	/**
+	 * Deletes the entity with the given id.
+	 * 
+	 * @param id must not be {@literal null}.
+	 * @throws IllegalArgumentException in case the given {@code id} is {@literal null}
+	 */
+	void deleteById(ID id) throws NotFoundEntityException;
+	
+	/**
+	 * Returns whether an entity with the given id exists.
+	 * 
+	 * @param id must not be {@literal null}.
+	 * @return {@literal true} if an entity with the given id exists, {@literal false} otherwise.
+	 * @throws IllegalArgumentException if {@code id} is {@literal null}.
+	 */
+	boolean existsById(ID id);
+	
+	/**
+	 * Returns all instances of the type.
+	 * 
+	 * @return all entities
+	 */
+	List<R> findAll();
+	
+	/**
+	 * Returns all entities matching the given {@link Example}. In case no match could be found an empty {@link Iterable}
+	 * is returned.
+	 *
+	 * @param example must not be {@literal null}.
+	 * @return all entities matching the given {@link Example}.
+	 */
+	List<R> findAllByExample(Example<R> example);
+	
+	/**
+	 * Returns all entities matching the given {@link Example} applying the given {@link Sort}. In case no match could be
+	 * found an empty {@link Iterable} is returned.
+	 *
+	 * @param example must not be {@literal null}.
+	 * @param sort the {@link Sort} specification to sort the results by, must not be {@literal null}.
+	 * @return all entities matching the given {@link Example}.
+	 */
+	List<R> findAllByExampleSortable(Example<R> example, Sort sort);
+
+	/**
+	 * Returns all instances of the type with the given IDs.
+	 * 
+	 * @param ids
+	 * @return
+	 */
+	List<R> findAllById(Iterable<ID> ids);
+
+	/**
+	 * Returns a single entity matching the given {@link Example} or {@literal null} if none was found.
+	 *
+	 * @param example must not be {@literal null}.
+	 * @return a single entity matching the given {@link Example} or {@link Optional#empty()} if none was found.
+	 * @throws NotFoundEntityException if no entity exists for given {@code id}.
+	 * @throws IncorrectResultSizeException if the Example yields more than one result.
+	 */
+	Optional<R> findByExample(Example<R> example) throws NotFoundEntityException, IncorrectResultSizeException;
+
+	/**
+	 * Retrieves an entity by its id.
+	 * 
+	 * @param id must not be {@literal null}.
+	 * @return the entity with the given id or {@literal Optional#empty()} if none found
+	 * @throws IllegalArgumentException if {@code id} is {@literal null}.
+	 */
+	Optional<R> findById(ID id) throws NotFoundEntityException;
 
 	/**
 	 * Saves all given entities.
@@ -119,31 +139,11 @@ public interface IEntityService<T extends BaseEntity, R extends BaseEntityResour
 	List<R> saveAll(Iterable<R> entities) throws NotFoundEntityException;
 
 	/**
-	 * Deletes the entity with the given id.
+	 * Saves a given entity. Use the returned instance for further operations as the save operation might have changed the
+	 * entity instance completely.
 	 * 
-	 * @param id must not be {@literal null}.
-	 * @throws IllegalArgumentException in case the given {@code id} is {@literal null}
+	 * @param entity must not be {@literal null}.
+	 * @return the saved entity will never be {@literal null}.
 	 */
-	void deleteById(ID id) throws NotFoundEntityException;
-
-	/**
-	 * Deletes a given entity.
-	 * 
-	 * @param entity
-	 * @throws IllegalArgumentException in case the given entity is {@literal null}.
-	 */
-	void delete(R entity) throws NotFoundEntityException;
-
-	/**
-	 * Deletes the given entities.
-	 * 
-	 * @param entities
-	 * @throws IllegalArgumentException in case the given {@link Iterable} is {@literal null}.
-	 */
-	void deleteAll(Iterable<? extends R> entities) throws NotFoundEntityException;
-
-	/**
-	 * Deletes all entities managed by the repository.
-	 */
-	void deleteAll();
+	R update(R entity) throws NotFoundEntityException;
 }

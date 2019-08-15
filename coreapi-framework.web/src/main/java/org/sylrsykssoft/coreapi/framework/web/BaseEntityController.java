@@ -41,11 +41,129 @@ import lombok.extern.slf4j.Slf4j;
 public abstract class BaseEntityController<R extends BaseEntityResource, T extends BaseEntity> {
 
 	/**
-	 * Getter service implementation
+	 * Create entry.
 	 * 
-	 * @return BaseEntityService<T, R>
+	 * @param entity
+	 *            Entity.
+	 * 
+	 * @return T entity.
 	 */
-	public abstract BaseEntityService<T, R> getEntityService();
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@ResponseStatus(HttpStatus.CREATED)
+	public R create(final @Valid @RequestBody R entity) {
+		LOGGER.info("BaseEntityController::create Creating a new todo entry by using information: {}", entity);
+
+		final R created = getEntityService().create(entity);
+
+		LOGGER.info("BaseEntityController::create Created a new todo entry: {}", created);
+
+		return created;
+	}
+	
+	/**
+	 * Delete entry.
+	 * 
+	 * @param id
+	 *            Id.
+	 * 
+	 * @throws NotFoundEntityException
+	 * @throws AppException
+	 */
+	@DeleteMapping(path = BaseEntityConstants.CONTROLLER_DELETE_DELETE)
+	@ResponseStatus(HttpStatus.OK)
+	public void delete(final @PathVariable Long id) throws NotFoundEntityException, CoreApiFrameworkLibraryException {	
+		LOGGER.info("BaseEntityController::delete Deleting a entry with id: {}", id);
+
+		final Optional<R> old = getEntityService().findById(id);
+		if (!old.isPresent()) {
+			LOGGER.warn("BaseEntityController::delete not find result for id -> {}", id);
+			throw new NotFoundEntityException();
+		}
+
+		try {
+			getEntityService().deleteById(id);
+		} catch (final Exception e) {
+			throw new CoreApiFrameworkLibraryException(e);
+		}
+	}
+	
+	/**
+	 * Find all entries.
+	 * 
+	 * @return Iterable<T> entries.
+	 * 
+	 * @throws NotFoundEntityException
+	 */
+	@GetMapping
+	public Iterable<R> findAll() throws NotFoundEntityException {
+		LOGGER.info("BaseEntityController::findAll Finding all entries");
+
+		final Iterable<R> entities = getEntityService().findAll();
+		if (entities == null) {
+			LOGGER.warn("BaseAdminController::findAll not find result");
+			throw new NotFoundEntityException();
+		}
+
+		LOGGER.info("BaseEntityController::findAll Found {} entries.", entities);
+
+		return entities;
+	}
+	
+	/**
+	 * Find all entries by example.
+	 * 
+	 * @return Iterable<T> entries.
+	 * 
+	 * @throws NotFoundEntityException
+	 */
+	@PostMapping(path = BaseEntityConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	public Iterable<R> findAllByExample(final @RequestBody R resource) throws NotFoundEntityException {
+		LOGGER.info("BaseEntityController::findAllByExample Finding all entries for example: {}", resource);
+
+		final Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
+		
+		final Iterable<R> entities = getEntityService().findAllByExample(example);
+		if (entities == null) {
+			LOGGER.warn("BaseEntityController::findAllByExample not find result for example -> {}", resource);
+			throw new NotFoundEntityException();
+		}
+
+		LOGGER.info("BaseEntityController::findAllByExample Found {} entries.", entities);
+
+		return entities;
+	}
+
+	/**
+	 * Find all entries by example.
+	 * 
+	 * @param resource MusicalGenreResource object
+	 * @param direction Sorting direction values "asc" or "desc"
+	 * @param properties List of properties
+	 * 
+	 * @return List<MusicalGenreResource> entries.
+	 * 
+	 * @throws NotFoundEntityException
+	 */
+	@PostMapping(path = BaseEntityConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE_SORTABLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	public Iterable<R> findAllByExampleSortable(final @RequestBody R resource, 
+			final @PathVariable String direction, final @PathVariable List<String> properties) throws NotFoundEntityException {
+		LOGGER.info("BaseEntityController::findAllByExampleSortable Finding all entries with example {} with direction {} and properties {}", resource, direction, properties);
+
+		final Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
+		
+		final Direction sortDirection = Direction.fromString(direction);
+		final Sort sort = new Sort(sortDirection, properties);
+		
+		final Iterable<R> entities = getEntityService().findAllByExampleSortable(example, sort);
+		if (entities == null) {
+			LOGGER.warn("BaseEntityController::findAllByExampleSortable not find result for example -> {}", resource);
+			throw new NotFoundEntityException();
+		}
+
+		LOGGER.info("BaseEntityController::findAllByExampleSortable Found {} entries.", entities);
+
+		return entities;
+	}
 	
 	/**
 	 * Find one entry.
@@ -87,7 +205,7 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	public R findOneByExample(final @RequestBody R resource) throws NotFoundEntityException {
 		LOGGER.info("BaseEntityController::findOneByExample Finding a entry : {}", resource);
 		
-		Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
+		final Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
 		
 		final Optional<R> result = getEntityService().findByExample(example);
 		
@@ -100,104 +218,13 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 		
 		return result.get();
 	}
-	
-	/**
-	 * Find all entries.
-	 * 
-	 * @return Iterable<T> entries.
-	 * 
-	 * @throws NotFoundEntityException
-	 */
-	@GetMapping
-	public Iterable<R> findAll() throws NotFoundEntityException {
-		LOGGER.info("BaseEntityController::findAll Finding all entries");
-
-		final Iterable<R> entities = getEntityService().findAll();
-		if (entities == null) {
-			LOGGER.warn("BaseAdminController::findAll not find result");
-			throw new NotFoundEntityException();
-		}
-
-		LOGGER.info("BaseEntityController::findAll Found {} entries.", entities);
-
-		return entities;
-	}
 
 	/**
-	 * Find all entries by example.
+	 * Getter service implementation
 	 * 
-	 * @return Iterable<T> entries.
-	 * 
-	 * @throws NotFoundEntityException
+	 * @return BaseEntityService<T, R>
 	 */
-	@PostMapping(path = BaseEntityConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
-	public Iterable<R> findAllByExample(final @RequestBody R resource) throws NotFoundEntityException {
-		LOGGER.info("BaseEntityController::findAllByExample Finding all entries for example: {}", resource);
-
-		final Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
-		
-		final Iterable<R> entities = getEntityService().findAllByExample(example);
-		if (entities == null) {
-			LOGGER.warn("BaseEntityController::findAllByExample not find result for example -> {}", resource);
-			throw new NotFoundEntityException();
-		}
-
-		LOGGER.info("BaseEntityController::findAllByExample Found {} entries.", entities);
-
-		return entities;
-	}
-	
-	/**
-	 * Find all entries by example.
-	 * 
-	 * @param resource MusicalGenreResource object
-	 * @param direction Sorting direction values "asc" or "desc"
-	 * @param properties List of properties
-	 * 
-	 * @return List<MusicalGenreResource> entries.
-	 * 
-	 * @throws NotFoundEntityException
-	 */
-	@PostMapping(path = BaseEntityConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE_SORTABLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
-	public Iterable<R> findAllByExampleSortable(final @RequestBody R resource, 
-			final @PathVariable String direction, final @PathVariable List<String> properties) throws NotFoundEntityException {
-		LOGGER.info("BaseEntityController::findAllByExampleSortable Finding all entries with example {} with direction {} and properties {}", resource, direction, properties);
-
-		final Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
-		
-		final Direction sortDirection = Direction.fromString(direction);
-		final Sort sort = new Sort(sortDirection, properties);
-		
-		final Iterable<R> entities = getEntityService().findAllByExampleSortable(example, sort);
-		if (entities == null) {
-			LOGGER.warn("BaseEntityController::findAllByExampleSortable not find result for example -> {}", resource);
-			throw new NotFoundEntityException();
-		}
-
-		LOGGER.info("BaseEntityController::findAllByExampleSortable Found {} entries.", entities);
-
-		return entities;
-	}
-	
-	/**
-	 * Create entry.
-	 * 
-	 * @param entity
-	 *            Entity.
-	 * 
-	 * @return T entity.
-	 */
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
-	@ResponseStatus(HttpStatus.CREATED)
-	public R create(final @Valid @RequestBody R entity) {
-		LOGGER.info("BaseEntityController::create Creating a new todo entry by using information: {}", entity);
-
-		final R created = getEntityService().create(entity);
-
-		LOGGER.info("BaseEntityController::create Created a new todo entry: {}", created);
-
-		return created;
-	}
+	public abstract BaseEntityService<T, R> getEntityService();
 
 	/**
 	 * Update entity.
@@ -217,9 +244,8 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	public R update(final @Valid @RequestBody R entity, final @PathVariable Long id) throws NotIdMismatchEntityException, NotFoundEntityException {
 		LOGGER.info("BaseEntityController::update Updating a entry with id: {}", id);
 
-		if (entity.getEntityId() != id) {
+		if (entity.getEntityId() != id)
 			throw new NotIdMismatchEntityException();
-		}
 
 		final Optional<R> old = getEntityService().findById(id);
 		if (!old.isPresent()) {
@@ -232,33 +258,6 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 		LOGGER.info("BaseEntityController::update Updated the entry: {}", updated);
 
 		return updated;
-	}
-
-	/**
-	 * Delete entry.
-	 * 
-	 * @param id
-	 *            Id.
-	 * 
-	 * @throws NotFoundEntityException
-	 * @throws AppException
-	 */
-	@DeleteMapping(path = BaseEntityConstants.CONTROLLER_DELETE_DELETE)
-	@ResponseStatus(HttpStatus.OK)
-	public void delete(final @PathVariable Long id) throws NotFoundEntityException, CoreApiFrameworkLibraryException {	
-		LOGGER.info("BaseEntityController::delete Deleting a entry with id: {}", id);
-
-		final Optional<R> old = getEntityService().findById(id);
-		if (!old.isPresent()) {
-			LOGGER.warn("BaseEntityController::delete not find result for id -> {}", id);
-			throw new NotFoundEntityException();
-		}
-
-		try {
-			getEntityService().deleteById(id);
-		} catch (Exception e) {
-			throw new CoreApiFrameworkLibraryException(e);
-		}
 	}
 	
 }

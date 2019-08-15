@@ -1,6 +1,3 @@
-/**
- * 
- */
 package org.sylrsykssoft.coreapi.framework.library.util;
 
 import java.net.InetAddress;
@@ -15,48 +12,64 @@ import org.springframework.stereotype.Component;
  */
 @Component
 public class EnvironmentUtil {
- 
+
 	@Autowired
-    Environment environment;
+	Environment environment;
 
-    private String port;
-    private String hostname;
+	private String port;
+	private String hostname;
 
-    /**
-     * Get port.
-     *
-     * @return
-     */
-    public String getPort() {
-        if (port == null) port = environment.getProperty("server.port");
-        return port;
-    }
+	/**
+	 * Get hostname.
+	 *
+	 * @return
+	 */
+	public String getHostname() throws UnknownHostException {
+		// TODO ... would this cache cause issue, when network env change ???
+		if (hostname == null) {
+			hostname = InetAddress.getLocalHost().getHostAddress();
+		}
+		return hostname;
+	}
 
-    /**
-     * Get port, as Integer.
-     *
-     * @return
-     */
-    public Integer getPortAsInt() {
-        return Integer.valueOf(getPort());
-    }
+	/**
+	 * Get port.
+	 *
+	 * @return
+	 */
+	public String getPort() {
+		if (port == null) {
+			port = environment.getProperty("server.port");
+		}
+		return port;
+	}
 
-    /**
-     * Get hostname.
-     *
-     * @return
-     */
-    public String getHostname() throws UnknownHostException {
-        // TODO ... would this cache cause issue, when network env change ???
-        if (hostname == null) hostname = InetAddress.getLocalHost().getHostAddress();
-        return hostname;
-    }
+	/**
+	 * Get port, as Integer.
+	 *
+	 * @return
+	 */
+	public Integer getPortAsInt() {
+		return Integer.valueOf(getPort());
+	}
 
-    public String getServerUrlPrefi() throws UnknownHostException {
-        return "http://" + getHostname() + ":" + getPort();
-    }
-    
-    public String getServerSecureUrlPrefi() throws UnknownHostException {
-    	return "https://" + getHostname() + ":" + getPort();
-    }
+	/**
+	 * Getter server secure url prefix
+	 * 
+	 * @return
+	 * @throws UnknownHostException
+	 */
+	public String getServerSecureUrlPrefi() throws UnknownHostException {
+		return "https://" + getHostname() + ":" + getPort();
+	}
+
+	/**
+	 * Getter server url prefix
+	 * 
+	 * @return
+	 * @throws UnknownHostException
+	 */
+	public String getServerUrlPrefi() throws UnknownHostException {
+		return "http://" + getHostname() + ":" + getPort();
+	}
 }
