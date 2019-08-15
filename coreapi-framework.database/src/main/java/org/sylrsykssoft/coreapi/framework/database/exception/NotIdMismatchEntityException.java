@@ -34,16 +34,6 @@ public final class NotIdMismatchEntityException extends RuntimeException {
 	}
 
 	/**
-	 * Cause constructor
-	 * 
-	 * @param cause
-	 */
-	@ConstructorProperties({ "cause"})
-	public NotIdMismatchEntityException(final Throwable cause) {
-		super(cause);
-	}
-	
-	/**
 	 * AllArgsConstructor
 	 * 
 	 * @param message
@@ -52,5 +42,15 @@ public final class NotIdMismatchEntityException extends RuntimeException {
 	@ConstructorProperties({ "message", "cause"})
 	public NotIdMismatchEntityException(final String message, final Throwable cause) {
 		super(message, cause);
+	}
+	
+	/**
+	 * Cause constructor
+	 * 
+	 * @param cause
+	 */
+	@ConstructorProperties({ "cause"})
+	public NotIdMismatchEntityException(final Throwable cause) {
+		super(cause);
 	}
 }

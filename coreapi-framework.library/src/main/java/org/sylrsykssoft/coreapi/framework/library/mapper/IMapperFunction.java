@@ -12,16 +12,16 @@ import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 public interface IMapperFunction<T, R extends ResourceSupport> {
 
 	/**
-	 * Get concrete entity to resource mapper
-	 * 
-	 * @return ModelMapperFunction<T, R>
-	 */
-	ResourceAssemblerSupport<T, R> mapperToResource();
-	
-	/**
 	 * Get concrete resource to entity mapper
 	 * 
 	 * @return ModelMapperFunction<R, T>
 	 */
 	ModelMapperFunction<R, T> mapperToEntity();
+	
+	/**
+	 * Get concrete entity to resource mapper
+	 * 
+	 * @return ModelMapperFunction<T, R>
+	 */
+	ResourceAssemblerSupport<T, R> mapperToResource();
 }

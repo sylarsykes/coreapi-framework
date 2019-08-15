@@ -22,6 +22,7 @@ public class CoreApiFrameworkLibraryConfiguration {
 	 * @param injectionPoint
 	 * @return Logger
 	 */
+	@SuppressWarnings("exports")
 	@Bean
 	@Scope("prototype")
 	public Logger logger(final InjectionPoint injectionPoint) {
@@ -32,6 +33,7 @@ public class CoreApiFrameworkLibraryConfiguration {
 	 * Model mapper bean
 	 * @return
 	 */
+	@SuppressWarnings("exports")
 	@Bean
 	@Scope("prototype")
 	public ModelMapper modelMapper() {

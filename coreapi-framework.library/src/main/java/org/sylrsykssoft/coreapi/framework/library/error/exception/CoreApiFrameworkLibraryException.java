@@ -33,16 +33,6 @@ public class CoreApiFrameworkLibraryException extends Exception {
 	}
 	
 	/**
-	 * Cause constructor
-	 * 
-	 * @param cause
-	 */
-	@ConstructorProperties({ "cause"})
-	public CoreApiFrameworkLibraryException(final Throwable cause) {
-		super(cause);
-	}
-	
-	/**
 	 * AllArgsConstructor
 	 * 
 	 * @param message
@@ -51,6 +41,16 @@ public class CoreApiFrameworkLibraryException extends Exception {
 	@ConstructorProperties({ "message", "cause"})
 	public CoreApiFrameworkLibraryException(final String message, final Throwable cause) {
 		super(message, cause);
+	}
+	
+	/**
+	 * Cause constructor
+	 * 
+	 * @param cause
+	 */
+	@ConstructorProperties({ "cause"})
+	public CoreApiFrameworkLibraryException(final Throwable cause) {
+		super(cause);
 	}
 
 }

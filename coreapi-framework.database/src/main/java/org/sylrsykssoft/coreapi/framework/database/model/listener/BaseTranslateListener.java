@@ -18,6 +18,21 @@ import org.sylrsykssoft.coreapi.framework.api.model.EntityTranslatable;
 public class BaseTranslateListener {
 
 	/**
+	 * Getter audit
+	 * 
+	 * @param auditableObject
+	 * @return
+	 */
+	private BaseTranslate getTranslatable(final EntityTranslatable translatableObject) {
+		BaseTranslate translate = translatableObject.getTranslate();
+		if (translate == null) {
+			translate = new BaseTranslate();
+			translatableObject.setTranslate(translate);
+		}
+		return translate;
+	}
+	
+	/**
 	 * Assign locale.
 	 * 
 	 * @param base
@@ -32,7 +47,7 @@ public class BaseTranslateListener {
 			}
 		}
 	}
-	
+
 	/**
 	 * Assign locale.
 	 * 
@@ -47,20 +62,5 @@ public class BaseTranslateListener {
 				translate.setLocale(Locale.UK.getLanguage());
 			}
 		}
-	}
-
-	/**
-	 * Getter audit
-	 * 
-	 * @param auditableObject
-	 * @return
-	 */
-	private BaseTranslate getTranslatable(final EntityTranslatable translatableObject) {
-		BaseTranslate translate = translatableObject.getTranslate();
-		if (translate == null) {
-			translate = new BaseTranslate();
-			translatableObject.setTranslate(translate);
-		}
-		return translate;
 	}
 }

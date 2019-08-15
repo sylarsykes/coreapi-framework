@@ -63,6 +63,8 @@
 		<modelmapper-spring.version>2.3.4</modelmapper-spring.version>
 		<slf4j.version>1.7.26</slf4j.version>
 		<lombok-maven-plugin.version>1.18.6.0</lombok-maven-plugin.version>
+		<junit-jupiter.version>5.5.1</junit-jupiter.version>
+		<junit-platform.version>1.5.1</junit-platform.version>
 	</properties>
 	
 	<dependencies>

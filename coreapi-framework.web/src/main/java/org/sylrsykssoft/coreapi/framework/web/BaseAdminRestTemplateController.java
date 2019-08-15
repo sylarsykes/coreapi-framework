@@ -33,11 +33,11 @@ public class BaseAdminRestTemplateController<R extends BaseAdminResource, T exte
 	private static final String SLASH_SEPARATOR = "/";
 	
 	/** BasePath */
-	private String basePath;
+	private final String basePath;
 	/** BaseAdminResourceName */
-	private String controllerRequestName;
+	private final String controllerRequestName;
 	
-	private Class<R> responseType;
+	private final Class<R> responseType;
 	
 	@Autowired
 	private EnvironmentUtil environmentUtil;
@@ -59,48 +59,45 @@ public class BaseAdminRestTemplateController<R extends BaseAdminResource, T exte
 	}
 	
 	/**
-	 * Get object from uri
+	 * Find all entries.
 	 * 
-	 * @param url
-	 * @return R
-	 * @throws URISyntaxException
-	 * @throws CoreApiFrameworkLibraryException
-	 */
-	public R getForObject(final String url) throws CoreApiFrameworkLibraryException {
-		try {
-			return getForObject(new URI(url));
-		} catch (URISyntaxException e) {
-			LOGGER.warn("BaseAdminRestTemplateController::getForObject URISyntaxException -> {}", e);
-			throw new CoreApiFrameworkLibraryException(e);
-		}
-	}
-
-	/**
-	 * Get object from uri
+	 * @return Iterable<T> entries.
 	 * 
-	 * @param url
-	 * @return R
-	 * @throws CoreApiFrameworkLibraryException
+	 * @throws NotFoundEntityException
+	 * @throws CoreApiFrameworkLibraryException 
 	 */
-	public R getForObject(final URI url) throws CoreApiFrameworkLibraryException {
-		LOGGER.info("BaseAdminRestTemplateController::getForObject URI -> {}", url);
+	@SuppressWarnings({ "unchecked", "rawtypes" })
+	public Iterable<R> findAll() throws NotFoundEntityException, CoreApiFrameworkLibraryException {
+		LOGGER.info("BaseAdminRestTemplateController::findAll Finding all entries");
 		
-		R result = null;
+		Iterable<R> result = null;
 		
 		try {
-			result = restTemplate.getForObject(url, responseType);
-		} catch (RestClientException e) {
-			LOGGER.warn("BaseAdminRestTemplateController::getForObject RestClientException -> {}", e);
+			
+			final StringBuilder url = new StringBuilder(environmentUtil.getServerUrlPrefi());
+			url.append(SLASH_SEPARATOR)
+				.append(basePath)
+				.append(SLASH_SEPARATOR)
+				.append(controllerRequestName);
+			
+			final ResponseEntity<? extends ArrayList> responseEntity = restTemplate.getForEntity(new URI(url.toString()), ArrayList.class);
+			
+			result = responseEntity.getBody();
+		} catch (final UnknownHostException e) {
+			LOGGER.warn("BaseAdminRestTemplateController::findAll find error on get evironment information -> {}", e);
 			throw new CoreApiFrameworkLibraryException(e);
-		} catch (Exception e) {
-			LOGGER.warn("BaseAdminRestTemplateController::getForObject Exception -> {}", e);
+		} catch (final RestClientException e) {
+			LOGGER.warn("BaseAdminRestTemplateController::findAll resclienterror -> {}", e);
+			throw new CoreApiFrameworkLibraryException(e);
+		} catch (final URISyntaxException e) {
+			LOGGER.warn("BaseAdminRestTemplateController::findAll resclienterror -> {}", e);
 			throw new CoreApiFrameworkLibraryException(e);
 		}
 		
-		LOGGER.info("BaseAdminRestTemplateController::getForObject Result -> {}", result);
+		LOGGER.info("BaseAdminRestTemplateController::findAll Result -> {}", result);
 		return result;
 	}
-	
+
 	/**
 	 * Find one entry.
 	 * 
@@ -129,7 +126,7 @@ public class BaseAdminRestTemplateController<R extends BaseAdminResource, T exte
 			
 			result = getForObject(url.toString());
 			
-		} catch (UnknownHostException e) {
+		} catch (final UnknownHostException e) {
 			LOGGER.warn("BaseAdminRestTemplateController::findById find error on get evironment information -> {}", e);
 			throw new CoreApiFrameworkLibraryException(e);
 		}
@@ -166,7 +163,7 @@ public class BaseAdminRestTemplateController<R extends BaseAdminResource, T exte
 			
 				result = getForObject(url.toString());
 			
-		} catch (UnknownHostException e) {
+		} catch (final UnknownHostException e) {
 			LOGGER.warn("BaseAdminRestTemplateController::findByName find error on get evironment information -> {}", e);
 			throw new CoreApiFrameworkLibraryException(e);
 		}
@@ -175,50 +172,6 @@ public class BaseAdminRestTemplateController<R extends BaseAdminResource, T exte
 		return result;
 	}
 	
-	/**
-	 * Create a new resource by POSTing the given object to the URL, and returns the representation found in the response.
-	 * 
-	 * @param url
-	 * @param resource
-	 * @return R
-	 * @throws CoreApiFrameworkLibraryException
-	 */
-	public R postForObject(final String url, final R resource) throws CoreApiFrameworkLibraryException {
-		try {
-			return postForObject(new URI(url), resource);
-		} catch (URISyntaxException e) {
-			LOGGER.warn("BaseAdminRestTemplateController::postForObject URISyntaxException -> {}", e);
-			throw new CoreApiFrameworkLibraryException(e);
-		}
-	}
-	
-	/**
-	 * Create a new resource by POSTing the given object to the URL, and returns the representation found in the response. 
-	 * 
-	 * @param url
-	 * @param resource
-	 * @return R
-	 * @throws CoreApiFrameworkLibraryException
-	 */
-	public R postForObject(final URI url, final R resource) throws CoreApiFrameworkLibraryException {
-		LOGGER.info("BaseAdminRestTemplateController::getForObject URI -> {} {}", url, resource);
-		
-		R result = null;
-		
-		try {
-			result = restTemplate.postForObject(url, resource, responseType);
-		} catch (RestClientException e) {
-			LOGGER.warn("BaseAdminRestTemplateController::postForObject RestClientException -> {}", e);
-			throw new CoreApiFrameworkLibraryException(e);
-		} catch (Exception e) {
-			LOGGER.warn("BaseAdminRestTemplateController::postForObject Exception -> {}", e);
-			throw new CoreApiFrameworkLibraryException(e);
-		}
-		
-		LOGGER.info("BaseAdminRestTemplateController::postForObject Result -> {}", result);
-		return result;
-	}
-		
 	/**
 	 * Find by example
 	 * 
@@ -247,7 +200,7 @@ public class BaseAdminRestTemplateController<R extends BaseAdminResource, T exte
 			
 			result = postForObject(url.toString(), resource);
 			
-		} catch (UnknownHostException e) {
+		} catch (final UnknownHostException e) {
 			LOGGER.warn("BaseAdminRestTemplateController::findOneByExample find error on get evironment information -> {}", e);
 			throw new CoreApiFrameworkLibraryException(e);
 		}
@@ -257,42 +210,89 @@ public class BaseAdminRestTemplateController<R extends BaseAdminResource, T exte
 	}
 	
 	/**
-	 * Find all entries.
+	 * Get object from uri
 	 * 
-	 * @return Iterable<T> entries.
-	 * 
-	 * @throws NotFoundEntityException
-	 * @throws CoreApiFrameworkLibraryException 
+	 * @param url
+	 * @return R
+	 * @throws URISyntaxException
+	 * @throws CoreApiFrameworkLibraryException
 	 */
-	@SuppressWarnings({ "unchecked", "rawtypes" })
-	public Iterable<R> findAll() throws NotFoundEntityException, CoreApiFrameworkLibraryException {
-		LOGGER.info("BaseAdminRestTemplateController::findAll Finding all entries");
+	public R getForObject(final String url) throws CoreApiFrameworkLibraryException {
+		try {
+			return getForObject(new URI(url));
+		} catch (final URISyntaxException e) {
+			LOGGER.warn("BaseAdminRestTemplateController::getForObject URISyntaxException -> {}", e);
+			throw new CoreApiFrameworkLibraryException(e);
+		}
+	}
+	
+	/**
+	 * Get object from uri
+	 * 
+	 * @param url
+	 * @return R
+	 * @throws CoreApiFrameworkLibraryException
+	 */
+	public R getForObject(final URI url) throws CoreApiFrameworkLibraryException {
+		LOGGER.info("BaseAdminRestTemplateController::getForObject URI -> {}", url);
 		
-		Iterable<R> result = null;
+		R result = null;
 		
 		try {
-			
-			final StringBuilder url = new StringBuilder(environmentUtil.getServerUrlPrefi());
-			url.append(SLASH_SEPARATOR)
-				.append(basePath)
-				.append(SLASH_SEPARATOR)
-				.append(controllerRequestName);
-			
-			ResponseEntity<? extends ArrayList> responseEntity = restTemplate.getForEntity(new URI(url.toString()), ArrayList.class);
-			
-			result = (ArrayList<R>) responseEntity.getBody();
-		} catch (UnknownHostException e) {
-			LOGGER.warn("BaseAdminRestTemplateController::findAll find error on get evironment information -> {}", e);
+			result = restTemplate.getForObject(url, responseType);
+		} catch (final RestClientException e) {
+			LOGGER.warn("BaseAdminRestTemplateController::getForObject RestClientException -> {}", e);
 			throw new CoreApiFrameworkLibraryException(e);
-		} catch (RestClientException e) {
-			LOGGER.warn("BaseAdminRestTemplateController::findAll resclienterror -> {}", e);
-			throw new CoreApiFrameworkLibraryException(e);
-		} catch (URISyntaxException e) {
-			LOGGER.warn("BaseAdminRestTemplateController::findAll resclienterror -> {}", e);
+		} catch (final Exception e) {
+			LOGGER.warn("BaseAdminRestTemplateController::getForObject Exception -> {}", e);
 			throw new CoreApiFrameworkLibraryException(e);
 		}
 		
-		LOGGER.info("BaseAdminRestTemplateController::findAll Result -> {}", result);
+		LOGGER.info("BaseAdminRestTemplateController::getForObject Result -> {}", result);
+		return result;
+	}
+		
+	/**
+	 * Create a new resource by POSTing the given object to the URL, and returns the representation found in the response.
+	 * 
+	 * @param url
+	 * @param resource
+	 * @return R
+	 * @throws CoreApiFrameworkLibraryException
+	 */
+	public R postForObject(final String url, final R resource) throws CoreApiFrameworkLibraryException {
+		try {
+			return postForObject(new URI(url), resource);
+		} catch (final URISyntaxException e) {
+			LOGGER.warn("BaseAdminRestTemplateController::postForObject URISyntaxException -> {}", e);
+			throw new CoreApiFrameworkLibraryException(e);
+		}
+	}
+	
+	/**
+	 * Create a new resource by POSTing the given object to the URL, and returns the representation found in the response. 
+	 * 
+	 * @param url
+	 * @param resource
+	 * @return R
+	 * @throws CoreApiFrameworkLibraryException
+	 */
+	public R postForObject(final URI url, final R resource) throws CoreApiFrameworkLibraryException {
+		LOGGER.info("BaseAdminRestTemplateController::getForObject URI -> {} {}", url, resource);
+		
+		R result = null;
+		
+		try {
+			result = restTemplate.postForObject(url, resource, responseType);
+		} catch (final RestClientException e) {
+			LOGGER.warn("BaseAdminRestTemplateController::postForObject RestClientException -> {}", e);
+			throw new CoreApiFrameworkLibraryException(e);
+		} catch (final Exception e) {
+			LOGGER.warn("BaseAdminRestTemplateController::postForObject Exception -> {}", e);
+			throw new CoreApiFrameworkLibraryException(e);
+		}
+		
+		LOGGER.info("BaseAdminRestTemplateController::postForObject Result -> {}", result);
 		return result;
 	}
 }

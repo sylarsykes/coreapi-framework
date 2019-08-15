@@ -21,16 +21,51 @@ import org.sylrsykssoft.coreapi.framework.library.mapper.ModelMapperFunction;
 public class CoreApiFrameworkApiMapperConfiguration {
 
 	/**
-	 * Base resource model mapper function.
+	 * Base admin resource model mapper function.
 	 *
 	 * @return the model mapper function
 	 */
 	@Bean
 	@Scope(value = "prototype")
 	@Lazy(value = true)
-	@SuppressWarnings("rawtypes")
-	public ModelMapperFunction<Base, BaseResource> baseMapperToResourceFunction() {
-		return new ModelMapperFunction<Base, BaseResource>(Base.class, BaseResource.class);
+	public ModelMapperFunction<BaseAdminResource, BaseAdmin> baseAdminMapperToEntityFunction() {
+		return new ModelMapperFunction<>(BaseAdminResource.class, BaseAdmin.class);
+	}
+	
+	/**
+	 * Base admin resource model mapper function.
+	 *
+	 * @return the model mapper function
+	 */
+	@Bean
+	@Scope(value = "prototype")
+	@Lazy(value = true)
+	public ModelMapperFunction<BaseAdmin, BaseAdminResource> baseAdminMapperToResourceFunction() {
+		return new ModelMapperFunction<>(BaseAdmin.class, BaseAdminResource.class);
+	}
+	
+	/**
+	 * Base entity resource model mapper function.
+	 *
+	 * @return the model mapper function
+	 */
+	@Bean
+	@Scope(value = "prototype")
+	@Lazy(value = true)
+	public ModelMapperFunction<BaseEntityResource, BaseEntity> baseEntityMapperToEntityFunction() {
+		return new ModelMapperFunction<>(BaseEntityResource.class, BaseEntity.class);
+	}
+	
+	/**
+	 * Base entity resource model mapper function.
+	 *
+	 * @return the model mapper function
+	 */
+	@Bean
+	@Scope(value = "prototype")
+	@Lazy(value = true)
+	public ModelMapperFunction<BaseEntity, BaseEntityResource> baseEntityMapperToResourceFunction() {
+		return new ModelMapperFunction<>(BaseEntity.class, BaseEntityResource.class);
 	}
 	
 	/**
@@ -43,55 +78,20 @@ public class CoreApiFrameworkApiMapperConfiguration {
 	@Lazy(value = true)
 	@SuppressWarnings("rawtypes")
 	public ModelMapperFunction<BaseResource, Base> baseMapperToEntityFunction() {
-		return new ModelMapperFunction<BaseResource, Base>(BaseResource.class, Base.class);
+		return new ModelMapperFunction<>(BaseResource.class, Base.class);
 	}
 	
 	/**
-	 * Base entity resource model mapper function.
+	 * Base resource model mapper function.
 	 *
 	 * @return the model mapper function
 	 */
 	@Bean
 	@Scope(value = "prototype")
 	@Lazy(value = true)
-	public ModelMapperFunction<BaseEntity, BaseEntityResource> baseEntityMapperToResourceFunction() {
-		return new ModelMapperFunction<BaseEntity, BaseEntityResource>(BaseEntity.class, BaseEntityResource.class);
-	}
-	
-	/**
-	 * Base entity resource model mapper function.
-	 *
-	 * @return the model mapper function
-	 */
-	@Bean
-	@Scope(value = "prototype")
-	@Lazy(value = true)
-	public ModelMapperFunction<BaseEntityResource, BaseEntity> baseEntityMapperToEntityFunction() {
-		return new ModelMapperFunction<BaseEntityResource, BaseEntity>(BaseEntityResource.class, BaseEntity.class);
-	}
-	
-	/**
-	 * Base admin resource model mapper function.
-	 *
-	 * @return the model mapper function
-	 */
-	@Bean
-	@Scope(value = "prototype")
-	@Lazy(value = true)
-	public ModelMapperFunction<BaseAdmin, BaseAdminResource> baseAdminMapperToResourceFunction() {
-		return new ModelMapperFunction<BaseAdmin, BaseAdminResource>(BaseAdmin.class, BaseAdminResource.class);
-	}
-	
-	/**
-	 * Base admin resource model mapper function.
-	 *
-	 * @return the model mapper function
-	 */
-	@Bean
-	@Scope(value = "prototype")
-	@Lazy(value = true)
-	public ModelMapperFunction<BaseAdminResource, BaseAdmin> baseAdminMapperToEntityFunction() {
-		return new ModelMapperFunction<BaseAdminResource, BaseAdmin>(BaseAdminResource.class, BaseAdmin.class);
+	@SuppressWarnings("rawtypes")
+	public ModelMapperFunction<Base, BaseResource> baseMapperToResourceFunction() {
+		return new ModelMapperFunction<>(Base.class, BaseResource.class);
 	}
 
 }

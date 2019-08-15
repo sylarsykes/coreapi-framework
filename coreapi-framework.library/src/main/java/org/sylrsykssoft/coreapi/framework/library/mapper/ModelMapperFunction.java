@@ -22,8 +22,8 @@ public class ModelMapperFunction<T, R> implements Function<T, R> {
 	@Autowired
 	private ModelMapper modelMapper;
 	
-	private Class<T> sourceClass;
-	private Class<R> targetClass;
+	private final Class<T> sourceClass;
+	private final Class<R> targetClass;
 	
 	/**
 	 * AllArgsContructor

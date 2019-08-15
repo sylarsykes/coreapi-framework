@@ -34,16 +34,6 @@ public final class IncorrectResultSizeException extends RuntimeException {
 	}
 
 	/**
-	 * Cause constructor
-	 * 
-	 * @param cause
-	 */
-	@ConstructorProperties({ "cause"})
-	public IncorrectResultSizeException(final Throwable cause) {
-		super(cause);
-	}
-	
-	/**
 	 * AllArgsConstructor
 	 * 
 	 * @param message
@@ -52,5 +42,15 @@ public final class IncorrectResultSizeException extends RuntimeException {
 	@ConstructorProperties({ "message", "cause"})
 	public IncorrectResultSizeException(final String message, final Throwable cause) {
 		super(message, cause);
+	}
+	
+	/**
+	 * Cause constructor
+	 * 
+	 * @param cause
+	 */
+	@ConstructorProperties({ "cause"})
+	public IncorrectResultSizeException(final Throwable cause) {
+		super(cause);
 	}
 }
