@@ -29,7 +29,7 @@ public class BaseResource<ID> extends ResourceSupport {
 	protected ID entityId;
 	protected LocalDateTime createdAt;
 	protected @Nullable LocalDateTime updatedAt;
-	
+
 	/**
 	 * AllArgsConstructor
 	 * 
