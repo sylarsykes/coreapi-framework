@@ -14,7 +14,7 @@ import org.springframework.stereotype.Component;
 public class EnvironmentUtil {
 
 	@Autowired
-	private Environment environment;
+	Environment environment;
 
 	private String port;
 	private String hostname;
