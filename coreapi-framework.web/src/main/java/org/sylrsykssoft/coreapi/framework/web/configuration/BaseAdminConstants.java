@@ -8,6 +8,9 @@ package org.sylrsykssoft.coreapi.framework.web.configuration;
  */
 public class BaseAdminConstants {
 
+	// REPOSITORY
+	public static final int MAX_LENGTH_NAME = 256;
+
 	// CONTROLLER //
 	public static final String CONTROLLER_GET_FIND_BY_ID = "/findOne/id";
 	public static final String CONTROLLER_GET_FIND_ONE_BY_ID = CONTROLLER_GET_FIND_BY_ID + "/{id}";
@@ -28,5 +31,5 @@ public class BaseAdminConstants {
 	private BaseAdminConstants() {
 		throw new AssertionError();
 	}
-	
+
 }
