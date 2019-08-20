@@ -41,7 +41,7 @@ public class BaseAdmin extends Base<Integer> {
 	@Column(name = "name", nullable = false, unique = true, length = MAX_LENGTH_NAME)
 	protected @NonNull String name;
 
-	@Column(name = "descriptiom", nullable = true, columnDefinition = "TEXT", length = MAX_LENGTH_DESCRIPTION)
+	@Column(name = "description", nullable = true, columnDefinition = "TEXT", length = MAX_LENGTH_DESCRIPTION)
 	protected @Nullable String description;
 
 	@Column(name = "removed_at", nullable = true, insertable = false, updatable = true)

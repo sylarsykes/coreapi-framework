@@ -1,8 +1,3 @@
-/**
- * Module info
- * 
- * @author juan.gonzalez.fernandez.jgf
- */
 module coreapi.framework.web {
 	exports org.sylrsykssoft.coreapi.framework.web;
 	exports org.sylrsykssoft.coreapi.framework.web.configuration;
@@ -20,7 +15,7 @@ module coreapi.framework.web {
 	requires transitive spring.boot;
 	requires spring.context;
 	requires spring.core;
-	requires spring.data.commons;
+	requires transitive spring.data.commons;
 	requires spring.hateoas;
 	requires transitive spring.web;
 }
