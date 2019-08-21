@@ -13,7 +13,7 @@
 
 	<developers>
 		<developer>
-			<id>juan.gonzalez.fernandez.jgf</id>
+			<id>${developer.id}</id>
 			<name>Juan Gonzalez Fernandez</name>
 			<email>${developer.email}</email>
 			<url>https://github.com/sylarsykes</url>
@@ -33,6 +33,7 @@
 
 	<properties>
 		<!-- Common -->
+		<developer.id>juan.gonzalez.fernandez.jgf</developer.id>
 		<developer.email>juan.gonzalez.fernandez.jgf@outlook.com</developer.email>
 		<main.basedir>${basedir}</main.basedir>
 		<java.version>11</java.version>
@@ -47,12 +48,13 @@
 		<coreapi-framework.database.version>${project.version}</coreapi-framework.database.version>
 		<coreapi-framework.service.version>${project.version}</coreapi-framework.service.version>
 		<coreapi-framework.web.version>${project.version}</coreapi-framework.web.version>
+		<coreapi-framework.mail.version>${project.version}</coreapi-framework.mail.version>
 		<coreapi-framework.boot.version>${project.version}</coreapi-framework.boot.version>
 	
 	    <!-- Dependency versions -->
 	    <springframework.version>5.1.9.RELEASE</springframework.version>
 	    <spring-boot.version>2.1.7.RELEASE</spring-boot.version>
-	    <commons-lang3.version>3.8.1</commons-lang3.version>
+	    <commons-lang3.version>3.9</commons-lang3.version>
 		<commons-collections4.version>4.4</commons-collections4.version>
 		<log4j.version>1.2.17</log4j.version>
 		<modelmapper-spring.version>2.3.4</modelmapper-spring.version>
@@ -91,6 +93,7 @@
 		<module>coreapi-framework.database</module>
 		<module>coreapi-framework.service</module>
 		<module>coreapi-framework.web</module>
+    	<module>coreapi-framework.mail</module>
 	   	<module>coreapi-framework.boot</module>
-	</modules>
+  </modules>
 </project>

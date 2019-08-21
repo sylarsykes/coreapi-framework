@@ -20,7 +20,7 @@
 
 	<developers>
 		<developer>
-			<id>juan.gonzalez.fernandez.jgf</id>
+			<id>${developer.id}</id>
 			<name>Juan Gonzalez Fernandez</name>
 			<email>${developer.email}</email>
 			<url>https://github.com/sylarsykes</url>
@@ -40,6 +40,7 @@
 
 	<properties>
 		<!-- Common -->
+		<developer.id>juan.gonzalez.fernandez.jgf</developer.id>
 		<developer.email>juan.gonzalez.fernandez.jgf@outlook.com</developer.email>
 		<main.basedir>${basedir}</main.basedir>
 		<java.version>11</java.version>
@@ -54,6 +55,7 @@
 		<coreapi-framework.database.version>${project.version}</coreapi-framework.database.version>
 		<coreapi-framework.service.version>${project.version}</coreapi-framework.service.version>
 		<coreapi-framework.web.version>${project.version}</coreapi-framework.web.version>
+		<coreapi-framework.mail.version>${project.version}</coreapi-framework.mail.version>
 	
 	    <!-- Dependency versions -->
 	    <spring-boot.version>2.1.7.RELEASE</spring-boot.version>
@@ -123,6 +125,11 @@
 			<groupId>org.sylrsykssoft</groupId>
 	    	<artifactId>coreapi-framework.web</artifactId>
 	    	<version>${coreapi-framework.web.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.sylrsykssoft</groupId>
+	    	<artifactId>coreapi-framework.mail</artifactId>
+	    	<version>${coreapi-framework.mail.version}</version>
 		</dependency>
 		
 		<dependency>
