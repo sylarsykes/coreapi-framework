@@ -3,7 +3,7 @@ package org.sylrsykssoft.coreapi.framework.mail.domain;
 import java.util.List;
 import java.util.Optional;
 
-import org.sylrsykssoft.coreapi.framework.api.model.Base;
+import org.sylrsykssoft.coreapi.framework.api.resource.BaseResource;
 
 /**
  * MailTO interface
@@ -11,7 +11,7 @@ import org.sylrsykssoft.coreapi.framework.api.model.Base;
  * @author juan.gonzalez.fernandez.jgf
  *
  */
-public interface IMailTO<T extends Base<ID>, ID extends Number> {
+public interface IMailTO<T extends BaseResource<ID>, ID extends Number> {
 
 	/**
 	 * Getter list destination
