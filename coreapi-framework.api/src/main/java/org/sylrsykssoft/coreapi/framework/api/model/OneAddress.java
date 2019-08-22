@@ -12,9 +12,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * Address entity
@@ -32,11 +30,9 @@ import lombok.Setter;
 @Entity(name = ONE_ADDRESS_REPOSITORY_ENTITY_NAME)
 @Builder(toBuilder = true)
 @Data
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-@Setter
-@Getter
-@EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@EqualsAndHashCode(callSuper = true, doNotUseGetters = true)
 public class OneAddress<T extends Base<ID>, ID extends Number> extends Address<T, ID> {
 
 	/**
@@ -48,15 +44,15 @@ public class OneAddress<T extends Base<ID>, ID extends Number> extends Address<T
 	 * @param <ID>
 	 */
 	public static class OneAddressBuilder<T extends Base<ID>, ID extends Number> extends AddressBuilder<T, ID, OneAddress<T, ID>, OneAddressBuilder<T, ID>> {
-    	/**
-    	 * {inheritDoc}
-    	 */
-    	@Override
-    	protected OneAddressBuilder<T, ID> self() {
+		/**
+		 * {inheritDoc}
+		 */
+		@Override
+		protected OneAddressBuilder<T, ID> self() {
 			return this;
 		}
-    }
+	}
 
 	@OneToOne
-    private T person;
+	private T person;
 }

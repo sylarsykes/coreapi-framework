@@ -8,11 +8,11 @@ import org.sylrsykssoft.coreapi.framework.api.resource.BaseAdminResource;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
 import lombok.experimental.SuperBuilder;
 
 /**
@@ -21,19 +21,18 @@ import lombok.experimental.SuperBuilder;
  * @author juan.gonzalez.fernandez.jgf
  *
  */
+@Data
 @SuperBuilder
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-@Setter
-@Getter
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
-@ToString
 public class AdminMailTO<T extends BaseAdminResource> implements IMailTO<T, Integer> {
 
-	protected String from;
-	protected String to;
+	protected @NonNull String from;
+	protected @NonNull String to;
 	protected @Nullable Optional<List<String>> cc;
-	protected String subject;
+	protected @NonNull String subject;
 	protected @Nullable Optional<String> content;
 	protected @Nullable Optional<String> templateName;
 }

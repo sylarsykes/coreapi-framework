@@ -8,12 +8,12 @@ import org.sylrsykssoft.coreapi.framework.api.resource.BaseEntityResource;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
+import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
-import lombok.ToString;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.experimental.SuperBuilder;
 
 /**
  * DTO Mail BaseEntity
@@ -21,19 +21,18 @@ import lombok.ToString;
  * @author juan.gonzalez.fernandez.jgf
  *
  */
-@Builder(toBuilder = true)
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@Data
+@SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-@Setter
-@Getter
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
-@ToString
 public class EntityMailTO<T extends BaseEntityResource> implements IMailTO<T, Long> {
 
-	private String from;
-	private String to;
+	private @NonNull String from;
+	private @NonNull String to;
 	private @Nullable Optional<List<String>> cc;
-	private String subject;
+	private @NonNull String subject;
 	private @Nullable Optional<String> content;
 	private @Nullable Optional<String> templateName;
 }

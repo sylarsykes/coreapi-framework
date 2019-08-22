@@ -20,9 +20,7 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * MultipleAddress entity
@@ -33,7 +31,7 @@ import lombok.Setter;
  * 	In entity 1
  *	@OneToMany(mappedBy = "person", cascade = CascadeType.ALL)
  *  private @Singular Set<MultipleAddress<T, Address<T, ID>, ID> addresses;
- *  
+ * 
  *  In entity 2
  *  @OneToMany(mappedBy = "address", cascade = CascadeType.ALL)
  *  private @Singular Set<MultipleAddress<T, Address<T, ID>, ID> addresses;
@@ -51,24 +49,22 @@ import lombok.Setter;
 @Where(clause = "removedAt = null")
 @Data
 @Builder(toBuilder = true)
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-@Setter
-@Getter
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
 public class MultipleAddress<T extends Base<ID>, A extends Address<T, ID>, ID extends Number> {
 
 	@Id
-    @ManyToOne
-    @JoinColumn
-    private T person;
-  
+	@ManyToOne
+	@JoinColumn
+	private T person;
+
 	@Id
-    @ManyToOne
-    @JoinColumn
+	@ManyToOne
+	@JoinColumn
 	private A address;
 
 	@Column(name = "removed_at", nullable = true, insertable = false, updatable = true)
 	private @Nullable LocalDateTime removedAt;
-	
+
 }

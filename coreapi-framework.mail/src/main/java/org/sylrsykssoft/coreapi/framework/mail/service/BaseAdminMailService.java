@@ -29,7 +29,7 @@ import freemarker.template.Template;
  *
  */
 public abstract class BaseAdminMailService<T extends BaseAdminResource>
-		implements MailAdminApiService<T>, InitializingBean {
+implements MailAdminApiService<T>, InitializingBean {
 
 	@Autowired
 	protected JavaMailSender mailSender;
@@ -144,7 +144,8 @@ public abstract class BaseAdminMailService<T extends BaseAdminResource>
 	protected boolean validate(final AdminMailTO<T> source) {
 		boolean result = false;
 
-		if (StringUtils.isNotBlank(source.getFrom()) && StringUtils.isNotBlank(source.getTo())) {
+		if (StringUtils.isNotBlank(source.getFrom()) && StringUtils.isNotBlank(source.getTo())
+				&& StringUtils.isNotBlank(source.getSubject())) {
 			result = true;
 		}
 

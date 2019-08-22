@@ -1,6 +1,6 @@
 /**
  * Module info
- *  
+ * 
  * @author juan.gonzalez.fernandez.jgf
  */
 module coreapi.framework.library {
