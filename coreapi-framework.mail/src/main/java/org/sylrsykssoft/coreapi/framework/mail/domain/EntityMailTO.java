@@ -4,7 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.lang.Nullable;
-import org.sylrsykssoft.coreapi.framework.api.model.BaseEntity;
+import org.sylrsykssoft.coreapi.framework.api.resource.BaseEntityResource;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -28,7 +28,7 @@ import lombok.ToString;
 @Getter
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
 @ToString
-public class EntityMailTO<T extends BaseEntity> implements IMailTO<T, Long> {
+public class EntityMailTO<T extends BaseEntityResource> implements IMailTO<T, Long> {
 
 	private String from;
 	private String to;

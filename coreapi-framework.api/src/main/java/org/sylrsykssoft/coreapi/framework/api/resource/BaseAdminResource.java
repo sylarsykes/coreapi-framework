@@ -30,7 +30,7 @@ import lombok.Setter;
 public class BaseAdminResource extends BaseResource<Integer> {
 
 	protected @NonNull String name;
-	protected @NonNull String description;
+	protected @Nullable String description;
 	protected @Nullable LocalDateTime removedAt;
 
 	/**

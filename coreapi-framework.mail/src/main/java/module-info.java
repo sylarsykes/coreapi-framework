@@ -18,12 +18,12 @@ module coreapi.framework.mail {
 	requires org.apache.commons.lang3;
 	requires spring.beans;
 	requires spring.context;
-	requires spring.context.support;
-	requires spring.core;
+	requires transitive spring.context.support;
+	requires transitive spring.core;
 	requires transitive spring.data.commons;
 	requires transitive spring.web;
 
-	uses org.sylrsykssoft.coreapi.framework.api.model.BaseAdmin;
-	uses org.sylrsykssoft.coreapi.framework.api.model.BaseEntity;
-	uses org.sylrsykssoft.coreapi.framework.api.model.Base;
+	uses org.sylrsykssoft.coreapi.framework.api.resource.BaseAdminResource;
+	uses org.sylrsykssoft.coreapi.framework.api.resource.BaseEntityResource;
+	uses org.sylrsykssoft.coreapi.framework.api.resource.BaseResource;
 }
