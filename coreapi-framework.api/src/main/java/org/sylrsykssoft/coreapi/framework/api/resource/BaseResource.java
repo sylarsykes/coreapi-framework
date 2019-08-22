@@ -9,9 +9,7 @@ import lombok.AccessLevel;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
-import lombok.Setter;
 
 /**
  * DTO Base.
@@ -21,8 +19,6 @@ import lombok.Setter;
  */
 @Data
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-@Setter
-@Getter
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
 public class BaseResource<ID> extends ResourceSupport {
 

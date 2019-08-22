@@ -144,7 +144,8 @@ implements MailEntityApiService<T>, InitializingBean {
 	protected boolean validate(final EntityMailTO<T> source) {
 		boolean result = false;
 
-		if (StringUtils.isNotBlank(source.getFrom()) && StringUtils.isNotBlank(source.getTo())) {
+		if (StringUtils.isNotBlank(source.getFrom()) && StringUtils.isNotBlank(source.getTo())
+				&& StringUtils.isNotBlank(source.getSubject())) {
 			result = true;
 		}
 

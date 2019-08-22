@@ -10,10 +10,8 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
-import lombok.Setter;
 
 /**
  * DTO BaseAdmin
@@ -22,11 +20,9 @@ import lombok.Setter;
  *
  */
 @Data
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
-@Setter
-@Getter
-@EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
+@EqualsAndHashCode(callSuper = true, doNotUseGetters = true)
 public class BaseAdminResource extends BaseResource<Integer> {
 
 	protected @NonNull String name;
@@ -45,11 +41,9 @@ public class BaseAdminResource extends BaseResource<Integer> {
 	@Builder(builderMethodName = "baseAdminResourceBuilder")
 	@ConstructorProperties({ "entityId", "name", "description", "createdAt", "updatedAt", "removedAt" })
 	public BaseAdminResource(final Integer entityId, final String name, final String description, final LocalDateTime createdAt, final LocalDateTime updatedAt, final LocalDateTime removedAt) {
-		this.entityId = entityId;
+		super(entityId, createdAt, updatedAt);
 		this.name = name;
 		this.description = description;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
 		this.removedAt = removedAt;
 	}
 

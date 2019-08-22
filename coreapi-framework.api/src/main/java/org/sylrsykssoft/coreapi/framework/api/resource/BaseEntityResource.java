@@ -7,8 +7,6 @@ import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
 
 /**
  * DTO BaseEntity.
@@ -18,9 +16,7 @@ import lombok.Setter;
  */
 @Data
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-@Setter
-@Getter
-@EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
+@EqualsAndHashCode(callSuper = true, doNotUseGetters = true)
 public class BaseEntityResource extends BaseResource<Long> {
 
 	/**

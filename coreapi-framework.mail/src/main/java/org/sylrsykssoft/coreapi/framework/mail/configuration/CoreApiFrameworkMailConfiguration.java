@@ -9,7 +9,9 @@ import org.springframework.core.io.ResourceLoader;
 import org.springframework.ui.freemarker.FreeMarkerConfigurationFactoryBean;
 
 /**
- * @author Juan
+ * Global configuration
+ * 
+ * @author juan.gonzalez.fernandez.jgf
  *
  */
 @Configuration
