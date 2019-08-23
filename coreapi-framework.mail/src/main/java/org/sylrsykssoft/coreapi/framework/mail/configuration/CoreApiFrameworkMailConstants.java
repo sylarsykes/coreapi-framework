@@ -13,6 +13,9 @@ public class CoreApiFrameworkMailConstants {
 	public static final String FREEMAKER_TEMPLATE_FOLDER_PATH = "classpath:/mail/templates/";
 	public static final String FREEMAKER_TEMPLATE_DEFAULT_TEMPLATE = "email.ftl";
 
+	// EXECUTOR
+	public static final String MAIL_ASYNC_EXECUTOR = "coreApiFrameworkMaiAsyncExecutor";
+
 	/**
 	 * The caller references the constants using
 	 * <tt>FunctionMemberConstants.EMPTY_STRING</tt>, and so on. Thus, the caller

@@ -1,5 +1,7 @@
 package org.sylrsykssoft.coreapi.framework.mail.service;
 
+import java.util.concurrent.Future;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.config.AbstractFactoryBean;
 import org.springframework.context.ApplicationContext;
@@ -16,7 +18,7 @@ import org.sylrsykssoft.coreapi.framework.mail.exception.CoreApiFrameworkMailExc
  */
 @Service
 public class MailAdminApiFactoryService<R extends BaseAdminResource>
-extends AbstractFactoryBean<MailAdminApiService<R>> {
+		extends AbstractFactoryBean<MailAdminApiService<R>> {
 
 	private MailAdminApiServiceConfiguration serviceConfiguration;
 
@@ -51,10 +53,29 @@ extends AbstractFactoryBean<MailAdminApiService<R>> {
 	 * @throws CoreApiFrameworkMailException
 	 * @throws Exception
 	 */
-	public void execute(final MailAdminApiServiceConfiguration serviceConfiguration, final R source, final boolean html)
-			throws CoreApiFrameworkMailException, Exception {
+	public boolean execute(final MailAdminApiServiceConfiguration serviceConfiguration, final R source,
+			final boolean html)
+					throws CoreApiFrameworkMailException, Exception {
 		this.serviceConfiguration = serviceConfiguration;
-		createInstance().send(source, html);
+		return createInstance().send(source, html);
+	}
+
+	/**
+	 * Create instance of service and send mail
+	 * 
+	 * @param serviceConfiguration
+	 * @param source
+	 * @param html
+	 * 
+	 * @return Future<Boolean>
+	 * 
+	 * @throws CoreApiFrameworkMailException
+	 * @throws Exception
+	 */
+	public Future<Boolean> executeAsync(final MailAdminApiServiceConfiguration serviceConfiguration, final R source,
+			final boolean html) throws CoreApiFrameworkMailException, Exception {
+		this.serviceConfiguration = serviceConfiguration;
+		return createInstance().sendAsync(serviceConfiguration, source, html);
 	}
 
 	/**

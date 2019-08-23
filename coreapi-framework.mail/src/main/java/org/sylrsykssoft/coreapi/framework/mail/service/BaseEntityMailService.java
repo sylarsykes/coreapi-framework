@@ -2,8 +2,10 @@ package org.sylrsykssoft.coreapi.framework.mail.service;
 
 import static org.springframework.mail.javamail.MimeMessageHelper.MULTIPART_MODE_MIXED_RELATED;
 import static org.sylrsykssoft.coreapi.framework.mail.configuration.CoreApiFrameworkMailConstants.FREEMAKER_TEMPLATE_BEAN_NAME;
+import static org.sylrsykssoft.coreapi.framework.mail.configuration.CoreApiFrameworkMailConstants.MAIL_ASYNC_EXECUTOR;
 
 import java.nio.charset.StandardCharsets;
+import java.util.concurrent.Future;
 
 import javax.mail.MessagingException;
 import javax.mail.internet.MimeMessage;
@@ -14,6 +16,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.ui.freemarker.FreeMarkerTemplateUtils;
 import org.sylrsykssoft.coreapi.framework.api.resource.BaseEntityResource;
 import org.sylrsykssoft.coreapi.framework.mail.domain.EntityMailTO;
@@ -44,6 +48,7 @@ implements MailEntityApiService<T>, InitializingBean {
 
 	protected EntityMailTO<T> mailto;
 
+	protected MailAdminApiServiceConfiguration serviceConfiguration;
 
 	/**
 	 * {@inheritDoc}}
@@ -68,7 +73,18 @@ implements MailEntityApiService<T>, InitializingBean {
 	 * {@inheritDoc}}
 	 */
 	@Override
-	public void send(final T source, final boolean html) throws CoreApiFrameworkMailException {
+	public boolean send(final MailAdminApiServiceConfiguration serviceConfiguration, final T source, final boolean html)
+			throws CoreApiFrameworkMailException {
+		this.serviceConfiguration = serviceConfiguration;
+
+		return send(source, html);
+	}
+
+	/**
+	 * {@inheritDoc}}
+	 */
+	@Override
+	public boolean send(final T source, final boolean html) throws CoreApiFrameworkMailException {
 		setMailtTO(source);
 
 		if (validate(mailto)) {
@@ -82,7 +98,27 @@ implements MailEntityApiService<T>, InitializingBean {
 			}
 
 			mailSender.send(this.message);
+
+			return true;
 		}
+
+		return false;
+	}
+
+	/**
+	 * {@inheritDoc}}
+	 * 
+	 * @throws InterruptedException
+	 */
+	@Override
+	@Async(MAIL_ASYNC_EXECUTOR)
+	public Future<Boolean> sendAsync(final MailAdminApiServiceConfiguration serviceConfiguration, final T source,
+			final boolean html) throws CoreApiFrameworkMailException, InterruptedException {
+		final boolean result = send(serviceConfiguration, source, html);
+
+		Thread.sleep(1000L); // Intentional delay
+
+		return new AsyncResult<>(result);
 	}
 
 	/**
