@@ -29,7 +29,7 @@ import freemarker.template.Template;
  *
  */
 public abstract class BaseAdminMailService<T extends BaseAdminResource>
-implements MailAdminApiService<T>, InitializingBean {
+		implements MailAdminApiService<T>, InitializingBean {
 
 	@Autowired
 	protected JavaMailSender mailSender;
