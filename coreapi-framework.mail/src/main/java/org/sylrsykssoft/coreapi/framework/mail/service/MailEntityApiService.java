@@ -1,5 +1,7 @@
 package org.sylrsykssoft.coreapi.framework.mail.service;
 
+import java.util.concurrent.Future;
+
 import javax.mail.MessagingException;
 
 import org.sylrsykssoft.coreapi.framework.api.resource.BaseEntityResource;
@@ -13,12 +15,37 @@ import org.sylrsykssoft.coreapi.framework.mail.exception.CoreApiFrameworkMailExc
  *
  */
 public interface MailEntityApiService<T extends BaseEntityResource> {
+
+	/**
+	 * Send mail
+	 * 
+	 * @param serviceConfiguration
+	 * @param source
+	 * @param html
+	 * @throws CoreApiFrameworkMailException
+	 */
+	boolean send(MailAdminApiServiceConfiguration serviceConfiguration, T source, boolean html)
+			throws CoreApiFrameworkMailException;
+
 	/**
 	 * Send mail
 	 * 
 	 * @param source
+	 * @param html
+	 * @throws CoreApiFrameworkMailException
 	 */
-	void send(T source, boolean html) throws CoreApiFrameworkMailException;
+	boolean send(T source, boolean html) throws CoreApiFrameworkMailException;
+
+	/**
+	 * Send mail
+	 * 
+	 * @param serviceConfiguration
+	 * @param source
+	 * @param html
+	 * @throws CoreApiFrameworkMailException
+	 */
+	Future<Boolean> sendAsync(MailAdminApiServiceConfiguration serviceConfiguration, T source, boolean html)
+			throws CoreApiFrameworkMailException, InterruptedException;
 
 	/**
 	 * Setter from
