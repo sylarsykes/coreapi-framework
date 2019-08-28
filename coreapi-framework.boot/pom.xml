@@ -15,7 +15,7 @@
 	<packaging>pom</packaging>
 		
 	<name>coreapi-framework.boot</name>
-	<description>Demo project for Spring Boot</description>
+	<description>Core API Framework Boot. Parent project with spring boot basic dependecy.</description>
 	<url>https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.boot</url>
 
 	<developers>

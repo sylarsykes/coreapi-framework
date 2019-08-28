@@ -13,7 +13,7 @@
   <artifactId>coreapi-framework.service</artifactId>
   <packaging>jar</packaging>
   <name>coreapi-framework.service</name>
-  <description>Core API Framework Service</description>
+  <description>Core API Framework Service. Library with service basic classes.</description>
   <url>https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.service</url>	
 	
   <properties>

@@ -13,7 +13,7 @@
   <artifactId>coreapi-framework.mail</artifactId>
   <packaging>jar</packaging>
   <name>coreapi-framework.mail</name>
-  <description>Core API Framework Mail</description>
+  <description>Core API Framework Mail. Library with mail basic clasesses.</description>
   <url>https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.mail</url>
   
   <properties>
