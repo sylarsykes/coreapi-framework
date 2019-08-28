@@ -14,15 +14,15 @@ import lombok.NoArgsConstructor;
 /**
  * DTO Base.
  * 
+ * @param <N> The type of the identifier
  * @author juan.gonzalez.fernandez.jgf
- *
  */
 @Data
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
-public class BaseResource<ID> extends ResourceSupport {
+public class BaseResource<N extends Number> extends ResourceSupport {
 
-	protected ID entityId;
+	protected N entityId;
 	protected LocalDateTime createdAt;
 	protected @Nullable LocalDateTime updatedAt;
 
@@ -34,7 +34,7 @@ public class BaseResource<ID> extends ResourceSupport {
 	 * @param updatedAt
 	 */
 	@Builder(builderMethodName = "baseResourceBuilder")
-	public BaseResource(final ID entityId, final LocalDateTime createdAt, final LocalDateTime updatedAt) {
+	public BaseResource(final N entityId, final LocalDateTime createdAt, final LocalDateTime updatedAt) {
 		this.entityId = entityId;
 		this.createdAt = createdAt;
 		this.updatedAt = updatedAt;

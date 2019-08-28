@@ -31,14 +31,14 @@ public class BaseTranslateListener {
 		}
 		return translate;
 	}
-	
+
 	/**
 	 * Assign locale.
 	 * 
 	 * @param base
 	 */
 	@PrePersist
-	void onPrePersist(final Object translatebleObject) {
+	private void onPrePersist(final Object translatebleObject) {
 		if (translatebleObject instanceof EntityTranslatable) {
 			final BaseTranslate translate = getTranslatable((EntityTranslatable) translatebleObject);
 
@@ -54,10 +54,10 @@ public class BaseTranslateListener {
 	 * @param base
 	 */
 	@PreUpdate
-	void onPreUpdate(final Object translatebleObject) {
+	private void onPreUpdate(final Object translatebleObject) {
 		if (translatebleObject instanceof EntityTranslatable) {
 			final BaseTranslate translate = getTranslatable((EntityTranslatable) translatebleObject);
-			
+
 			if (StringUtils.isEmpty(translate.getLocale())) {
 				translate.setLocale(Locale.UK.getLanguage());
 			}

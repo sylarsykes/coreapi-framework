@@ -9,13 +9,12 @@ import org.sylrsykssoft.coreapi.framework.api.model.Base;
 /**
  * The Interface BaseRepository.
  * 
+ * @param <T> The type of object that extends Base
+ * @param <N> The type of the identifier
  * @author juan.gonzalez.fernandez.jgf
- *
- * @param <T> the generic type
- * @param <ID> the generic type
  */
 @NoRepositoryBean
 @Transactional
-public interface BaseRepository<T extends Base<ID>, ID extends Number> extends JpaRepository<T, ID> {
+public interface BaseRepository<T extends Base<N>, N extends Number> extends JpaRepository<T, N> {
 
 }

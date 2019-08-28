@@ -17,7 +17,7 @@ public class BaseAdminListener {
 	 * Assign updatedAt
 	 */
 	@PreUpdate
-	void onPreUpdate(final BaseAdmin base) {
+	private void onPreUpdate(final BaseAdmin base) {
 		final LocalDateTime dateTime = LocalDateTime.now();
 		base.setRemovedAt(dateTime);
 	}
