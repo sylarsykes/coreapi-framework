@@ -13,7 +13,7 @@
   <artifactId>coreapi-framework.database</artifactId>
   <packaging>jar</packaging>
   <name>coreapi-framework.database</name>
-  <description>Core API Framework Database</description>
+  <description>Core API Framework Database. Library with repository basic classes.</description>
   <url>https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.database</url>
   
   <properties>

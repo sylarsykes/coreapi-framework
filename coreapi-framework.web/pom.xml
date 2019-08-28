@@ -13,7 +13,7 @@
   <artifactId>coreapi-framework.web</artifactId>
   <packaging>jar</packaging>
   <name>coreapi-framework.web</name>
-  <description>Core API Framework Web</description>
+  <description>Core API Framework Web. Library with controller basic classes.</description>
   <url>https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.web</url>
   
   <properties>

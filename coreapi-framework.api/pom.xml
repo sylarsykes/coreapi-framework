@@ -13,7 +13,7 @@
   <artifactId>coreapi-framework.api</artifactId>
   <packaging>jar</packaging>
   <name>coreapi-framework.api</name>
-  <description>Core API Framework Api</description>
+  <description>Core API Framework Api. Library define the basic classes for entities and dtos of projects.</description>
   <url>https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.api</url>
   
   <properties>

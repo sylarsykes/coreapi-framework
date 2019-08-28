@@ -13,7 +13,7 @@
   <artifactId>coreapi-framework.library</artifactId>
   <packaging>jar</packaging>
   <name>coreapi-framework.library</name>
-  <description>Core API Framework Library</description>
+  <description>Core API Framework Library. Library of utilities.</description>
   <url>https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.library</url>
   
   <properties>
