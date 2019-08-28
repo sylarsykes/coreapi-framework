@@ -17,12 +17,11 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.experimental.SuperBuilder;
-
 /**
  * Entity base.
  * 
+ * @param <N> The type of the identifier
  * @author juan.gonzalez.fernandez.jgf
- *
  */
 @MappedSuperclass
 @Data
@@ -30,12 +29,12 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
-public class Base<ID extends Number> implements Persistable<ID> {
+public class Base<N extends Number> implements Persistable<N> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", updatable = false, nullable = false)
-	protected ID entityId;
+	protected N entityId;
 	
 	@Column(name = "created_at", nullable = false, insertable = true, updatable = false)
 	protected LocalDateTime createdAt;
@@ -43,18 +42,16 @@ public class Base<ID extends Number> implements Persistable<ID> {
 	@Column(name = "updated_at", nullable = true, insertable = false, updatable = true)
 	protected @Nullable LocalDateTime updatedAt;
 	
-	/*
-	 * (non-Javadoc)
-	 * @see org.springframework.data.domain.Persistable#getId()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
-	public ID getId() {
+	public N getId() {
 		return entityId;
 	}
 	
-	/*
-	 * (non-Javadoc)
-	 * @see org.springframework.data.domain.Persistable#isNew()
+	/**
+	 * {@inheritDoc}
 	 */
 	@Override
 	public boolean isNew() {

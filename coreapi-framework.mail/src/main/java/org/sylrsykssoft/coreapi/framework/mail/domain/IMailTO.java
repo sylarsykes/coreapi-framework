@@ -8,10 +8,11 @@ import org.sylrsykssoft.coreapi.framework.api.resource.BaseResource;
 /**
  * MailTO interface
  * 
+ * @param <T> The type of object that extends Base
+ * @param <N> The type of the identifier
  * @author juan.gonzalez.fernandez.jgf
- *
  */
-public interface IMailTO<T extends BaseResource<ID>, ID extends Number> {
+public interface IMailTO<T extends BaseResource<N>, N extends Number> {
 
 	/**
 	 * Getter list destination

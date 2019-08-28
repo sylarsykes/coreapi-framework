@@ -18,13 +18,12 @@ import lombok.NoArgsConstructor;
  * Address entity
  * 
  * Using
- * 	@OneToOne(mappedBy = "person")
- *  private OneAddress<T, ID> address;
  * 
+ * @OneToOne(mappedBy = "person") private OneAddress<T, ID> address;
+ * 
+ * @param <T> The type of object that extends Base
+ * @param <N> The type of the identifier
  * @author juan.gonzalez.fernandez.jgf
- *
- * @param <T>
- * @param <ID>
  */
 @Table(name = ONE_ADDRESS_REPOSITORY_TABLE_NAME)
 @Entity(name = ONE_ADDRESS_REPOSITORY_ENTITY_NAME)
@@ -33,26 +32,28 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = true, doNotUseGetters = true)
-public class OneAddress<T extends Base<ID>, ID extends Number> extends Address<T, ID> {
+public class OneAddress<T extends Base<N>, N extends Number> extends Address<T, N> {
 
 	/**
 	 * OneAddressBuilder
 	 * 
 	 * @author juan.gonzalez.fernandez.jgf
 	 *
-	 * @param <T>
-	 * @param <ID>
+	 * @param <T> The type of object that extends Base
+	 * @param <N> The type of the identifier
 	 */
-	public static class OneAddressBuilder<T extends Base<ID>, ID extends Number> extends AddressBuilder<T, ID, OneAddress<T, ID>, OneAddressBuilder<T, ID>> {
+	public static class OneAddressBuilder<T extends Base<N>, N extends Number>
+	extends AddressBuilder<T, N, OneAddress<T, N>, OneAddressBuilder<T, N>> {
 		/**
 		 * {inheritDoc}
 		 */
 		@Override
-		protected OneAddressBuilder<T, ID> self() {
+		protected OneAddressBuilder<T, N> self() {
 			return this;
 		}
 	}
 
+	// Relationships
 	@OneToOne
 	private T person;
 }

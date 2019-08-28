@@ -14,12 +14,13 @@ import org.sylrsykssoft.coreapi.framework.api.model.Base;
  *
  */
 public class BaseListener {
+
 	/**
 	 * Assign createdAt
 	 */
 	@PrePersist
 	@SuppressWarnings("rawtypes")
-	void onPrePersist(final Base base) {
+	private void onPrePersist(final Base base) {
 		final LocalDateTime dateTime = LocalDateTime.now();
 		base.setCreatedAt(dateTime);
 	}
@@ -29,7 +30,7 @@ public class BaseListener {
 	 */
 	@PreUpdate
 	@SuppressWarnings("rawtypes")
-	void onPreUpdate(final Base base) {
+	private void onPreUpdate(final Base base) {
 		final LocalDateTime dateTime = LocalDateTime.now();
 		base.setUpdatedAt(dateTime);
 	}

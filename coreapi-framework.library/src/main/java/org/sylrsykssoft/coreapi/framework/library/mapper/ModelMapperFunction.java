@@ -21,10 +21,10 @@ public class ModelMapperFunction<T, R> implements Function<T, R> {
 	/** The model mapper. */
 	@Autowired
 	private ModelMapper modelMapper;
-	
+
 	private final Class<T> sourceClass;
 	private final Class<R> targetClass;
-	
+
 	/**
 	 * AllArgsContructor
 	 * 
@@ -36,18 +36,18 @@ public class ModelMapperFunction<T, R> implements Function<T, R> {
 		this.sourceClass = sourceClass;
 		this.targetClass = targetClass;
 	}
-		
+
 	/**
 	 * {@inherit}
 	 */
 	@Override
 	public R apply(final T source) {
 		LOGGER.info("ModelMapperFunction::apply Mapper a source: {}", source);
-		
+
 		final R target = modelMapper.map(source, targetClass);
-		
+
 		LOGGER.info("ModelMapperFunction::apply Result -> {}", target);
-		
+
 		return target;
 	}
 

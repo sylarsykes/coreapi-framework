@@ -26,10 +26,9 @@ import lombok.experimental.SuperBuilder;
  * 	@OneToOne(mappedBy = "person")
  *  private Address address;
  * 
+ * @param <T> The type of object that extends Base
+ * @param <N> The type of the identifier
  * @author juan.gonzalez.fernandez.jgf
- *
- * @param <T>
- * @param <ID>
  */
 @Table(name = ADDRESS_REPOSITORY_TABLE_NAME)
 @Entity(name = ADDRESS_REPOSITORY_ENTITY_NAME)
@@ -39,7 +38,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
-public class Address<T extends Base<ID>, ID extends Number> {
+public class Address<T extends Base<N>, N extends Number> {
 
 	public static final int MAX_LENGTH_NAME = 256;
 	
