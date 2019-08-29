@@ -1,6 +1,6 @@
 # Coreapi-Framework
 
-Core API Framework is a generic project that serves as the basis for other projects. It is composed of the subprojects [Library](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.library), [API](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.api), [Database](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.database), [Service](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.service), [Web](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.web), [Mail](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.mail).
+Core API Framework is a generic project that serves as the basis for other projects. It is composed of the subprojects [Library](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.library), [API](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.api), [Database](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.database), [Service](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.service), [Web](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.web), [Mail](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.mail), [Boot](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.boot).
 
 
 ### Features
@@ -14,7 +14,23 @@ Core API Framework is a generic project that serves as the basis for other proje
 * [Boot](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.boot) Parent project with spring boot basic dependecy
 
 
-### Installation
+### How to use libraries?
+
+- Add repository in pom
+
+```
+<!-- Core API Framework -->
+<repositories>
+	<repository>
+		<id>coreapi-framework</id>
+		<url>https://github.com/sylarsykes/coreapi-framework</url>
+		<snapshots>
+			<enabled>true</enabled>
+			<updatePolicy>always</updatePolicy>
+		</snapshots>
+	</repository>
+</repositories>
+```
 
 - Library, import dependency
 
@@ -25,6 +41,7 @@ Core API Framework is a generic project that serves as the basis for other proje
 	<version>${coreapi-framework.library.version</version>
 </dependency>
 ```
+
 - API, import dependency
 
 ```
@@ -34,6 +51,7 @@ Core API Framework is a generic project that serves as the basis for other proje
 	<version>${coreapi-framework.api.version</version>
 </dependency>
 ```
+
 - Database, import dependency
 
 ```
@@ -43,6 +61,7 @@ Core API Framework is a generic project that serves as the basis for other proje
 	<version>${coreapi-framework.database.version</version>
 </dependency>
 ```
+
 - Service, import dependency
 
 ```
@@ -52,6 +71,7 @@ Core API Framework is a generic project that serves as the basis for other proje
 	<version>${coreapi-framework.service.version</version>
 </dependency>
 ```
+
 - Web, import dependency
 
 ```
@@ -61,6 +81,7 @@ Core API Framework is a generic project that serves as the basis for other proje
 	<version>${coreapi-framework.web.version</version>
 </dependency>
 ```
+
 - Mail, import dependency
 
 ```
@@ -70,6 +91,7 @@ Core API Framework is a generic project that serves as the basis for other proje
 	<version>${coreapi-framework.mail.version</version>
 </dependency>
 ```
+
 - Boot, import dependency
 
 ```
@@ -80,6 +102,7 @@ Core API Framework is a generic project that serves as the basis for other proje
   	<relativePath/>
 </parent>
 ```
+
 
 ### Built with
 
@@ -105,6 +128,7 @@ Core API Framework is a generic project that serves as the basis for other proje
 
 - [Musbands](https://github.com/sylarsykes/java-musbands)
 - [Musbands Admin](https://github.com/sylarsykes/java-musbands-admin)
+
 
 ### License
 
