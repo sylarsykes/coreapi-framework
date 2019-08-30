@@ -24,10 +24,10 @@ import org.sylrsykssoft.coreapi.framework.api.resource.BaseAdminResource;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityException;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotIdMismatchEntityException;
 import org.sylrsykssoft.coreapi.framework.library.error.exception.CoreApiFrameworkLibraryException;
+import org.sylrsykssoft.coreapi.framework.library.util.LoggerUtil;
+import org.sylrsykssoft.coreapi.framework.library.util.LoggerUtil.LogMessageLevel;
 import org.sylrsykssoft.coreapi.framework.service.BaseAdminService;
 import org.sylrsykssoft.coreapi.framework.web.configuration.BaseAdminConstants;
-
-import lombok.extern.slf4j.Slf4j;
 
 /**
  * Base admin controller
@@ -37,7 +37,6 @@ import lombok.extern.slf4j.Slf4j;
  * @param <R> Resource class
  * @param <T> Admin class
  */
-@Slf4j
 public abstract class BaseAdminController<R extends BaseAdminResource, T extends BaseAdmin> {
 
 	/**
@@ -52,11 +51,12 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	@ResponseStatus(HttpStatus.CREATED)
 	public R create(final @Valid @RequestBody R entity)
 			throws NotFoundEntityException, CoreApiFrameworkLibraryException {
-		LOGGER.info("BaseAdminController::create Creating a new todo entry by using information: {}", entity);
+		LoggerUtil.message(LogMessageLevel.INFO,
+				"BaseAdminController::create Creating a new todo entry by using information: {}", entity);
 
 		final R created = getAdminService().create(entity);
 
-		LOGGER.info("BaseAdminController::create Created a new todo entry: {}", created);
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::create Created a new todo entry: {}", created);
 
 		return created;
 	}
@@ -73,11 +73,11 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	@DeleteMapping(path = BaseAdminConstants.CONTROLLER_DELETE_DELETE)
 	@ResponseStatus(HttpStatus.OK)
 	public void delete(final @PathVariable Integer id) throws NotFoundEntityException, CoreApiFrameworkLibraryException {
-		LOGGER.info("BaseAdminController::delete Deleting a entry with id: {}", id);
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::delete Deleting a entry with id: {}", id);
 
 		final Optional<R> old = getAdminService().findById(id);
 		if (!old.isPresent()) {
-			LOGGER.warn("BaseAdminController::delete not find result for id -> {}", id);
+			LoggerUtil.message(LogMessageLevel.WARN, "BaseAdminController::delete not find result for id -> {}", id);
 			throw new NotFoundEntityException();
 		}
 
@@ -97,15 +97,15 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 */
 	@GetMapping
 	public Iterable<R> findAll() throws NotFoundEntityException {
-		LOGGER.info("BaseAdminController::findAll Finding all entries");
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findAll Finding all entries");
 
 		final Iterable<R> entities = getAdminService().findAll();
 		if (entities == null) {
-			LOGGER.warn("BaseAdminController::findAll not find result");
+			LoggerUtil.message(LogMessageLevel.WARN, "BaseAdminController::findAll not find result");
 			throw new NotFoundEntityException();
 		}
 
-		LOGGER.info("BaseAdminController::findAll Found {} entries.", entities);
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findAll Found {} entries.", entities);
 
 		return entities;
 	}
@@ -119,17 +119,19 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 */
 	@PostMapping(path = BaseAdminConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public Iterable<R> findAllByExample(final @RequestBody R resource) throws NotFoundEntityException {
-		LOGGER.info("BaseAdminController::findAllByExample Finding all entries for example: {}", resource);
+		LoggerUtil.message(LogMessageLevel.INFO,
+				"BaseAdminController::findAllByExample Finding all entries for example: {}", resource);
 
 		final Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
 
 		final Iterable<R> entities = getAdminService().findAllByExample(example);
 		if (entities == null) {
-			LOGGER.warn("BaseAdminController::findAllByExample not find result for example -> {}", resource);
+			LoggerUtil.message(LogMessageLevel.WARN,
+					"BaseAdminController::findAllByExample not find result for example -> {}", resource);
 			throw new NotFoundEntityException();
 		}
 
-		LOGGER.info("BaseAdminController::findAllByExample Found {} entries.", entities);
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findAllByExample Found {} entries.", entities);
 
 		return entities;
 	}
@@ -148,7 +150,9 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	@PostMapping(path = BaseAdminConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE_SORTABLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public Iterable<R> findAllByExampleSortable(final @RequestBody R resource,
 			final @PathVariable String direction, final @PathVariable List<String> properties) throws NotFoundEntityException {
-		LOGGER.info("BaseAdminController::findAllByExampleSortable Finding all entries with example {} with direction {} and properties {}", resource, direction, properties);
+		LoggerUtil.message(LogMessageLevel.INFO,
+				"BaseAdminController::findAllByExampleSortable Finding all entries with example {} with direction {} and properties {}",
+				resource, direction, properties);
 
 		final Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
 
@@ -157,11 +161,13 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 
 		final Iterable<R> entities = getAdminService().findAllByExampleSortable(example, sort);
 		if (entities == null) {
-			LOGGER.warn("BaseAdminController::findAllByExampleSortable not find result for example -> {}", resource);
+			LoggerUtil.message(LogMessageLevel.WARN,
+					"BaseAdminController::findAllByExampleSortable not find result for example -> {}", resource);
 			throw new NotFoundEntityException();
 		}
 
-		LOGGER.info("BaseAdminController::findAllByExampleSortable Found {} entries.", entities);
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findAllByExampleSortable Found {} entries.",
+				entities);
 
 		return entities;
 	}
@@ -179,16 +185,16 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	@GetMapping(path = BaseAdminConstants.CONTROLLER_GET_FIND_ONE_BY_ID, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(HttpStatus.FOUND)
 	public R findById(final @PathVariable Integer id) throws NotFoundEntityException {
-		LOGGER.info("BaseAdminController::findById Finding a entry with id: {}", id);
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findById Finding a entry with id: {}", id);
 
 		final Optional<R> result = getAdminService().findById(id);
 
 		if (!result.isPresent()) {
-			LOGGER.warn("BaseAdminController::findById not find result for id -> {}", id);
+			LoggerUtil.message(LogMessageLevel.WARN, "BaseAdminController::findById not find result for id -> {}", id);
 			throw new NotFoundEntityException();
 		}
 
-		LOGGER.info("BaseAdminController::findById Result -> {}", result.get());
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findById Result -> {}", result.get());
 		return result.get();
 	}
 
@@ -205,16 +211,17 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 */
 	@GetMapping(path = BaseAdminConstants.CONTROLLER_GET_FIND_ONE_BY_NAME, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public R findByName(final @PathVariable String name) throws NotFoundEntityException {
-		LOGGER.info("BaseAdminController::findByName Finding a entry with name: {}", name);
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findByName Finding a entry with name: {}", name);
 
 		final Optional<R> result = getAdminService().findByName(name);
 
 		if (!result.isPresent()) {
-			LOGGER.warn("BaseAdminController::findByName not find result for name -> {}", name);
+			LoggerUtil.message(LogMessageLevel.WARN, "BaseAdminController::findByName not find result for name -> {}",
+					name);
 			throw new NotFoundEntityException();
 		}
 
-		LOGGER.info("BaseAdminController::findByName Result -> {}", result.get());
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findByName Result -> {}", result.get());
 
 		return result.get();
 	}
@@ -231,18 +238,20 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 */
 	@PostMapping(path = BaseAdminConstants.CONTROLLER_GET_FIND_BY_EXAMPLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public R findOneByExample(final @RequestBody R resource) throws NotFoundEntityException {
-		LOGGER.info("BaseAdminController::findOneByExample Finding a entry with: {}", resource);
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findOneByExample Finding a entry with: {}",
+				resource);
 
 		final Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
 
 		final Optional<R> result = getAdminService().findByExample(example);
 
 		if (!result.isPresent()) {
-			LOGGER.warn("BaseAdminController::findOneByExample not find result for example -> {}", resource);
+			LoggerUtil.message(LogMessageLevel.WARN,
+					"BaseAdminController::findOneByExample not find result for example -> {}", resource);
 			throw new NotFoundEntityException();
 		}
 
-		LOGGER.info("BaseAdminController::findOneByExample Result -> {}", result.get());
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findOneByExample Result -> {}", result.get());
 
 		return result.get();
 	}
@@ -270,20 +279,20 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	@PutMapping(path = BaseAdminConstants.CONTROLLER_PUT_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(HttpStatus.OK)
 	public R update(final @Valid @RequestBody R entity, final @PathVariable Integer id) throws NotIdMismatchEntityException, NotFoundEntityException {
-		LOGGER.info("BaseAdminController::update Updating a entry with id: {}", id);
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::update Updating a entry with id: {}", id);
 
 		if (entity.getEntityId() != id)
 			throw new NotIdMismatchEntityException();
 
 		final Optional<R> old = getAdminService().findById(id);
 		if (!old.isPresent()) {
-			LOGGER.warn("BaseAdminController::update not find result for id -> {}", id);
+			LoggerUtil.message(LogMessageLevel.WARN, "BaseAdminController::update not find result for id -> {}", id);
 			throw new NotFoundEntityException();
 		}
 
 		final R updated = getAdminService().update(entity);
 
-		LOGGER.info("BaseAdminController::update Updated the entry: {}", updated);
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::update Updated the entry: {}", updated);
 
 		return updated;
 	}

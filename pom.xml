@@ -49,6 +49,7 @@
 		<coreapi-framework.service.version>${project.version}</coreapi-framework.service.version>
 		<coreapi-framework.web.version>${project.version}</coreapi-framework.web.version>
 		<coreapi-framework.mail.version>${project.version}</coreapi-framework.mail.version>
+		<coreapi-framework.audit.version>${project.version}</coreapi-framework.audit.version>
 		<coreapi-framework.boot.version>${project.version}</coreapi-framework.boot.version>
 	
 	    <!-- Dependency versions -->
@@ -94,6 +95,7 @@
 		<module>coreapi-framework.service</module>
 		<module>coreapi-framework.web</module>
     	<module>coreapi-framework.mail</module>
+    	<module>coreapi-framework.audit</module>
 	   	<module>coreapi-framework.boot</module>
   </modules>
 </project>

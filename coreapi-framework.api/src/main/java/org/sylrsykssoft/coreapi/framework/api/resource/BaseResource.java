@@ -10,6 +10,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 
 /**
  * DTO Base.
@@ -20,6 +21,7 @@ import lombok.NoArgsConstructor;
 @Data
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
+@ToString(includeFieldNames = true)
 public class BaseResource<N extends Number> extends ResourceSupport {
 
 	protected N entityId;

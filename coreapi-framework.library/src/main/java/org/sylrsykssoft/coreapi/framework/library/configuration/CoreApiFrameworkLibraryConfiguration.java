@@ -1,9 +1,6 @@
 package org.sylrsykssoft.coreapi.framework.library.configuration;
 
 import org.modelmapper.ModelMapper;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
-import org.springframework.beans.factory.InjectionPoint;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.context.annotation.Scope;
@@ -17,23 +14,9 @@ import org.springframework.context.annotation.Scope;
 public class CoreApiFrameworkLibraryConfiguration {
 
 	/**
-	 * Logger bean
-	 * 
-	 * @param injectionPoint
-	 * @return Logger
-	 */
-	@SuppressWarnings("exports")
-	@Bean
-	@Scope("prototype")
-	public Logger logger(final InjectionPoint injectionPoint) {
-		return LoggerFactory.getLogger(injectionPoint.getMethodParameter().getContainingClass());
-	}
-	
-	/**
 	 * Model mapper bean
 	 * @return
 	 */
-	@SuppressWarnings("exports")
 	@Bean
 	@Scope("prototype")
 	public ModelMapper modelMapper() {
