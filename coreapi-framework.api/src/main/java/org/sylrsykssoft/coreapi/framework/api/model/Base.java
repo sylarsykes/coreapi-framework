@@ -16,6 +16,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
 import lombok.experimental.SuperBuilder;
 /**
  * Entity base.
@@ -29,6 +30,7 @@ import lombok.experimental.SuperBuilder;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
+@ToString(includeFieldNames = true)
 public class Base<N extends Number> implements Persistable<N> {
 
 	@Id

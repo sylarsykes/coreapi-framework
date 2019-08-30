@@ -24,20 +24,18 @@ import org.sylrsykssoft.coreapi.framework.api.resource.BaseEntityResource;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityException;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotIdMismatchEntityException;
 import org.sylrsykssoft.coreapi.framework.library.error.exception.CoreApiFrameworkLibraryException;
+import org.sylrsykssoft.coreapi.framework.library.util.LoggerUtil;
+import org.sylrsykssoft.coreapi.framework.library.util.LoggerUtil.LogMessageLevel;
 import org.sylrsykssoft.coreapi.framework.service.BaseEntityService;
 import org.sylrsykssoft.coreapi.framework.web.configuration.BaseEntityConstants;
 
-import lombok.extern.slf4j.Slf4j;
-
 /**
  * Base admin controller
- * 
- * @author juan.gonzalez.fernandez.jgf
  *
  * @param <R> Resource class
  * @param <T> Admin class
+ * @author juan.gonzalez.fernandez.jgf
  */
-@Slf4j
 public abstract class BaseEntityController<R extends BaseEntityResource, T extends BaseEntity> {
 
 	/**
@@ -51,15 +49,16 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(HttpStatus.CREATED)
 	public R create(final @Valid @RequestBody R entity) {
-		LOGGER.info("BaseEntityController::create Creating a new todo entry by using information: {}", entity);
+		LoggerUtil.message(LogMessageLevel.INFO,
+				"BaseEntityController::create Creating a new todo entry by using information: {}", entity);
 
 		final R created = getEntityService().create(entity);
 
-		LOGGER.info("BaseEntityController::create Created a new todo entry: {}", created);
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::create Created a new todo entry: {}", created);
 
 		return created;
 	}
-	
+
 	/**
 	 * Delete entry.
 	 * 
@@ -71,12 +70,12 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 */
 	@DeleteMapping(path = BaseEntityConstants.CONTROLLER_DELETE_DELETE)
 	@ResponseStatus(HttpStatus.OK)
-	public void delete(final @PathVariable Long id) throws NotFoundEntityException, CoreApiFrameworkLibraryException {	
-		LOGGER.info("BaseEntityController::delete Deleting a entry with id: {}", id);
+	public void delete(final @PathVariable Long id) throws NotFoundEntityException, CoreApiFrameworkLibraryException {
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::delete Deleting a entry with id: {}", id);
 
 		final Optional<R> old = getEntityService().findById(id);
 		if (!old.isPresent()) {
-			LOGGER.warn("BaseEntityController::delete not find result for id -> {}", id);
+			LoggerUtil.message(LogMessageLevel.WARN, "BaseEntityController::delete not find result for id -> {}", id);
 			throw new NotFoundEntityException();
 		}
 
@@ -86,7 +85,7 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 			throw new CoreApiFrameworkLibraryException(e);
 		}
 	}
-	
+
 	/**
 	 * Find all entries.
 	 * 
@@ -96,19 +95,19 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 */
 	@GetMapping
 	public Iterable<R> findAll() throws NotFoundEntityException {
-		LOGGER.info("BaseEntityController::findAll Finding all entries");
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::findAll Finding all entries");
 
 		final Iterable<R> entities = getEntityService().findAll();
 		if (entities == null) {
-			LOGGER.warn("BaseAdminController::findAll not find result");
+			LoggerUtil.message(LogMessageLevel.WARN, "BaseAdminController::findAll not find result");
 			throw new NotFoundEntityException();
 		}
 
-		LOGGER.info("BaseEntityController::findAll Found {} entries.", entities);
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::findAll Found {} entries.", entities);
 
 		return entities;
 	}
-	
+
 	/**
 	 * Find all entries by example.
 	 * 
@@ -118,17 +117,19 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 */
 	@PostMapping(path = BaseEntityConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public Iterable<R> findAllByExample(final @RequestBody R resource) throws NotFoundEntityException {
-		LOGGER.info("BaseEntityController::findAllByExample Finding all entries for example: {}", resource);
+		LoggerUtil.message(LogMessageLevel.INFO,
+				"BaseEntityController::findAllByExample Finding all entries for example: {}", resource);
 
 		final Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
-		
+
 		final Iterable<R> entities = getEntityService().findAllByExample(example);
 		if (entities == null) {
-			LOGGER.warn("BaseEntityController::findAllByExample not find result for example -> {}", resource);
+			LoggerUtil.message(LogMessageLevel.WARN,
+					"BaseEntityController::findAllByExample not find result for example -> {}", resource);
 			throw new NotFoundEntityException();
 		}
 
-		LOGGER.info("BaseEntityController::findAllByExample Found {} entries.", entities);
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::findAllByExample Found {} entries.", entities);
 
 		return entities;
 	}
@@ -145,26 +146,30 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 * @throws NotFoundEntityException
 	 */
 	@PostMapping(path = BaseEntityConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE_SORTABLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
-	public Iterable<R> findAllByExampleSortable(final @RequestBody R resource, 
+	public Iterable<R> findAllByExampleSortable(final @RequestBody R resource,
 			final @PathVariable String direction, final @PathVariable List<String> properties) throws NotFoundEntityException {
-		LOGGER.info("BaseEntityController::findAllByExampleSortable Finding all entries with example {} with direction {} and properties {}", resource, direction, properties);
+		LoggerUtil.message(LogMessageLevel.INFO,
+				"BaseEntityController::findAllByExampleSortable Finding all entries with example {} with direction {} and properties {}",
+				resource, direction, properties);
 
 		final Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
-		
+
 		final Direction sortDirection = Direction.fromString(direction);
 		final Sort sort = new Sort(sortDirection, properties);
-		
+
 		final Iterable<R> entities = getEntityService().findAllByExampleSortable(example, sort);
 		if (entities == null) {
-			LOGGER.warn("BaseEntityController::findAllByExampleSortable not find result for example -> {}", resource);
+			LoggerUtil.message(LogMessageLevel.WARN,
+					"BaseEntityController::findAllByExampleSortable not find result for example -> {}", resource);
 			throw new NotFoundEntityException();
 		}
 
-		LOGGER.info("BaseEntityController::findAllByExampleSortable Found {} entries.", entities);
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::findAllByExampleSortable Found {} entries.",
+				entities);
 
 		return entities;
 	}
-	
+
 	/**
 	 * Find one entry.
 	 * 
@@ -177,20 +182,20 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 */
 	@GetMapping(path = BaseEntityConstants.CONTROLLER_GET_FIND_ONE_BY_ID, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public R findById(final @PathVariable Long id) throws NotFoundEntityException {
-		LOGGER.info("BaseEntityController::findById Finding a entry with id: {}", id);
-		
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::findById Finding a entry with id: {}", id);
+
 		final Optional<R> result = getEntityService().findById(id);
-		
+
 		if (!result.isPresent()) {
-			LOGGER.warn("BaseEntityController::findById not find result for id -> {}", id);
+			LoggerUtil.message(LogMessageLevel.WARN, "BaseEntityController::findById not find result for id -> {}", id);
 			throw new NotFoundEntityException();
 		}
-		
-		LOGGER.info("BaseEntityController::findById Result -> {}", result.get());
-		
+
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::findById Result -> {}", result.get());
+
 		return result.get();
 	}
-	
+
 	/**
 	 * Find by example
 	 * 
@@ -203,19 +208,21 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 */
 	@PostMapping(path = BaseEntityConstants.CONTROLLER_GET_FIND_BY_EXAMPLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	public R findOneByExample(final @RequestBody R resource) throws NotFoundEntityException {
-		LOGGER.info("BaseEntityController::findOneByExample Finding a entry : {}", resource);
-		
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::findOneByExample Finding a entry : {}",
+				resource);
+
 		final Example<R> example = Example.of(resource, ExampleMatcher.matchingAll());
-		
+
 		final Optional<R> result = getEntityService().findByExample(example);
-		
+
 		if (!result.isPresent()) {
-			LOGGER.warn("BaseEntityController::findOneByExample not find result for example -> {}", resource);
+			LoggerUtil.message(LogMessageLevel.WARN,
+					"BaseEntityController::findOneByExample not find result for example -> {}", resource);
 			throw new NotFoundEntityException();
 		}
-		
-		LOGGER.info("BaseEntityController::findOneByExample Result -> {}", result.get());
-		
+
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::findOneByExample Result -> {}", result.get());
+
 		return result.get();
 	}
 
@@ -242,22 +249,22 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	@PutMapping(path = BaseEntityConstants.CONTROLLER_PUT_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(HttpStatus.OK)
 	public R update(final @Valid @RequestBody R entity, final @PathVariable Long id) throws NotIdMismatchEntityException, NotFoundEntityException {
-		LOGGER.info("BaseEntityController::update Updating a entry with id: {}", id);
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::update Updating a entry with id: {}", id);
 
 		if (entity.getEntityId() != id)
 			throw new NotIdMismatchEntityException();
 
 		final Optional<R> old = getEntityService().findById(id);
 		if (!old.isPresent()) {
-			LOGGER.warn("BaseEntityController::update not find result for id -> {}", id);
+			LoggerUtil.message(LogMessageLevel.WARN, "BaseEntityController::update not find result for id -> {}", id);
 			throw new NotFoundEntityException();
 		}
 
 		final R updated = getEntityService().update(entity);
 
-		LOGGER.info("BaseEntityController::update Updated the entry: {}", updated);
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::update Updated the entry: {}", updated);
 
 		return updated;
 	}
-	
+
 }

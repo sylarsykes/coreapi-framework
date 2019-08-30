@@ -13,17 +13,16 @@ import org.sylrsykssoft.coreapi.framework.database.exception.IncorrectResultSize
 import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityException;
 import org.sylrsykssoft.coreapi.framework.database.repository.BaseAdminRepository;
 import org.sylrsykssoft.coreapi.framework.library.mapper.IMapperFunction;
-
-import lombok.extern.slf4j.Slf4j;
+import org.sylrsykssoft.coreapi.framework.library.util.LoggerUtil;
+import org.sylrsykssoft.coreapi.framework.library.util.LoggerUtil.LogMessageLevel;
 
 /**
  * BaseAdminService service.
  * 
- * @author juan.gonzalez.fernandez.jgf
- *
  * @param <T> Type class.
+ * @param <R> Resource class.
+ * @author juan.gonzalez.fernandez.jgf
  */
-@Slf4j
 public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminResource> implements IAdminService<T, R, Integer>, IMapperFunction<T, R> {
 
 	/**
@@ -32,7 +31,7 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	@Override
 	public long count() {
 		return getAdminRepository().count();
-	} 
+	}
 
 	/**
 	 * {@inheritDoc}
@@ -40,10 +39,13 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	@Override
 	public R create(final R entity) {
 		final T source = getAdminRepository().save(mapperToEntity().apply(entity));
+
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminService::create Result {}.", source);
+
 		// Convert entity to resource
 		return mapperToResource().toResource(source);
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -51,7 +53,9 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	public void delete(final R source) throws NotFoundEntityException {
 		if (source.getEntityId() != null && !existsById(source.getEntityId()))
 			throw new NotFoundEntityException();
-		
+
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminService::delete Entity {} to delete.", source);
+
 		final T entity = mapperToEntity().apply(source);
 		getAdminRepository().delete(entity);
 	}
@@ -61,9 +65,11 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 */
 	@Override
 	public void deleteAll() {
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminService::deleteAll.");
+
 		getAdminRepository().deleteAll();
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -72,16 +78,22 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 		final Iterable<T> entities = StreamSupport.stream(sources.spliterator(), false)
 				.map(mapperToEntity()::apply)
 				.collect(Collectors.toList());
-		
+
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminService::deleteAll Delete all entities {}.", entities);
+
 		getAdminRepository().deleteAll(entities);
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public void deleteById(final Integer id) throws NotFoundEntityException {
-		getAdminRepository().deleteById(id);
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminService::deleteById Delete entity with id {}.", id);
+
+		if (existsById(id)) {
+			getAdminRepository().deleteById(id);
+		}
 	}
 
 	/**
@@ -89,21 +101,23 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 */
 	@Override
 	public boolean existsById(final Integer id) {
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminService::existsById Exists entity with id {}.", id);
+
 		return getAdminRepository().existsById(id);
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public List<R> findAll() {
 		final List<T> sources = getAdminRepository().findAll();
-		
-		LOGGER.info("BaseAdminService::findAll Found {} entries.", sources);
-		
+
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminService::findAll Found {} entries.", sources);
+
 		return sources.stream().map(mapperToResource()::toResource).collect(Collectors.toList());
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
@@ -111,8 +125,11 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	public List<R> findAllByExample(final Example<R> example) {
 		final T entity = mapperToEntity().apply(example.getProbe());
 		final Example<T> exampleToFind = Example.of(entity, example.getMatcher());
-		
+
 		final List<T> sources = getAdminRepository().findAll(exampleToFind);
+
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminService::findAllByExample Found {} entries.", sources);
+
 		// Convert entity to resource
 		return sources.stream().map(mapperToResource()::toResource).collect(Collectors.toList());
 	}
@@ -122,11 +139,15 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 */
 	@Override
 	public List<R> findAllByExampleSortable(final Example<R> example, final Sort sort) {
-		
+
 		final T entity = mapperToEntity().apply(example.getProbe());
 		final Example<T> exampleToFind = Example.of(entity, example.getMatcher());
-		
+
 		final List<T> sources = getAdminRepository().findAll(exampleToFind, sort);
+
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminService::findAllByExampleSortable Found {} entries.",
+				sources);
+
 		// Convert entity to resource
 		return sources.stream().map(mapperToResource()::toResource).collect(Collectors.toList());
 	}
@@ -136,30 +157,30 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 */
 	@Override
 	public List<R> findAllById(final Iterable<Integer> ids) {
-		LOGGER.info("BaseAdminService::findAllById Finding all ids: {}", ids);
-		
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminService::findAllById Finding all ids: {}", ids);
+
 		final List<T> sources = getAdminRepository().findAllById(ids);
 
-		LOGGER.info("BaseAdminService::findAllById Result -> {}", sources);
-		
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminService::findAllById Found {} entries.", sources);
+
 		return sources.stream().map(mapperToResource()::toResource).collect(Collectors.toList());
 	}
-	
+
 	/**
 	 * {@inheritDoc}
 	 */
 	@Override
 	public Optional<R> findByExample(final Example<R> example) throws NotFoundEntityException, IncorrectResultSizeException {
 		final T entity = mapperToEntity().apply(example.getProbe());
-		
-		LOGGER.info("BaseAdminService::findByExample Finding a entry with: {}", entity);
-		
+
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminService::findByExample Finding a entry with: {}", entity);
+
 		final Example<T> exampleToFind = Example.of(entity, example.getMatcher());
-		
+
 		final Optional<T> source = getAdminRepository().findOne(exampleToFind);
-		
-		LOGGER.info("BaseAdminService::findByExample Result -> {}", source);
-		
+
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminService::findByExample Result -> {}", source);
+
 		// Convert entity to resource
 		return Optional.of(source.flatMap(
 				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().toResource(input)))
@@ -171,12 +192,12 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 */
 	@Override
 	public Optional<R> findById(final Integer id) throws NotFoundEntityException {
-		LOGGER.info("BaseAdminService::findById Finding a entry with id: {}", id);
-		
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminService::findById Finding a entry with id: {}", id);
+
 		final Optional<T> source = getAdminRepository().findById(id);
-		
-		LOGGER.info("BaseAdminService::findById Result -> {}", source);
-		
+
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminService::findById Result -> {}", source);
+
 		// Convert entity to resource
 		return Optional.of(source.flatMap(
 				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().toResource(input)))
@@ -188,12 +209,12 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	 */
 	@Override
 	public Optional<R> findByName(final String name) throws NotFoundEntityException, IncorrectResultSizeException {
-		LOGGER.info("BaseAdminService::findByName Finding a entry with name: {}", name);
-		
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminService::findByName Finding a entry with name: {}", name);
+
 		final Optional<T> source = getAdminRepository().findByName(name);
-		
-		LOGGER.info("BaseAdminService::findByName Result -> {}", source);
-		
+
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminService::findByName Result -> {}", source);
+
 		// Convert entity to resource
 		return Optional.of(source.flatMap(
 				(input) -> (input == null) ? Optional.empty() : Optional.of(mapperToResource().toResource(input)))
@@ -215,7 +236,9 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 		final Iterable<T> entities = StreamSupport.stream(sources.spliterator(), false)
 				.map(mapperToEntity()::apply)
 				.collect(Collectors.toList());
-		
+
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminService::saveAll Result -> {}", entities);
+
 		// Convert entity to resource
 		return StreamSupport.stream(entities.spliterator(), false)
 				.map(mapperToResource()::toResource)
@@ -229,8 +252,11 @@ public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminR
 	public R update(final R entity) throws NotFoundEntityException {
 		if (entity.getEntityId() == null)
 			throw new NotFoundEntityException();
-		
+
 		final T source = getAdminRepository().save(mapperToEntity().apply(entity));
+
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminService::update Result -> {}", source);
+
 		// Convert entity to resource
 		return mapperToResource().toResource(source);
 	}
