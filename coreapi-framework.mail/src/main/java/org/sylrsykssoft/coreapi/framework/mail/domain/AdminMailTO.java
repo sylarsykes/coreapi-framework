@@ -13,6 +13,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
 /**
@@ -22,17 +24,30 @@ import lombok.experimental.SuperBuilder;
  *
  */
 @Data
+@FieldDefaults(level = AccessLevel.PROTECTED)
 @SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
+@ToString
 public class AdminMailTO<T extends BaseAdminResource> implements IMailTO<T, Integer> {
 
-	protected @NonNull String from;
-	protected @NonNull String to;
-	protected @Nullable Optional<List<String>> cc;
-	protected @NonNull String subject;
-	protected @Nullable Optional<String> content;
-	protected @Nullable Optional<String> templateName;
+	@NonNull
+	String from;
+
+	@NonNull
+	String to;
+
+	@Nullable
+	Optional<List<String>> cc;
+
+	@NonNull
+	String subject;
+
+	@Nullable
+	Optional<String> content;
+
+	@Nullable
+	Optional<String> templateName;
 }

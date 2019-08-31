@@ -7,17 +7,25 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.env.Environment;
 import org.springframework.stereotype.Component;
 
+import lombok.AccessLevel;
+import lombok.experimental.FieldDefaults;
+import lombok.experimental.UtilityClass;
+
 /**
  * Environment util.
+ * 
+ * @author juan.gonzalez.fernandez.jgf
  */
+@UtilityClass
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Component
 public class EnvironmentUtil {
 
 	@Autowired
-	private Environment environment;
+	Environment environment;
 
-	private String port;
-	private String hostname;
+	String port;
+	String hostname;
 
 	/**
 	 * Get hostname.

@@ -21,6 +21,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
 /**
  * MultipleAddress entity
@@ -47,23 +51,29 @@ import lombok.NoArgsConstructor;
 @Entity(name = MULTIPLE_ADDRESS_REPOSITORY_ENTITY_NAME)
 @Where(clause = "removedAt = null")
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
+@ToString(includeFieldNames = true)
 public class MultipleAddress<T extends Base<N>, A extends Address<T, N>, N extends Number> {
 
 	@Id
 	@ManyToOne
 	@JoinColumn
-	private T person;
+	@NonNull
+	T person;
 
 	@Id
 	@ManyToOne
 	@JoinColumn
-	private A address;
+	@NonNull
+	A address;
 
 	@Column(name = "removed_at", nullable = true, insertable = false, updatable = true)
-	private @Nullable LocalDateTime removedAt;
+	@Nullable
+	LocalDateTime removedAt;
 
 }

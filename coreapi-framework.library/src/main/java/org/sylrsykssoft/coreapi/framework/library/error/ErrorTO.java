@@ -8,6 +8,10 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
 /**
  * The Class ErrorTO.
@@ -15,21 +19,26 @@ import lombok.NoArgsConstructor;
  * @author juan.gonzalez.fernandez.jgf
  */
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
 @Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
+@ToString
 public class ErrorTO implements Serializable {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 4675257088995071827L;
 
 	/** The status code. */
-	private String statusCode;
+	@NonNull
+	String statusCode;
 
 	/** The message. */
-	private String message;
+	@NonNull
+	String message;
 
 	/** The exception. */
-	private Throwable exception;
+	Throwable exception;
 
 }

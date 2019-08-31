@@ -17,6 +17,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 /**
  * Entity base.
@@ -26,6 +27,7 @@ import lombok.experimental.SuperBuilder;
  */
 @MappedSuperclass
 @Data
+@FieldDefaults(level = AccessLevel.PROTECTED)
 @SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
@@ -36,13 +38,13 @@ public class Base<N extends Number> implements Persistable<N> {
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", updatable = false, nullable = false)
-	protected N entityId;
+	N entityId;
 	
 	@Column(name = "created_at", nullable = false, insertable = true, updatable = false)
-	protected LocalDateTime createdAt;
+	LocalDateTime createdAt;
 
 	@Column(name = "updated_at", nullable = true, insertable = false, updatable = true)
-	protected @Nullable LocalDateTime updatedAt;
+	@Nullable LocalDateTime updatedAt;
 	
 	/**
 	 * {@inheritDoc}

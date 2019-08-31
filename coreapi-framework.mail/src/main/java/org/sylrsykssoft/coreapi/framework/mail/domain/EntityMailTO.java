@@ -13,6 +13,8 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
 /**
@@ -22,17 +24,30 @@ import lombok.experimental.SuperBuilder;
  *
  */
 @Data
+@FieldDefaults(level = AccessLevel.PROTECTED)
 @SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
+@ToString(includeFieldNames = true)
 public class EntityMailTO<T extends BaseEntityResource> implements IMailTO<T, Long> {
 
-	private @NonNull String from;
-	private @NonNull String to;
-	private @Nullable Optional<List<String>> cc;
-	private @NonNull String subject;
-	private @Nullable Optional<String> content;
-	private @Nullable Optional<String> templateName;
+	@NonNull
+	String from;
+
+	@NonNull
+	String to;
+
+	@Nullable
+	Optional<List<String>> cc;
+
+	@NonNull
+	String subject;
+
+	@Nullable
+	Optional<String> content;
+
+	@Nullable
+	Optional<String> templateName;
 }

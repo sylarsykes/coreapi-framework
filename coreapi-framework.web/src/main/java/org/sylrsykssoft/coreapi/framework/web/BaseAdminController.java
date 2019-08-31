@@ -95,7 +95,7 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * 
 	 * @throws NotFoundEntityException
 	 */
-	@GetMapping
+	@GetMapping(produces = { MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	public Iterable<R> findAll() throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findAll Finding all entries");
 

@@ -11,6 +11,8 @@ module coreapi.framework.library {
 	exports org.sylrsykssoft.coreapi.framework.library.util;
 
 	requires java.desktop;
+	requires com.fasterxml.jackson.core;
+	requires com.fasterxml.jackson.databind;
 	requires lombok;
 	requires transitive modelmapper;
 	requires transitive slf4j.api;

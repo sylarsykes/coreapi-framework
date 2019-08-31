@@ -17,6 +17,9 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
+import lombok.RequiredArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
 /**
@@ -34,23 +37,30 @@ import lombok.experimental.SuperBuilder;
 @Entity(name = ADDRESS_REPOSITORY_ENTITY_NAME)
 @Inheritance(strategy = InheritanceType.TABLE_PER_CLASS)
 @Data
+@FieldDefaults(level = AccessLevel.PROTECTED)
 @SuperBuilder
-@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
+@RequiredArgsConstructor(access = AccessLevel.PUBLIC)
+@AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
+@ToString(includeFieldNames = true)
 public class Address<T extends Base<N>, N extends Number> {
 
 	public static final int MAX_LENGTH_NAME = 256;
 	
 	@Column(name = "street_name_number", nullable = false, length = MAX_LENGTH_NAME)
-    protected @NonNull String streetNameAndNumber;
+    @NonNull String streetNameAndNumber;
+	
 	@Column(name = "apartment_number", nullable = false, length = MAX_LENGTH_NAME)
-    protected @NonNull String apartmentOrSuiteNumber;
+    @NonNull String apartmentOrSuiteNumber;
+	
 	@Column(name = "city", nullable = false, length = MAX_LENGTH_NAME)
-    protected @NonNull String city;
+    @NonNull String city;
+	
 	@Column(name = "state", nullable = false, length = MAX_LENGTH_NAME)
-    protected @NonNull String state;
+    @NonNull String state;
+	
 	@Column(name = "zip_code", nullable = true, length = MAX_LENGTH_NAME)
-    protected @Nullable String zipcode;
+    @Nullable String zipcode;
 
 }

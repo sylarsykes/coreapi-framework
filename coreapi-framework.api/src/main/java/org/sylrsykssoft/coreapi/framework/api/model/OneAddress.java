@@ -13,6 +13,8 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
 /**
  * Address entity
@@ -27,11 +29,13 @@ import lombok.NoArgsConstructor;
  */
 @Table(name = ONE_ADDRESS_REPOSITORY_TABLE_NAME)
 @Entity(name = ONE_ADDRESS_REPOSITORY_ENTITY_NAME)
-@Builder(toBuilder = true)
 @Data
+@FieldDefaults(level = AccessLevel.PRIVATE)
+@Builder(toBuilder = true)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = true, doNotUseGetters = true)
+@ToString(callSuper = true, includeFieldNames = true)
 public class OneAddress<T extends Base<N>, N extends Number> extends Address<T, N> {
 
 	/**
@@ -55,5 +59,5 @@ public class OneAddress<T extends Base<N>, N extends Number> extends Address<T, 
 
 	// Relationships
 	@OneToOne
-	private T person;
+	T person;
 }

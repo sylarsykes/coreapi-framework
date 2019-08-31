@@ -5,6 +5,7 @@ import org.apache.commons.lang3.StringUtils;
 import org.slf4j.Marker;
 import org.springframework.util.Assert;
 
+import lombok.experimental.UtilityClass;
 import lombok.extern.slf4j.Slf4j;
 
 /**
@@ -14,6 +15,7 @@ import lombok.extern.slf4j.Slf4j;
  *
  */
 @Slf4j
+@UtilityClass
 public class LoggerUtil {
 
 	/**
