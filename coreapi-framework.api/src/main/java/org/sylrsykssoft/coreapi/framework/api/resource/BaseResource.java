@@ -11,6 +11,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
 /**
  * DTO Base.
@@ -19,14 +20,16 @@ import lombok.ToString;
  * @author juan.gonzalez.fernandez.jgf
  */
 @Data
+@FieldDefaults(level = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
 @ToString(includeFieldNames = true)
 public class BaseResource<N extends Number> extends ResourceSupport {
 
-	protected N entityId;
-	protected LocalDateTime createdAt;
-	protected @Nullable LocalDateTime updatedAt;
+	N entityId;
+	LocalDateTime createdAt;
+	@Nullable
+	LocalDateTime updatedAt;
 
 	/**
 	 * AllArgsConstructor

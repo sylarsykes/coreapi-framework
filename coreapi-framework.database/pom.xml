@@ -35,6 +35,24 @@
 	</dependency>
 	
 	<dependency>
+    	<groupId>org.springframework.boot</groupId>
+    	<artifactId>spring-boot-starter-jdbc</artifactId>
+		<version>${spring-boot.version}</version>
+	</dependency>
+
+	<dependency>
+	    <groupId>org.springframework.data</groupId>
+	    <artifactId>spring-data-envers</artifactId>
+	    <version>${springframework.data.version}</version>
+	</dependency>
+	
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-annotations</artifactId>
+	    <version>${hibernate-annotations.version}</version>
+	</dependency>
+	
+	<dependency>
       <groupId>org.springframework.boot</groupId>
       <artifactId>spring-boot-starter-web</artifactId>
       <version>${spring-boot.version}</version>

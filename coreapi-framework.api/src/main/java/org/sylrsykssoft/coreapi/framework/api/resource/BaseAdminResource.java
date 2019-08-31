@@ -13,6 +13,7 @@ import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.ToString;
+import lombok.experimental.FieldDefaults;
 
 /**
  * DTO BaseAdmin
@@ -21,15 +22,19 @@ import lombok.ToString;
  *
  */
 @Data
+@FieldDefaults(level = AccessLevel.PROTECTED)
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = true, doNotUseGetters = true)
 @ToString(callSuper = true, includeFieldNames = true)
 public class BaseAdminResource extends BaseResource<Integer> {
 
-	protected @NonNull String name;
-	protected @Nullable String description;
-	protected @Nullable LocalDateTime removedAt;
+	@NonNull
+	String name;
+	@Nullable
+	String description;
+	@Nullable
+	LocalDateTime removedAt;
 
 	/**
 	 * AllArgsConstructor

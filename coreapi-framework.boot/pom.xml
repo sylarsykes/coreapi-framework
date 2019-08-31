@@ -51,6 +51,7 @@
 		
 		<!-- Core API Dependencies -->
 		<coreapi-framework.library.version>${project.version}</coreapi-framework.library.version>
+		<coreapi-framework.aop.version>${project.version}</coreapi-framework.aop.version>
 		<coreapi-framework.api.version>${project.version}</coreapi-framework.api.version>
 		<coreapi-framework.database.version>${project.version}</coreapi-framework.database.version>
 		<coreapi-framework.service.version>${project.version}</coreapi-framework.service.version>

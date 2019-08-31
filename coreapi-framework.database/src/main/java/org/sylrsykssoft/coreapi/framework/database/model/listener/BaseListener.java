@@ -18,9 +18,9 @@ public class BaseListener {
 	/**
 	 * Assign createdAt
 	 */
+	@SuppressWarnings({ "rawtypes", "exports" })
 	@PrePersist
-	@SuppressWarnings("rawtypes")
-	private void onPrePersist(final Base base) {
+	public void onPrePersist(final Base base) {
 		final LocalDateTime dateTime = LocalDateTime.now();
 		base.setCreatedAt(dateTime);
 	}
@@ -28,9 +28,9 @@ public class BaseListener {
 	/**
 	 * Assign updatedAt
 	 */
+	@SuppressWarnings({ "rawtypes", "exports" })
 	@PreUpdate
-	@SuppressWarnings("rawtypes")
-	private void onPreUpdate(final Base base) {
+	public void onPreUpdate(final Base base) {
 		final LocalDateTime dateTime = LocalDateTime.now();
 		base.setUpdatedAt(dateTime);
 	}

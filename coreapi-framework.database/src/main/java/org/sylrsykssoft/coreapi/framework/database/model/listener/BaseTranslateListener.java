@@ -38,7 +38,7 @@ public class BaseTranslateListener {
 	 * @param base
 	 */
 	@PrePersist
-	private void onPrePersist(final Object translatebleObject) {
+	public void onPrePersist(final Object translatebleObject) {
 		if (translatebleObject instanceof EntityTranslatable) {
 			final BaseTranslate translate = getTranslatable((EntityTranslatable) translatebleObject);
 
@@ -54,7 +54,7 @@ public class BaseTranslateListener {
 	 * @param base
 	 */
 	@PreUpdate
-	private void onPreUpdate(final Object translatebleObject) {
+	public void onPreUpdate(final Object translatebleObject) {
 		if (translatebleObject instanceof EntityTranslatable) {
 			final BaseTranslate translate = getTranslatable((EntityTranslatable) translatebleObject);
 
