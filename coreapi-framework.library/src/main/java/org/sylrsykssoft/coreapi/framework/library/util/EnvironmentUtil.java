@@ -9,14 +9,12 @@ import org.springframework.stereotype.Component;
 
 import lombok.AccessLevel;
 import lombok.experimental.FieldDefaults;
-import lombok.experimental.UtilityClass;
 
 /**
  * Environment util.
  * 
  * @author juan.gonzalez.fernandez.jgf
  */
-@UtilityClass
 @FieldDefaults(level = AccessLevel.PRIVATE)
 @Component
 public class EnvironmentUtil {

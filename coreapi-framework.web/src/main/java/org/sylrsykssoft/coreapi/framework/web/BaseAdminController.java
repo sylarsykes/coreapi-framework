@@ -32,10 +32,9 @@ import org.sylrsykssoft.coreapi.framework.web.configuration.BaseAdminConstants;
 /**
  * Base admin controller
  * 
- * @author juan.gonzalez.fernandez.jgf
- *
  * @param <R> Resource class
  * @param <T> Admin class
+ * @author juan.gonzalez.fernandez.jgf
  */
 public abstract class BaseAdminController<R extends BaseAdminResource, T extends BaseAdmin> {
 
@@ -71,7 +70,7 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * @throws AppException
 	 */
 	@DeleteMapping(path = BaseAdminConstants.CONTROLLER_DELETE_DELETE)
-	@ResponseStatus(HttpStatus.OK)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(final @PathVariable Integer id) throws NotFoundEntityException, CoreApiFrameworkLibraryException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::delete Deleting a entry with id: {}", id);
 
@@ -96,6 +95,7 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * @throws NotFoundEntityException
 	 */
 	@GetMapping(produces = { MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE })
+	@ResponseStatus(HttpStatus.FOUND)
 	public Iterable<R> findAll() throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findAll Finding all entries");
 
@@ -118,6 +118,7 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * @throws NotFoundEntityException
 	 */
 	@PostMapping(path = BaseAdminConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@ResponseStatus(HttpStatus.FOUND)
 	public Iterable<R> findAllByExample(final @RequestBody R resource) throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO,
 				"BaseAdminController::findAllByExample Finding all entries for example: {}", resource);
@@ -148,6 +149,7 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * @throws NotFoundEntityException
 	 */
 	@PostMapping(path = BaseAdminConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE_SORTABLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@ResponseStatus(HttpStatus.FOUND)
 	public Iterable<R> findAllByExampleSortable(final @RequestBody R resource,
 			final @PathVariable String direction, final @PathVariable List<String> properties) throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO,
@@ -210,6 +212,7 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * @throws NotFoundEntityException
 	 */
 	@GetMapping(path = BaseAdminConstants.CONTROLLER_GET_FIND_ONE_BY_NAME, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@ResponseStatus(HttpStatus.FOUND)
 	public R findByName(final @PathVariable String name) throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findByName Finding a entry with name: {}", name);
 
@@ -237,6 +240,7 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * @throws NotFoundEntityException
 	 */
 	@PostMapping(path = BaseAdminConstants.CONTROLLER_GET_FIND_BY_EXAMPLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@ResponseStatus(HttpStatus.FOUND)
 	public R findOneByExample(final @RequestBody R resource) throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findOneByExample Finding a entry with: {}",
 				resource);

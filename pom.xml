@@ -97,8 +97,8 @@
 		<module>coreapi-framework.database</module>
 		<module>coreapi-framework.service</module>
 		<module>coreapi-framework.web</module>
-    	<module>coreapi-framework.mail</module>
     	<module>coreapi-framework.audit</module>
+    	<module>coreapi-framework.mail</module>
 	   	<module>coreapi-framework.boot</module>
   </modules>
 </project>

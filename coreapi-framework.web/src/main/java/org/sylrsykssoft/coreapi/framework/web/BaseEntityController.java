@@ -69,7 +69,7 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 * @throws AppException
 	 */
 	@DeleteMapping(path = BaseEntityConstants.CONTROLLER_DELETE_DELETE)
-	@ResponseStatus(HttpStatus.OK)
+	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(final @PathVariable Long id) throws NotFoundEntityException, CoreApiFrameworkLibraryException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::delete Deleting a entry with id: {}", id);
 
@@ -93,7 +93,8 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 * 
 	 * @throws NotFoundEntityException
 	 */
-	@GetMapping
+	@GetMapping(produces = { MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE })
+	@ResponseStatus(HttpStatus.FOUND)
 	public Iterable<R> findAll() throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::findAll Finding all entries");
 
@@ -116,6 +117,7 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 * @throws NotFoundEntityException
 	 */
 	@PostMapping(path = BaseEntityConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@ResponseStatus(HttpStatus.FOUND)
 	public Iterable<R> findAllByExample(final @RequestBody R resource) throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO,
 				"BaseEntityController::findAllByExample Finding all entries for example: {}", resource);
@@ -146,6 +148,7 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 * @throws NotFoundEntityException
 	 */
 	@PostMapping(path = BaseEntityConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE_SORTABLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@ResponseStatus(HttpStatus.FOUND)
 	public Iterable<R> findAllByExampleSortable(final @RequestBody R resource,
 			final @PathVariable String direction, final @PathVariable List<String> properties) throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO,
@@ -181,6 +184,7 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 * @throws NotFoundEntityException
 	 */
 	@GetMapping(path = BaseEntityConstants.CONTROLLER_GET_FIND_ONE_BY_ID, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@ResponseStatus(HttpStatus.FOUND)
 	public R findById(final @PathVariable Long id) throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::findById Finding a entry with id: {}", id);
 
@@ -207,6 +211,7 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 * @throws NotFoundEntityException
 	 */
 	@PostMapping(path = BaseEntityConstants.CONTROLLER_GET_FIND_BY_EXAMPLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@ResponseStatus(HttpStatus.FOUND)
 	public R findOneByExample(final @RequestBody R resource) throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::findOneByExample Finding a entry : {}",
 				resource);
