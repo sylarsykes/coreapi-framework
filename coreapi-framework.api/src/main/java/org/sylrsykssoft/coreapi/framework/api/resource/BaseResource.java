@@ -1,5 +1,6 @@
 package org.sylrsykssoft.coreapi.framework.api.resource;
 
+import java.beans.ConstructorProperties;
 import java.time.LocalDateTime;
 
 import org.springframework.hateoas.ResourceSupport;
@@ -39,6 +40,7 @@ public class BaseResource<N extends Number> extends ResourceSupport {
 	 * @param updatedAt
 	 */
 	@Builder(builderMethodName = "baseResourceBuilder")
+	@ConstructorProperties({ "entityId", "createdAt", "updatedAt" })
 	public BaseResource(final N entityId, final LocalDateTime createdAt, final LocalDateTime updatedAt) {
 		this.entityId = entityId;
 		this.createdAt = createdAt;

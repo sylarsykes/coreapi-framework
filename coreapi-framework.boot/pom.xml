@@ -53,6 +53,7 @@
 		<coreapi-framework.library.version>${project.version}</coreapi-framework.library.version>
 		<coreapi-framework.aop.version>${project.version}</coreapi-framework.aop.version>
 		<coreapi-framework.api.version>${project.version}</coreapi-framework.api.version>
+		<coreapi-framework.audit.version>${project.version}</coreapi-framework.audit.version>
 		<coreapi-framework.database.version>${project.version}</coreapi-framework.database.version>
 		<coreapi-framework.service.version>${project.version}</coreapi-framework.service.version>
 		<coreapi-framework.web.version>${project.version}</coreapi-framework.web.version>
@@ -123,6 +124,11 @@
 			<groupId>org.sylrsykssoft</groupId>
 	    	<artifactId>coreapi-framework.database</artifactId>
 	    	<version>${coreapi-framework.database.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.sylrsykssoft</groupId>
+	    	<artifactId>coreapi-framework.audit</artifactId>
+	    	<version>${coreapi-framework.audit.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.sylrsykssoft</groupId>

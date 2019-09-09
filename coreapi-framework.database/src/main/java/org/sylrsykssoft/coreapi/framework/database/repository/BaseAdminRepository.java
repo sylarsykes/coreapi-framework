@@ -10,14 +10,13 @@ import org.sylrsykssoft.coreapi.framework.api.model.BaseAdmin;
 /**
  * The Interface BaseAdminRepository.
  * 
- * @author juan.gonzalez.fernandez.jgf
- *
  * @param <T> the generic type
+ * @author juan.gonzalez.fernandez.jgf
  */
 @NoRepositoryBean
 @Transactional
 public interface BaseAdminRepository<T extends BaseAdmin> extends JpaRepository<T, Integer> {
-	
+
 	/**
 	 * Find by name.
 	 * 
@@ -26,5 +25,5 @@ public interface BaseAdminRepository<T extends BaseAdmin> extends JpaRepository<
 	 * @return T entity.
 	 */
 	Optional<T> findByName(String name);
-	
+
 }

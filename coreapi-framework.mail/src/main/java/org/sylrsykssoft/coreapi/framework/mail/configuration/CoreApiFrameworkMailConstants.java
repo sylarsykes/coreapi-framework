@@ -14,7 +14,7 @@ public class CoreApiFrameworkMailConstants {
 	public static final String FREEMAKER_TEMPLATE_DEFAULT_TEMPLATE = "email.ftl";
 
 	// EXECUTOR
-	public static final String MAIL_ASYNC_EXECUTOR = "coreApiFrameworkMaiAsyncExecutor";
+	public static final String MAIL_ASYNC_EXECUTOR = "coreApiFrameworkMailAsyncExecutor";
 
 	/**
 	 * The caller references the constants using
