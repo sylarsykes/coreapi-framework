@@ -19,6 +19,13 @@
   <properties>
     <main.basedir>${basedir}/../</main.basedir>
   </properties>
+
+  <repositories>
+    <repository>
+      <id>jcenter</id>
+      <url>https://jcenter.bintray.com/</url>
+    </repository>
+  </repositories>
   
   <dependencies>
   	
@@ -76,5 +83,10 @@
     	<version>${commons-collections4.version}</version>
 	</dependency>
     
+	<dependency>
+	  <groupId>io.reflectoring</groupId>
+	  <artifactId>descriptive-logger</artifactId>
+	  <version>${descriptive-logger.version}</version>
+	</dependency>
   </dependencies>
 </project>

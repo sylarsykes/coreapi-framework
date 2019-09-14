@@ -4,18 +4,16 @@
 
 Core API Framework is a generic project that serves as the basis for other projects. It is composed of the subprojects [Library](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.library), [API](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.api), [Database](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.database), [Service](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.service), [Web](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.web), [Audit](https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.audit), [Mail](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.mail), [Boot](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.boot).
 
-
 ## Features
 
-* [Library](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.library) Library of utilities
-* [API](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.api) Library define the basic classes for entities and dtos of projects
-* [Database](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.database) Library with repository basic classes
-* [Service](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.service) Library with service basic classes
-* [Web](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.web) Library with controller basic classes
-* [Audit](https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.audit) Library with audit basic classes
-* [Mail](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.mail) Library with mail basic clasesses
-* [Boot](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.boot) Parent project with spring boot basic dependecy
-
+*  [Library](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.library) Library of utilities
+*  [API](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.api) Library define the basic classes for entities and dtos of projects
+*  [Database](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.database) Library with repository basic classes
+*  [Service](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.service) Library with service basic classes
+*  [Web](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.web) Library with controller basic classes
+*  [Audit](https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.audit) Library with audit basic classes
+*  [Mail](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.mail) Library with mail basic clasesses
+*  [Boot](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.boot) Parent project with spring boot basic dependecy
 
 ## How to use libraries?
 
@@ -85,7 +83,7 @@ Core API Framework is a generic project that serves as the basis for other proje
 </dependency>
 ```
 
-* Audit, import dependency
+*  Audit, import dependency
 
 ```
 <dependency>
@@ -116,7 +114,6 @@ Core API Framework is a generic project that serves as the basis for other proje
 </parent>
 ```
 
-
 ## Built with
 
 *  [Maven](https://mvnrepository.com/) Dependency manager
@@ -126,11 +123,9 @@ Core API Framework is a generic project that serves as the basis for other proje
 *  [Lombok](https://projectlombok.org/)
 *  [Modelmapper](http://modelmapper.org/getting-started/)
 
-
 ## Version
 
 0.0.1-SNAPSHOT. We use [SemVer](https://semver.org/) for versioning. For all available versions, see the [tags](https://github.com/sylarsykes/coreapi-framework/tags) in this repository.
-
 
 ## Authors
 
@@ -141,7 +136,6 @@ Core API Framework is a generic project that serves as the basis for other proje
 
 *  [Musbands](https://github.com/sylarsykes/java-musbands)
 *  [Musbands Admin](https://github.com/sylarsykes/java-musbands-admin)
-
 
 ## License
 
