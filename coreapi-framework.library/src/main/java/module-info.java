@@ -23,4 +23,5 @@ module coreapi.framework.library {
 	requires spring.core;
 	requires spring.hateoas;
 	requires spring.web;
+	requires descriptive.logger;
 }

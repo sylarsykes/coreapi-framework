@@ -2,7 +2,6 @@
 
 Library with audit basic classes.
 
-
 ## How to use library?
 
 *  Add repository in pom
@@ -15,7 +14,7 @@ Library with audit basic classes.
 </dependency>
 ```
 
-* Configuration class, add annotations in configuration class
+*  Configuration class, add annotations in configuration class
 
 ```java
 import static org.sylrsykssoft.coreapi.framework.audit.configuration.BaseAdminAuditConstants.AUDITORAWARE_COMPONENT_NAME;
@@ -24,7 +23,7 @@ import static org.sylrsykssoft.coreapi.framework.audit.configuration.BaseAdminAu
 @EnableJpaAuditing(auditorAwareRef = AUDITORAWARE_COMPONENT_NAME)
 ```
 
-* Configuration class, inject auditorAwareImpl bean
+*  Configuration class, inject auditorAwareImpl bean
 
 ```java
 import org.sylrsykssoft.coreapi.framework.audit.configuration.CoreApiFrameworkAuditAuditorAwareImpl;
@@ -37,7 +36,7 @@ public AuditorAware<String> defaultAuditorAwareImpl() {
 }
 ```
 
-* Entity class, extends your class of BaseAdminAudit
+*  Entity class, extends your class of BaseAdminAudit
 
 ```java
 import org.sylrsykssoft.coreapi.framework.audit.domain.BaseAdminAudit;
@@ -46,12 +45,11 @@ import org.sylrsykssoft.coreapi.framework.audit.domain.BaseAdminAudit;
 public class Example extends BaseAdminAudit
 ```
 
-* application.properties configure rest base path
+*  application.properties configure rest base path
 
 ```
 coreapi.framework.audit.rest.basePath = /api/admin/audit/v1
 ```
-
 
 ## Built with
 
@@ -62,16 +60,13 @@ coreapi.framework.audit.rest.basePath = /api/admin/audit/v1
 *  [Lombok](https://projectlombok.org/)
 *  [Modelmapper](http://modelmapper.org/getting-started/)
 
-
 ## Version
 
 0.0.1-SNAPSHOT. We use [SemVer](https://semver.org/) for versioning. For all available versions, see the [tags](https://github.com/sylarsykes/coreapi-framework/tags) in this repository.
 
-
 ## Authors
 
 *  Juan González Fernández [juan.gonzalez.fernandez.jgf](https://github.com/sylarsykes)
-
 
 ## License
 
