@@ -2,7 +2,7 @@
 
 [![Codacy Badge](https://api.codacy.com/project/badge/Grade/4bafd7cfbd4140f8addf945bcfa65e06)](https://www.codacy.com/app/juan.gonzalez.fernandez.jgf/coreapi-framework?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=sylarsykes/coreapi-framework&amp;utm_campaign=Badge_Grade)
 
-Core API Framework is a generic project that serves as the basis for other projects. It is composed of the subprojects [Library](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.library), [API](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.api), [Database](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.database), [Service](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.service), [Web](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.web), [Mail](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.mail), [Boot](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.boot).
+Core API Framework is a generic project that serves as the basis for other projects. It is composed of the subprojects [Library](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.library), [API](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.api), [Database](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.database), [Service](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.service), [Web](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.web), [Audit](https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.audit), [Mail](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.mail), [Boot](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.boot).
 
 
 ## Features
@@ -12,6 +12,7 @@ Core API Framework is a generic project that serves as the basis for other proje
 * [Database](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.database) Library with repository basic classes
 * [Service](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.service) Library with service basic classes
 * [Web](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.web) Library with controller basic classes
+* [Audit](https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.audit) Library with audit basic classes
 * [Mail](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.mail) Library with mail basic clasesses
 * [Boot](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.boot) Parent project with spring boot basic dependecy
 
@@ -81,6 +82,16 @@ Core API Framework is a generic project that serves as the basis for other proje
 	<groupId>org.sylrsykssoft</groupId>
 	<artifactId>coreapi-framework.web</artifactId>
 	<version>${coreapi-framework.web.version</version>
+</dependency>
+```
+
+* Audit, import dependency
+
+```
+<dependency>
+	<groupId>org.sylrsykssoft</groupId>
+	<artifactId>coreapi-framework.audit</artifactId>
+	<version>${coreapi-framework.audit.version}</version>
 </dependency>
 ```
 

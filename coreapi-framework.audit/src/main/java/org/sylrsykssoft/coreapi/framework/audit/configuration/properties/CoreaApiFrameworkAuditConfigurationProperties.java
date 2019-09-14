@@ -8,7 +8,7 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 /**
- * Configuration properties for Spring Data REST.
+ * Configuration properties for audit module.
  *
  * @author juan.gonzalez.fernandez.jgf
  */

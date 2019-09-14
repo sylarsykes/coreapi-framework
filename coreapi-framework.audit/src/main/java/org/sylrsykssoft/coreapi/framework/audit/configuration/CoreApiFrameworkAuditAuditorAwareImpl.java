@@ -7,10 +7,9 @@ import java.util.Optional;
 import org.springframework.data.domain.AuditorAware;
 
 /**
- * Default auditor aware implementation
+ * Default auditor aware implementation, enable current auditor for application
  * 
  * @author juan.gonzalez.fernandez.jgf
- *
  */
 public class CoreApiFrameworkAuditAuditorAwareImpl implements AuditorAware<String> {
 

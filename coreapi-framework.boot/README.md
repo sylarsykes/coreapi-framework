@@ -5,12 +5,13 @@ Core API Framework Boot it is a parent project with the dependence of the latest
 
 ## Features
 
-*  [Library](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.library) Library of utilities
-*  [API](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.api) Library define the basic classes for entities and dtos of projects
-*  [Database](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.database) Library with repository basic classes
-*  [Service](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.service) Library with service basic classes
-*  [Web](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.web) Library with controller basic classes
-*  [Mail](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.mail) Library with mail basic clasesses
+* [Library](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.library) Library of utilities
+* [API](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.api) Library define the basic classes for entities and dtos of projects
+* [Database](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.database) Library with repository basic classes
+* [Service](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.service) Library with service basic classes
+* [Web](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.web) Library with controller basic classes
+* [Audit](https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.audit) Library with audit basic classes
+* [Mail](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.mail) Library with mail basic clasesses
 
 
 ## How to use libraries?
