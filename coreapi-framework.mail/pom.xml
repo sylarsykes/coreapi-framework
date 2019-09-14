@@ -39,11 +39,26 @@
       <version>${springframework.version}</version>
 	</dependency>
 	
+	<!-- Dependecies for spring boot starter module -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-configuration-processor</artifactId>
+		<optional>true</optional>
+		<version>${spring-boot.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-autoconfigure-processor</artifactId>
+		<optional>true</optional>
+		<version>${spring-boot.version}</version>
+	</dependency>
+	
   	<dependency>
 		<groupId>org.sylrsykssoft</groupId>
     	<artifactId>coreapi-framework.api</artifactId>
     	<version>${coreapi-framework.api.version}</version>
 	</dependency>
+	
     <dependency>
 	  	<groupId>org.springframework.boot</groupId>
 	  	<artifactId>spring-boot-starter-mail</artifactId>

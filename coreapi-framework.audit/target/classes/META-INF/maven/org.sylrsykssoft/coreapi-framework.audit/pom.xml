@@ -13,7 +13,7 @@
   <artifactId>coreapi-framework.audit</artifactId>
   <packaging>jar</packaging>
   <name>coreapi-framework.audit</name>
-  <description>Core API Framework Audit. Library with repository basic classes.</description>
+  <description>Core API Framework Audit. Library with audit basic classes.</description>
   <url>https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.audit</url>
   
   <properties>
@@ -65,9 +65,16 @@
 		<version>${coreapi-framework.web.version}</version>
 	</dependency>
 
+	<!-- Dependecies for spring boot starter module -->
 	<dependency>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-configuration-processor</artifactId>
+		<optional>true</optional>
+		<version>${spring-boot.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-autoconfigure-processor</artifactId>
 		<optional>true</optional>
 		<version>${spring-boot.version}</version>
 	</dependency>

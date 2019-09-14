@@ -17,6 +17,7 @@ module coreapi.framework.mail {
 	requires lombok;
 	requires org.apache.commons.lang3;
 	requires spring.beans;
+	requires spring.jcl;
 	requires spring.context;
 	requires transitive spring.context.support;
 	requires transitive spring.core;

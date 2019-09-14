@@ -70,16 +70,17 @@ extends BaseAdminResourceAssembler<C, T, R> {
 				methodOn(controllerClass).findRevision(instance.getEntityId(), instance.getVersion()))
 				.withRel("findRevision");
 		findRevisionLink.withType("GET");
-		//		final Link findRevisionsLink = linkTo(methodOn(controllerClass).findRevisions(instance.getEntityId()))
-		//				.withRel("findRevisions");
-		//		findRevisionsLink.withType("GET");
-		//		final Link findOneByExampleLink = linkTo(methodOn(controllerClass).findOneByExample(instance)).withRel("findOneByExample");
-		//		findOneByExampleLink.withType("POST");
+		final Link findRevisionsLink = linkTo(methodOn(controllerClass).findRevisions(instance.getEntityId()))
+				.withRel("findRevisions");
+		findRevisionsLink.withType("GET");
+		final Link findOneByExampleLink = linkTo(methodOn(controllerClass).findOneByExample(instance))
+				.withRel("findOneByExample");
+		findOneByExampleLink.withType("POST");
 
 		links.add(findLastChangeRevisionLink);
 		links.add(findRevisionLink);
-		//		links.add(findRevisionsLink);
-		//		links.add(findOneByExampleLink);
+		links.add(findRevisionsLink);
+		links.add(findOneByExampleLink);
 
 		instance.add(links);
 
