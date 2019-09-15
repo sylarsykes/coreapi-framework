@@ -43,6 +43,10 @@ import org.sylrsykssoft.coreapi.framework.audit.domain.BaseAdminAudit;
 
 @Entity(name = "example")
 @Audited
+@AuditOverrides(value = {
+		@AuditOverride(forClass = BaseAdminAudit.class, isAudited = true),
+		@AuditOverride(forClass = BaseAdmin.class, isAudited = true),
+		@AuditOverride(forClass = Base.class, isAudited = true) })
 public class Example extends BaseAdminAudit
 ```
 

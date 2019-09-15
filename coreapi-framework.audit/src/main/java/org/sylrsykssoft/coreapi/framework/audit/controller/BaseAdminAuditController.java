@@ -54,7 +54,7 @@ extends BaseAdminController<R, T> {
 
 		final Optional<Revision<Integer, R>> source = getAdminService().findLastChangeRevision(id);
 
-		if (source.isPresent()) {
+		if (!source.isPresent()) {
 			LoggerUtil.message(LogMessageLevel.WARN,
 					"BaseAdminAuditController::findLastChangeRevision not find result for id -> {}",
 					id);
@@ -85,7 +85,7 @@ extends BaseAdminController<R, T> {
 				revisionNumber);
 		final Optional<Revision<Integer, R>> source = getAdminService().findRevision(id, revisionNumber);
 
-		if (source.isPresent()) {
+		if (!source.isPresent()) {
 			LoggerUtil.message(LogMessageLevel.WARN, "BaseAdminAuditController::findById not find result for id -> {}",
 					id);
 			throw new NotFoundAuditEntityException();
