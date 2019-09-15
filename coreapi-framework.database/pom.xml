@@ -18,6 +18,7 @@
   
   <properties>
     <main.basedir>${basedir}/../</main.basedir>
+    <java-module-name>coreapi.framework.database</java-module-name>
   </properties>
 
   <dependencies>

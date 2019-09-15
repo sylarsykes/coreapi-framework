@@ -36,12 +36,13 @@ public AuditorAware<String> defaultAuditorAwareImpl() {
 }
 ```
 
-*  Entity class, extends your class of BaseAdminAudit
+*  Entity class, extends your class of BaseAdminAudit and set Audited
 
 ```java
 import org.sylrsykssoft.coreapi.framework.audit.domain.BaseAdminAudit;
 
 @Entity(name = "example")
+@Audited
 public class Example extends BaseAdminAudit
 ```
 

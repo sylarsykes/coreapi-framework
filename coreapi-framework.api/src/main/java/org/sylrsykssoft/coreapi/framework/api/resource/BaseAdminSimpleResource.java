@@ -8,6 +8,7 @@ import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
+import lombok.NonNull;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
 
@@ -22,7 +23,10 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = true, doNotUseGetters = true)
 @ToString(callSuper = true, includeFieldNames = true)
-public class BaseAdminSimpleResource extends BaseAdminResource {
+public class BaseAdminSimpleResource extends BaseResource<Integer> {
+
+	@NonNull
+	String name;
 
 	/**
 	 * AllArgsConstructor
@@ -34,10 +38,12 @@ public class BaseAdminSimpleResource extends BaseAdminResource {
 	 * @param updatedAt
 	 */
 	@Builder(builderMethodName = "baseAdminSimpleResourceBuilder")
-	@ConstructorProperties({ "entityId", "name", "description", "createdAt", "updatedAt", "removedAt" })
-	public BaseAdminSimpleResource(final Integer entityId, final String name, final String description,
-			final LocalDateTime createdAt, final LocalDateTime updatedAt, final LocalDateTime removedAt) {
-		super(entityId, name, description, createdAt, updatedAt, removedAt);
+	@ConstructorProperties({ "entityId", "name", "createdAt", "updatedAt", })
+	public BaseAdminSimpleResource(final Integer entityId, final String name, final LocalDateTime createdAt,
+			final LocalDateTime updatedAt) {
+		super(entityId, createdAt, updatedAt);
+
+		this.name = name;
 	}
 
 }

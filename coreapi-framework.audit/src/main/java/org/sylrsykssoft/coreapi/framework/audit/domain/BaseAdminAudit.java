@@ -3,7 +3,6 @@ package org.sylrsykssoft.coreapi.framework.audit.domain;
 import java.time.LocalDateTime;
 
 import javax.persistence.Column;
-import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
 import javax.persistence.Version;
 
@@ -11,7 +10,6 @@ import org.springframework.data.annotation.CreatedBy;
 import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
-import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 import org.springframework.lang.Nullable;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseAdmin;
 
@@ -38,13 +36,12 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = true, doNotUseGetters = true)
 @ToString(callSuper = true, includeFieldNames = true)
-@EntityListeners(AuditingEntityListener.class)
 public class BaseAdminAudit extends BaseAdmin {
 
 	@Version
 	Integer version;
 
-	@Column(name = "created_by", nullable = false, unique = true, length = 60)
+	@Column(name = "created_by", nullable = false, insertable = true, updatable = false, length = 60)
 	@CreatedBy
 	String createdBy;
 
@@ -52,7 +49,7 @@ public class BaseAdminAudit extends BaseAdmin {
 	@CreatedDate
 	LocalDateTime createdDate;
 
-	@Column(name = "last_modified_by", nullable = false, unique = true, length = 60)
+	@Column(name = "last_modify_by", nullable = true, insertable = false, updatable = true, length = 60)
 	@LastModifiedBy
 	String lastModifiedBy;
 
@@ -60,5 +57,4 @@ public class BaseAdminAudit extends BaseAdmin {
 	@Nullable
 	@LastModifiedDate
 	LocalDateTime lastModifiedDate;
-
 }
