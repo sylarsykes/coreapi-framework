@@ -39,19 +39,19 @@ public class BaseEntityAudit extends BaseEntity {
 	@Version
 	Integer version;
 
-	@Column(name = "name", nullable = false, unique = true, length = 60)
+	@Column(name = "created_by", nullable = false, insertable = true, updatable = false, length = 60)
 	@CreatedBy
 	String createdBy;
 
-	@Column(name = "created_at", nullable = false, insertable = true, updatable = false)
+	@Column(name = "created_date", nullable = false, insertable = true, updatable = false)
 	@CreatedDate
 	LocalDateTime createdDate;
 
-	@Column(name = "name", nullable = false, unique = true, length = 60)
+	@Column(name = "last_modify_by", nullable = false, insertable = false, updatable = true, length = 60)
 	@LastModifiedBy
 	String lastModifiedBy;
 
-	@Column(name = "updated_at", nullable = true, insertable = false, updatable = true)
+	@Column(name = "last_modified_date", nullable = true, insertable = false, updatable = true)
 	@Nullable
 	@LastModifiedDate
 	LocalDateTime lastModifiedDate;

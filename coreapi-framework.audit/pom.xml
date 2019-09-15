@@ -18,10 +18,19 @@
   
   <properties>
     <main.basedir>${basedir}/../</main.basedir>
+    <hibernate.envers>5.3.11</hibernate.envers>
+    <java-module-name>coreapi.framework.audit</java-module-name>
   </properties>
 
   <dependencies>
-
+  	<!-- JAXB library dependency, for hibernate-envers in java 11 -->
+	<dependency>
+	    <groupId>org.glassfish.jaxb</groupId>
+	    <artifactId>jaxb-runtime</artifactId>
+	    <version>${jaxb-runtime.version}</version>
+	    <scope>runtime</scope>
+	</dependency>
+	
 	<dependency>
 	    <groupId>org.springframework.data</groupId>
 	    <artifactId>spring-data-envers</artifactId>

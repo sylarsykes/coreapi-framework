@@ -12,6 +12,7 @@ module coreapi.framework.audit {
 
 	requires java.desktop;
 	requires java.transaction;
+	requires java.xml.bind;
 
 	requires coreapi.framework.library;
 	requires coreapi.framework.api;

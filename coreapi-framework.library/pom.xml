@@ -18,17 +18,10 @@
   
   <properties>
     <main.basedir>${basedir}/../</main.basedir>
+    <java-module-name>coreapi.framework.library</java-module-name>
   </properties>
-
-  <repositories>
-    <repository>
-      <id>jcenter</id>
-      <url>https://jcenter.bintray.com/</url>
-    </repository>
-  </repositories>
   
   <dependencies>
-  	
     <dependency>
       <groupId>org.springframework</groupId>
       <artifactId>spring-beans</artifactId>
@@ -81,12 +74,6 @@
     	<groupId>org.apache.commons</groupId>
     	<artifactId>commons-collections4</artifactId>
     	<version>${commons-collections4.version}</version>
-	</dependency>
-    
-	<dependency>
-	  <groupId>io.reflectoring</groupId>
-	  <artifactId>descriptive-logger</artifactId>
-	  <version>${descriptive-logger.version}</version>
 	</dependency>
   </dependencies>
 </project>

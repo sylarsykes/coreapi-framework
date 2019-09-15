@@ -15,13 +15,12 @@ module coreapi.framework.library {
 	requires com.fasterxml.jackson.core;
 	requires com.fasterxml.jackson.databind;
 	requires lombok;
+	requires transitive org.slf4j;
 	requires transitive modelmapper;
-	requires transitive slf4j.api;
 	requires transitive org.apache.commons.lang3;
 	requires spring.beans;
 	requires spring.context;
 	requires spring.core;
 	requires spring.hateoas;
 	requires spring.web;
-	requires descriptive.logger;
 }
