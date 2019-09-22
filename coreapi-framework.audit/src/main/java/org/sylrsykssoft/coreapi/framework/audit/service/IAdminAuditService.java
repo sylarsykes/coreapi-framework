@@ -23,7 +23,7 @@ import org.sylrsykssoft.coreapi.framework.service.IAdminService;
  * @param <N> Class of identifier of {@link Revisions}
  */
 public interface IAdminAuditService<T extends BaseAdmin, R extends BaseAdminResource, I extends Number, N extends Number & Comparable<N>>
-extends IAdminService<T, R, N> {
+		extends IAdminService<T, R, N> {
 
 	/**
 	 * Returns the revision of the entity it was last changed in.

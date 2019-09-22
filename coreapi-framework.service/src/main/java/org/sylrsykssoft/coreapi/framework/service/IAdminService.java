@@ -22,13 +22,6 @@ import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityExcep
 public interface IAdminService<T extends BaseAdmin, R extends BaseAdminResource, N extends Number> {
 
 	/**
-	 * Returns the number of entities available.
-	 * 
-	 * @return long the number of entities
-	 */
-	long count();
-
-	/**
 	 * Saves a given entity. Use the returned instance for further operations as the
 	 * save operation might have changed the entity instance completely.
 	 * 
@@ -77,13 +70,6 @@ public interface IAdminService<T extends BaseAdmin, R extends BaseAdminResource,
 	boolean existsById(N id);
 
 	/**
-	 * Returns all instances of the type.
-	 * 
-	 * @return List<R> all entities
-	 */
-	List<R> findAll();
-
-	/**
 	 * Returns all entities matching the given {@link Example}. In case no match
 	 * could be found an empty {@link Iterable} is returned.
 	 *
@@ -125,27 +111,6 @@ public interface IAdminService<T extends BaseAdmin, R extends BaseAdminResource,
 	 *                                      result.
 	 */
 	Optional<R> findByExample(Example<R> example) throws NotFoundEntityException, IncorrectResultSizeException;
-
-	/**
-	 * Retrieves an entity by its id.
-	 * 
-	 * @param id must not be {@literal null}.
-	 * @return Optional<R> the entity with the given id or
-	 *         {@literal Optional#empty()} if none found
-	 * @throws IllegalArgumentException if {@code id} is {@literal null}.
-	 */
-	Optional<R> findById(N id) throws NotFoundEntityException;
-
-	/**
-	 * Find by name.
-	 * 
-	 * @param name Value of the attribute name
-	 * @return Optional<R>
-	 * @throws NotFoundEntityException      if no entity exists for given
-	 *                                      {@code id}.
-	 * @throws IncorrectResultSizeException if there is more than one result.
-	 */
-	Optional<R> findByName(final String name) throws NotFoundEntityException, IncorrectResultSizeException;
 
 	/**
 	 * Saves all given entities.

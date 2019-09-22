@@ -1,7 +1,6 @@
 package org.sylrsykssoft.coreapi.framework.api.resource;
 
 import java.beans.ConstructorProperties;
-import java.time.LocalDateTime;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -33,15 +32,11 @@ public class BaseAdminSimpleResource extends BaseResource<Integer> {
 	 * 
 	 * @param entityId
 	 * @param name
-	 * @param description
-	 * @param createdAt
-	 * @param updatedAt
 	 */
 	@Builder(builderMethodName = "baseAdminSimpleResourceBuilder")
-	@ConstructorProperties({ "entityId", "name", "createdAt", "updatedAt", })
-	public BaseAdminSimpleResource(final Integer entityId, final String name, final LocalDateTime createdAt,
-			final LocalDateTime updatedAt) {
-		super(entityId, createdAt, updatedAt);
+	@ConstructorProperties({ "entityId", "name" })
+	public BaseAdminSimpleResource(final Integer entityId, final String name) {
+		super(entityId);
 
 		this.name = name;
 	}

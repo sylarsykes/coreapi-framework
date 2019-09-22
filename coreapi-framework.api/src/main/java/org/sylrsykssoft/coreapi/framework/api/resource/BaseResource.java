@@ -1,10 +1,8 @@
 package org.sylrsykssoft.coreapi.framework.api.resource;
 
 import java.beans.ConstructorProperties;
-import java.time.LocalDateTime;
 
 import org.springframework.hateoas.ResourceSupport;
-import org.springframework.lang.Nullable;
 
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -28,22 +26,15 @@ import lombok.experimental.FieldDefaults;
 public class BaseResource<N extends Number> extends ResourceSupport {
 
 	N entityId;
-	LocalDateTime createdAt;
-	@Nullable
-	LocalDateTime updatedAt;
 
 	/**
 	 * AllArgsConstructor
 	 * 
 	 * @param entityId
-	 * @param createdAt
-	 * @param updatedAt
 	 */
 	@Builder(builderMethodName = "baseResourceBuilder")
-	@ConstructorProperties({ "entityId", "createdAt", "updatedAt" })
-	public BaseResource(final N entityId, final LocalDateTime createdAt, final LocalDateTime updatedAt) {
+	@ConstructorProperties({ "entityId" })
+	public BaseResource(final N entityId) {
 		this.entityId = entityId;
-		this.createdAt = createdAt;
-		this.updatedAt = updatedAt;
 	}
 }

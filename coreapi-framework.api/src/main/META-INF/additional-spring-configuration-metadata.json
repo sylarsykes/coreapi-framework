@@ -1,0 +1,6 @@
+{"properties": [{
+  "name": "coreapi.framework.simple.rest.basePath",
+  "type": "java.lang.String",
+  "description": "A base path for rest controller",
+  "defaultValue": ""
+}]}
