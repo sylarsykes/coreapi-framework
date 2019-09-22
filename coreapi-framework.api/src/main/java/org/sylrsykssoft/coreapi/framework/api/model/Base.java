@@ -1,7 +1,5 @@
 package org.sylrsykssoft.coreapi.framework.api.model;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -9,7 +7,6 @@ import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 import org.springframework.data.domain.Persistable;
-import org.springframework.lang.Nullable;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -40,12 +37,6 @@ public class Base<N extends Number> implements Persistable<N> {
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", updatable = false, nullable = false)
 	N entityId;
-	
-	@Column(name = "created_at", nullable = false, insertable = true, updatable = false)
-	LocalDateTime createdAt;
-
-	@Column(name = "updated_at", nullable = true, insertable = false, updatable = true)
-	@Nullable LocalDateTime updatedAt;
 	
 	/**
 	 * {@inheritDoc}

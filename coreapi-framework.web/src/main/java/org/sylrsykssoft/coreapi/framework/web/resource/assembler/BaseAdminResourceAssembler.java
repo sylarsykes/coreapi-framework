@@ -9,7 +9,6 @@ import java.util.Arrays;
 import java.util.List;
 
 import org.springframework.hateoas.Link;
-import org.springframework.hateoas.mvc.ResourceAssemblerSupport;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseAdmin;
 import org.sylrsykssoft.coreapi.framework.api.resource.BaseAdminResource;
 import org.sylrsykssoft.coreapi.framework.library.mapper.ModelMapperFunction;
@@ -20,15 +19,9 @@ import org.sylrsykssoft.coreapi.framework.web.BaseAdminController;
  * 
  * @author juan.gonzalez.fernandez.jgf
  */
-public abstract class BaseAdminResourceAssembler<C extends BaseAdminController<R, T>, T extends BaseAdmin, R extends BaseAdminResource> extends ResourceAssemblerSupport<T, R> {
+public abstract class BaseAdminResourceAssembler<C extends BaseAdminController<R, T>, T extends BaseAdmin, R extends BaseAdminResource>
+		extends BaseAdminSimpleResourceAssembler<C, T, R> {
 
-	protected Class<C> controllerClass;
-	/** The entity class. */
-	protected Class<T> entityClass;
-	
-	/** The parameters. */
-	protected Object[] parameters;
-	
 	/**
 	 * Instantiates a new base resource assembler.
 	 *
@@ -37,12 +30,9 @@ public abstract class BaseAdminResourceAssembler<C extends BaseAdminController<R
 	 */
 	@ConstructorProperties({ "controllerClass", "entityClass", "resourceType" })
 	public BaseAdminResourceAssembler(final Class<C> controllerClass, final Class<T> entityClass, final Class<R> resourceType) {
-		super(entityClass, resourceType);
-		this.controllerClass = controllerClass;
-		this.entityClass = entityClass;
-		parameters = new Object[0];
+		super(controllerClass, entityClass, resourceType);
 	}
-	
+
 	/**
 	 * Instantiates a new base resource assembler.
 	 *
@@ -52,15 +42,13 @@ public abstract class BaseAdminResourceAssembler<C extends BaseAdminController<R
 	 */
 	@ConstructorProperties({ "controllerClass", "entityClass", "resourceType", "parameters" })
 	public BaseAdminResourceAssembler(final Class<C> controllerClass, final Class<T> entityClass, final Class<R> resourceType, final Object ...parameters) {
-		super(entityClass, resourceType);
-		this.controllerClass = controllerClass;
-		this.entityClass = entityClass;
-		this.parameters = parameters;
+		super(controllerClass, entityClass, resourceType, parameters);
 	}
-	
+
 	/** The base entity resource model mapper function. */
+	@Override
 	public abstract ModelMapperFunction<T, R> getAdminMapperToResourceFunction();
-	
+
 	/**
 	 * To resource.
 	 *
@@ -69,9 +57,9 @@ public abstract class BaseAdminResourceAssembler<C extends BaseAdminController<R
 	 */
 	@Override
 	public R toResource(final T entity) {
-		final R instance = getAdminMapperToResourceFunction().apply(entity);
+		final R instance = super.toResource(entity);
 		final List<Link> links = new ArrayList<>();
-		
+
 		final Link idLink = linkTo(methodOn(controllerClass).findById(instance.getEntityId())).withSelfRel();
 		idLink.withType("GET");
 		final Link findByNameLink = linkTo(methodOn(controllerClass).findByName(instance.getName())).withRel("findByName");
@@ -89,7 +77,7 @@ public abstract class BaseAdminResourceAssembler<C extends BaseAdminController<R
 		createLink.withType("POST");
 		final Link updateLink = linkTo(methodOn(controllerClass).update(instance, instance.getEntityId())).withRel("update");
 		updateLink.withType("POST");
-		
+
 		links.add(idLink);
 		links.add(findByNameLink);
 		links.add(findOneByExampleLink);
@@ -98,9 +86,9 @@ public abstract class BaseAdminResourceAssembler<C extends BaseAdminController<R
 		links.add(findAllByExampleSortableLink);
 		links.add(createLink);
 		links.add(updateLink);
-		
+
 		instance.add(links);
-		
+
 		return instance;
 	}
 

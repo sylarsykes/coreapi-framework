@@ -45,12 +45,11 @@ public class BaseAdminAuditResource extends BaseAdminResource {
 	 */
 	@Builder(builderMethodName = "baseAdminAuditResourceBuilder")
 	@ConstructorProperties({ "entityId", "name", "description", "version", "createdBy", "createdDate", "lastModifiedBy",
-			"lastModifiedDate", "createdAt", "updatedAt", "removedAt" })
+	"lastModifiedDate" })
 	public BaseAdminAuditResource(final Integer entityId, final String name, final String description,
 			final Integer version, final String createdBy,
-			final LocalDateTime createdDate, final String lastModifiedBy, final LocalDateTime lastModifiedDate,
-			final LocalDateTime createdAt, final LocalDateTime updatedAt, final LocalDateTime removedAt) {
-		super(entityId, name, description, createdAt, updatedAt, removedAt);
+			final LocalDateTime createdDate, final String lastModifiedBy, final LocalDateTime lastModifiedDate) {
+		super(entityId, name, description);
 
 		this.version = version;
 		this.createdBy = createdBy;

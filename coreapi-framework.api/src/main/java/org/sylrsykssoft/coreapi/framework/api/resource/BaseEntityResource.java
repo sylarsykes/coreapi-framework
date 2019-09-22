@@ -1,7 +1,6 @@
 package org.sylrsykssoft.coreapi.framework.api.resource;
 
 import java.beans.ConstructorProperties;
-import java.time.LocalDateTime;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -30,9 +29,9 @@ public class BaseEntityResource extends BaseResource<Long> {
 	 * @param updatedAt
 	 */
 	@Builder(builderMethodName = "baseEntityResourceBuilder")
-	@ConstructorProperties({ "entityId", "createdAt", "updatedAt" })
-	public BaseEntityResource(final Long entityId, final LocalDateTime createdAt, final LocalDateTime updatedAt) {
-		super(entityId, createdAt, updatedAt);
+	@ConstructorProperties({ "entityId" })
+	public BaseEntityResource(final Long entityId) {
+		super(entityId);
 	}
 
 }

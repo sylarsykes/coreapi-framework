@@ -13,7 +13,6 @@ import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.PutMapping;
@@ -36,7 +35,8 @@ import org.sylrsykssoft.coreapi.framework.web.configuration.BaseAdminConstants;
  * @param <T> Admin class
  * @author juan.gonzalez.fernandez.jgf
  */
-public abstract class BaseAdminController<R extends BaseAdminResource, T extends BaseAdmin> {
+public abstract class BaseAdminController<R extends BaseAdminResource, T extends BaseAdmin>
+		extends BaseAdminSimpleController<R, T> {
 
 	/**
 	 * Create entry.
@@ -85,29 +85,6 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 		} catch (final Exception e) {
 			throw new CoreApiFrameworkLibraryException(e);
 		}
-	}
-
-	/**
-	 * Find all entries.
-	 * 
-	 * @return Iterable<T> entries.
-	 * 
-	 * @throws NotFoundEntityException
-	 */
-	@GetMapping(produces = { MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE })
-	@ResponseStatus(HttpStatus.FOUND)
-	public Iterable<R> findAll() throws NotFoundEntityException {
-		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findAll Finding all entries");
-
-		final Iterable<R> entities = getAdminService().findAll();
-		if (entities == null) {
-			LoggerUtil.message(LogMessageLevel.WARN, "BaseAdminController::findAll not find result");
-			throw new NotFoundEntityException();
-		}
-
-		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findAll Found {} entries.", entities);
-
-		return entities;
 	}
 
 	/**
@@ -175,61 +152,6 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	}
 
 	/**
-	 * Find one entry.
-	 * 
-	 * @param id
-	 *            Id
-	 * 
-	 * @return T entry.
-	 * 
-	 * @throws NotFoundEntityException
-	 */
-	@GetMapping(path = BaseAdminConstants.CONTROLLER_GET_FIND_ONE_BY_ID, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
-	@ResponseStatus(HttpStatus.FOUND)
-	public R findById(final @PathVariable Integer id) throws NotFoundEntityException {
-		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findById Finding a entry with id: {}", id);
-
-		final Optional<R> result = getAdminService().findById(id);
-
-		if (!result.isPresent()) {
-			LoggerUtil.message(LogMessageLevel.WARN, "BaseAdminController::findById not find result for id -> {}", id);
-			throw new NotFoundEntityException();
-		}
-
-		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findById Result -> {}", result.get());
-		return result.get();
-	}
-
-	/**
-	 * Find by name.
-	 * 
-	 * @param name Value of attribute name.
-	 * 
-	 * @example /admin/musicalGenres/name/{name}]
-	 * 
-	 * @return T entity.
-	 * 
-	 * @throws NotFoundEntityException
-	 */
-	@GetMapping(path = BaseAdminConstants.CONTROLLER_GET_FIND_ONE_BY_NAME, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
-	@ResponseStatus(HttpStatus.FOUND)
-	public R findByName(final @PathVariable String name) throws NotFoundEntityException {
-		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findByName Finding a entry with name: {}", name);
-
-		final Optional<R> result = getAdminService().findByName(name);
-
-		if (!result.isPresent()) {
-			LoggerUtil.message(LogMessageLevel.WARN, "BaseAdminController::findByName not find result for name -> {}",
-					name);
-			throw new NotFoundEntityException();
-		}
-
-		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findByName Result -> {}", result.get());
-
-		return result.get();
-	}
-
-	/**
 	 * Find by example
 	 * 
 	 * @param resource
@@ -265,6 +187,7 @@ public abstract class BaseAdminController<R extends BaseAdminResource, T extends
 	 * 
 	 * @return BaseAdminService<T, R>
 	 */
+	@Override
 	public abstract BaseAdminService<T, R> getAdminService();
 
 	/**
