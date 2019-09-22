@@ -6,6 +6,7 @@ import java.util.Optional;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.springframework.data.repository.Repository;
+import org.springframework.data.repository.query.Param;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseAdminSimple;
 
 /**
@@ -48,7 +49,7 @@ public interface BaseAdminSimpleRepository<T extends BaseAdminSimple> extends Re
 	 * 
 	 * @return T entity.
 	 */
-	@Query("select e from #{#entityName} e where e.name = :name")
-	Optional<T> findByName(String name);
+	@Query("SELECT e FROM #{#entityName} e WHERE e.name = :name")
+	Optional<T> findByName(@Param("name") String name);
 
 }
