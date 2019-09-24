@@ -102,5 +102,6 @@
     	<module>coreapi-framework.audit</module>
     	<module>coreapi-framework.mail</module>
 	   	<module>coreapi-framework.boot</module>
+    	<module>coreapi-framework.boot.test</module>
   </modules>
 </project>

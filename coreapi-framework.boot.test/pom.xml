@@ -10,13 +10,13 @@
 	</parent>
 	
 	<groupId>org.sylrsykssoft</groupId>
-	<artifactId>coreapi-framework.boot</artifactId>
+	<artifactId>coreapi-framework.boot.test</artifactId>
 	<version>0.0.1-SNAPSHOT</version>
 	<packaging>pom</packaging>
 		
-	<name>coreapi-framework.boot</name>
+	<name>coreapi-framework.boot.test</name>
 	<description>Core API Framework Boot. Parent project with spring boot basic dependecy.</description>
-	<url>https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.boot</url>
+	<url>https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.boot.test</url>
 
 	<developers>
 		<developer>
@@ -48,27 +48,11 @@
     	<maven.compiler.source>${java.version}</maven.compiler.source>
     	<maven.compiler.target>${java.version}</maven.compiler.target>
     	<maven.compiler.release>${java.version}</maven.compiler.release>
-		
-		<!-- Core API Dependencies -->
-		<coreapi-framework.library.version>${project.version}</coreapi-framework.library.version>
-		<coreapi-framework.aop.version>${project.version}</coreapi-framework.aop.version>
-		<coreapi-framework.api.version>${project.version}</coreapi-framework.api.version>
-		<coreapi-framework.audit.version>${project.version}</coreapi-framework.audit.version>
-		<coreapi-framework.database.version>${project.version}</coreapi-framework.database.version>
-		<coreapi-framework.service.version>${project.version}</coreapi-framework.service.version>
-		<coreapi-framework.web.version>${project.version}</coreapi-framework.web.version>
-		<coreapi-framework.mail.version>${project.version}</coreapi-framework.mail.version>
 	
 	    <!-- Dependency versions -->
-		<commons-collections4.version>4.4</commons-collections4.version>
-	    <commons-lang3.version>3.8.1</commons-lang3.version>
-		<jasypt-spring-boot-starter.version>2.1.1</jasypt-spring-boot-starter.version>
 		<junit-jupiter.version>5.5.1</junit-jupiter.version>
 		<junit-platform.version>1.5.1</junit-platform.version>
-		<log4j.version>1.2.17</log4j.version>
 		<lombok-maven-plugin.version>1.18.6.0</lombok-maven-plugin.version>
-		<modelmapper-spring.version>2.3.4</modelmapper-spring.version>
-		<slf4j.version>1.7.26</slf4j.version>
 	    <spring-boot.version>2.1.8.RELEASE</spring-boot.version>
 	</properties>
 	
@@ -91,59 +75,6 @@
 			<groupId>org.projectlombok</groupId>
 			<artifactId>lombok</artifactId>
 			<scope>provided</scope>
-		</dependency>
-
-		<dependency>
-		    <groupId>com.github.ulisesbocchio</groupId>
-		    <artifactId>jasypt-spring-boot-starter</artifactId>
-		    <version>${jasypt-spring-boot-starter.version}</version>
-		</dependency>
-		
-		<dependency>
-			<groupId>org.slf4j</groupId>
-			<artifactId>slf4j-api</artifactId>
-		</dependency>
-		<dependency>
-			<groupId>log4j</groupId>
-			<artifactId>log4j</artifactId>
-			<version>${log4j.version}</version>
-		</dependency>
-		
-		<!-- Core API Dependencies -->
-		<dependency>
-			<groupId>org.sylrsykssoft</groupId>
-	    	<artifactId>coreapi-framework.library</artifactId>
-	    	<version>${coreapi-framework.library.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.sylrsykssoft</groupId>
-	    	<artifactId>coreapi-framework.api</artifactId>
-	    	<version>${coreapi-framework.api.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.sylrsykssoft</groupId>
-	    	<artifactId>coreapi-framework.database</artifactId>
-	    	<version>${coreapi-framework.database.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.sylrsykssoft</groupId>
-	    	<artifactId>coreapi-framework.audit</artifactId>
-	    	<version>${coreapi-framework.audit.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.sylrsykssoft</groupId>
-	    	<artifactId>coreapi-framework.service</artifactId>
-	    	<version>${coreapi-framework.service.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.sylrsykssoft</groupId>
-	    	<artifactId>coreapi-framework.web</artifactId>
-	    	<version>${coreapi-framework.web.version}</version>
-		</dependency>
-		<dependency>
-			<groupId>org.sylrsykssoft</groupId>
-	    	<artifactId>coreapi-framework.mail</artifactId>
-	    	<version>${coreapi-framework.mail.version}</version>
 		</dependency>
 		
 		<dependency>
