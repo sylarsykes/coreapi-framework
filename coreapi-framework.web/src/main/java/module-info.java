@@ -1,6 +1,7 @@
 module coreapi.framework.web {
 	exports org.sylrsykssoft.coreapi.framework.web;
 	exports org.sylrsykssoft.coreapi.framework.web.configuration;
+	exports org.sylrsykssoft.coreapi.framework.web.rest;
 	exports org.sylrsykssoft.coreapi.framework.web.resource.assembler;
 
 	requires coreapi.framework.library;
