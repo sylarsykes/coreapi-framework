@@ -37,4 +37,13 @@ public class BaseResource<N extends Number> extends ResourceSupport {
 	public BaseResource(final N entityId) {
 		this.entityId = entityId;
 	}
+	
+	/**
+	 * Returns if the {@code Persistable} is new or was persisted already.
+	 *
+	 * @return if {@literal true} the object is new.
+	 */
+	public boolean isNew() {
+		return null == getEntityId();
+	}
 }

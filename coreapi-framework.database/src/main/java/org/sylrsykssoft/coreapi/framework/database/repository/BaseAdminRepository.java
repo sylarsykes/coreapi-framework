@@ -1,6 +1,5 @@
 package org.sylrsykssoft.coreapi.framework.database.repository;
 
-import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.repository.NoRepositoryBean;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseAdmin;
 
@@ -12,6 +11,6 @@ import org.sylrsykssoft.coreapi.framework.api.model.BaseAdmin;
  */
 @NoRepositoryBean
 public interface BaseAdminRepository<T extends BaseAdmin>
-		extends BaseAdminSimpleRepository<T>, JpaRepository<T, Integer> {
+extends BaseAdminSimpleRepository<T> {
 
 }

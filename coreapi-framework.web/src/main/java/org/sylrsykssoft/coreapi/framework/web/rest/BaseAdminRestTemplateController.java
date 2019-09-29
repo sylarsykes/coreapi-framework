@@ -3,6 +3,11 @@ package org.sylrsykssoft.coreapi.framework.web.rest;
 import java.beans.ConstructorProperties;
 import java.net.URI;
 
+import org.springframework.http.HttpEntity;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.MediaType;
+import org.springframework.http.converter.StringHttpMessageConverter;
+import org.springframework.http.converter.json.MappingJackson2HttpMessageConverter;
 import org.springframework.web.client.RestClientException;
 import org.springframework.web.util.UriComponents;
 import org.springframework.web.util.UriComponentsBuilder;
@@ -21,7 +26,7 @@ import org.sylrsykssoft.coreapi.framework.library.util.LoggerUtil.LogMessageLeve
  * @author juan.gonzalez.fernandez.jgf
  */
 public class BaseAdminRestTemplateController<R extends BaseAdminResource, T extends BaseAdmin>
-		extends BaseAdminSimpleRestTemplateController<R, T> {
+extends BaseAdminSimpleRestTemplateController<R, T> {
 
 	/**
 	 * 
@@ -30,6 +35,28 @@ public class BaseAdminRestTemplateController<R extends BaseAdminResource, T exte
 	@ConstructorProperties({ "responseType" })
 	public BaseAdminRestTemplateController(final Class<R> responseType) {
 		super(responseType);
+	}
+
+	/**
+	 * Create
+	 * 
+	 * @param httpUrl
+	 * @param resource
+	 * @return
+	 * @throws NotFoundEntityException
+	 * @throws CoreApiFrameworkLibraryException
+	 */
+	public R create(final String httpUrl, final R resource) throws NotFoundEntityException, CoreApiFrameworkLibraryException {
+		LoggerUtil.message(LogMessageLevel.INFO,
+				"BaseAdminRestTemplateController::create Finding a entry with: {}", resource);
+
+		final UriComponents url = UriComponentsBuilder.fromHttpUrl(httpUrl).build();
+		final R result = postForObject(url.toUri(), resource);
+
+		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminRestTemplateController::create Result -> {}",
+				result);
+
+		return result;
 	}
 
 	/**
@@ -70,9 +97,15 @@ public class BaseAdminRestTemplateController<R extends BaseAdminResource, T exte
 				resource);
 
 		R result = null;
+		final HttpHeaders headers = new HttpHeaders();
+		headers.setContentType(MediaType.APPLICATION_JSON);
 
+		restTemplate.getMessageConverters().add(new MappingJackson2HttpMessageConverter());
+		restTemplate.getMessageConverters().add(new StringHttpMessageConverter());
+
+		final HttpEntity<R> request = new HttpEntity<>(resource, headers);
 		try {
-			result = restTemplate.postForObject(url, resource, responseType);
+			result = restTemplate.postForObject(url, request, responseType);
 		} catch (final RestClientException e) {
 			LoggerUtil.message(LogMessageLevel.WARN,
 					"BaseAdminRestTemplateController::postForObject RestClientException -> {}", e);

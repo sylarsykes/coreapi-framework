@@ -20,14 +20,14 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseStatus;
-import org.sylrsykssoft.coreapi.framework.audit.domain.BaseAdminAudit;
+import org.sylrsykssoft.coreapi.framework.audit.domain.BaseAdminSimpleAudit;
 import org.sylrsykssoft.coreapi.framework.audit.exception.NotFoundAuditEntityException;
-import org.sylrsykssoft.coreapi.framework.audit.resource.BaseAdminAuditResource;
-import org.sylrsykssoft.coreapi.framework.audit.service.BaseAdminAuditService;
+import org.sylrsykssoft.coreapi.framework.audit.resource.BaseAdminSimpleAuditResource;
+import org.sylrsykssoft.coreapi.framework.audit.service.BaseAdminSimpleAuditService;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityException;
 import org.sylrsykssoft.coreapi.framework.library.util.LoggerUtil;
 import org.sylrsykssoft.coreapi.framework.library.util.LoggerUtil.LogMessageLevel;
-import org.sylrsykssoft.coreapi.framework.web.BaseAdminController;
+import org.sylrsykssoft.coreapi.framework.web.BaseAdminSimpleController;
 
 /**
  * Base admin controller
@@ -36,8 +36,8 @@ import org.sylrsykssoft.coreapi.framework.web.BaseAdminController;
  * @param <T> Admin class
  * @author juan.gonzalez.fernandez.jgf
  */
-public abstract class BaseAdminAuditController<R extends BaseAdminAuditResource, T extends BaseAdminAudit>
-		extends BaseAdminController<R, T> {
+public abstract class BaseAdminSimpleAuditController<R extends BaseAdminSimpleAuditResource, T extends BaseAdminSimpleAudit>
+		extends BaseAdminSimpleController<R, T> {
 
 	/**
 	 * Returns the revision of the entity it was last changed in.
@@ -160,5 +160,5 @@ public abstract class BaseAdminAuditController<R extends BaseAdminAuditResource,
 	 * @return BaseAdminService<T, R>
 	 */
 	@Override
-	public abstract BaseAdminAuditService<T, R> getAdminService();
+	public abstract BaseAdminSimpleAuditService<T, R> getAdminService();
 }
