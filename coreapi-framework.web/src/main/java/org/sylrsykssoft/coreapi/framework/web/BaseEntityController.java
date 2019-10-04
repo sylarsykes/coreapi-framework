@@ -5,6 +5,8 @@ import java.util.Optional;
 
 import javax.validation.Valid;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.data.domain.Example;
 import org.springframework.data.domain.ExampleMatcher;
 import org.springframework.data.domain.Sort;
@@ -37,6 +39,9 @@ import org.sylrsykssoft.coreapi.framework.web.configuration.BaseEntityConstants;
  * @author juan.gonzalez.fernandez.jgf
  */
 public abstract class BaseEntityController<R extends BaseEntityResource, T extends BaseEntity> {
+
+	@Autowired
+	protected MessageSource messageSource;
 
 	/**
 	 * Create entry.

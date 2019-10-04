@@ -1,6 +1,8 @@
 module coreapi.framework.web {
 	exports org.sylrsykssoft.coreapi.framework.web;
 	exports org.sylrsykssoft.coreapi.framework.web.configuration;
+	exports org.sylrsykssoft.coreapi.framework.web.configuration.annotation;
+	exports org.sylrsykssoft.coreapi.framework.web.configuration.property;
 	exports org.sylrsykssoft.coreapi.framework.web.rest;
 	exports org.sylrsykssoft.coreapi.framework.web.resource.assembler;
 
@@ -14,9 +16,11 @@ module coreapi.framework.web {
 	requires lombok;
 	requires spring.core;
 	requires spring.beans;
-	requires spring.context;
+	requires transitive spring.context;
 	requires transitive spring.boot;
 	requires transitive spring.data.commons;
 	requires transitive spring.web;
 	requires spring.hateoas;
+	requires transitive spring.webmvc;
+	requires spring.boot.autoconfigure;
 }

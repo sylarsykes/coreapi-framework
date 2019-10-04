@@ -4,7 +4,7 @@ Library with audit basic classes.
 
 ## How to use library?
 
-*  Add repository in pom
+* Add repository in pom
 
 ```
 <dependency>
@@ -14,7 +14,7 @@ Library with audit basic classes.
 </dependency>
 ```
 
-*  Configuration class, add annotations in configuration class
+* Configuration class, add annotations in configuration class
 
 ```java
 import static org.sylrsykssoft.coreapi.framework.audit.configuration.BaseAdminAuditConstants.AUDITORAWARE_COMPONENT_NAME;
@@ -23,7 +23,7 @@ import static org.sylrsykssoft.coreapi.framework.audit.configuration.BaseAdminAu
 @EnableJpaAuditing(auditorAwareRef = AUDITORAWARE_COMPONENT_NAME)
 ```
 
-*  Configuration class, inject auditorAwareImpl bean
+* Configuration class, inject auditorAwareImpl bean
 
 ```java
 import org.sylrsykssoft.coreapi.framework.audit.configuration.CoreApiFrameworkAuditAuditorAwareImpl;
@@ -36,7 +36,7 @@ public AuditorAware<String> defaultAuditorAwareImpl() {
 }
 ```
 
-*  Entity class, extends your class of BaseAdminAudit and set Audited
+* Entity class, extends your class of BaseAdminAudit and set Audited
 
 ```java
 import org.sylrsykssoft.coreapi.framework.audit.domain.BaseAdminAudit;
@@ -51,7 +51,7 @@ import org.sylrsykssoft.coreapi.framework.audit.domain.BaseAdminAudit;
 public class Example extends BaseAdminAudit
 ```
 
-*  application.properties configure rest base path
+* application.properties configure rest base path
 
 ```
 coreapi.framework.audit.rest.basePath = /api/admin/audit/v1
@@ -59,12 +59,12 @@ coreapi.framework.audit.rest.basePath = /api/admin/audit/v1
 
 ## Built with
 
-*  [Maven](https://mvnrepository.com/) Dependency manager
-*  [Spring Framework](https://github.com/spring-projects/spring-framework)
-*  [Apache Commons](https://github.com/apache/commons-lang)
-*  [Apache Commons Collections](https://github.com/apache/commons-collections/)
-*  [Lombok](https://projectlombok.org/)
-*  [Modelmapper](http://modelmapper.org/getting-started/)
+* [Maven](https://mvnrepository.com/) Dependency manager
+* [Spring Framework](https://github.com/spring-projects/spring-framework)
+* [Apache Commons](https://github.com/apache/commons-lang)
+* [Apache Commons Collections](https://github.com/apache/commons-collections/)
+* [Lombok](https://projectlombok.org/)
+* [Modelmapper](http://modelmapper.org/getting-started/)
 
 ## Version
 
@@ -72,7 +72,7 @@ coreapi.framework.audit.rest.basePath = /api/admin/audit/v1
 
 ## Authors
 
-*  Juan González Fernández [juan.gonzalez.fernandez.jgf](https://github.com/sylarsykes)
+* Juan González Fernández [juan.gonzalez.fernandez.jgf](https://github.com/sylarsykes)
 
 ## License
 

@@ -2,6 +2,8 @@ package org.sylrsykssoft.coreapi.framework.web;
 
 import java.util.Optional;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.MessageSource;
 import org.springframework.hateoas.MediaTypes;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -24,6 +26,9 @@ import org.sylrsykssoft.coreapi.framework.web.configuration.BaseAdminConstants;
  * @author juan.gonzalez.fernandez.jgf
  */
 public abstract class BaseAdminSimpleController<R extends BaseAdminSimpleResource, T extends BaseAdminSimple> {
+
+	@Autowired
+	protected MessageSource messageSource;
 
 	/**
 	 * Find all entries.

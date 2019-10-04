@@ -15,7 +15,10 @@ public class BaseAdminAuditConstants {
 	public static final String AUDITORAWARE_COMPONENT_NAME = "defaultAuditorAwareImpl";
 	public static final String AUDITORAWARE_DEFAULT_CURRENT_EDITOR_NAME = "musbands.admin";
 
-	// CONTROLLER
+	// CONTROLLER BASE PATH //
+	public static final String CONTROLLER_AUDIT_REQUEST_MAPPING_BASE_PATH = "${coreapi.framework.audit.rest.base-path}";
+
+	// CONTROLLER PATH //
 	public static final String CONTROLLER_GET_FINDREVISION_BY_ID_REVISIONNUMBER = "/findRevision/id/{id}/revisionNumber/{revisionNumber}";
 	public static final String CONTROLLER_GET_FIND_LAST_CHANGE_REVISION_BY_ID = "/findLastChangeRevision/id/{id}";
 	public static final String CONTROLLER_GET_FIND_ALL_REVISIONS = "/findAllRevisions";
