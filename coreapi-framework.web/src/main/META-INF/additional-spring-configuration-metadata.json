@@ -1,0 +1,38 @@
+{"properties": [
+	{
+	  "name": "coreapi.framework.simple.rest.basePath",
+	  "type": "java.lang.String",
+	  "description": "A base path for simple rest controller",
+	  "defaultValue": ""
+	},
+	{
+	  "name": "coreapi.framework.web.locale.defaultLanguage",
+	  "type": "java.lang.String",
+	  "description": "Locale default language",
+	  "defaultValue": "en"
+	},
+	{
+	  "name": "coreapi.framework.web.locale.defaultCountry",
+	  "type": "java.lang.String",
+	  "description": "Country default language",
+	  "defaultValue": "GB"
+	},
+	{
+	  "name": "coreapi.framework.web.locale.localeParamName",
+	  "type": "java.lang.String",
+	  "description": "Param name of variable with contais language",
+	  "defaultValue": "lang"
+	},
+	{
+	  "name": "coreapi.framework.web.locale.localeFolder",
+	  "type": "java.lang.String",
+	  "description": "Folder name for locale message files",
+	  "defaultValue": "messages/"
+	},
+	{
+	  "name": "coreapi.framework.web.locale.localeFilename",
+	  "type": "java.lang.String",
+	  "description": "Filename for message file",
+	  "defaultValue": "messages"
+	}
+]}

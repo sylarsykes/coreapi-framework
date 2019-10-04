@@ -11,7 +11,11 @@ public class BaseAdminConstants {
 	// REPOSITORY
 	public static final int MAX_LENGTH_NAME = 256;
 
-	// CONTROLLER //
+	// CONTROLLER BASE PATH //
+	public static final String CONTROLLER_REQUEST_MAPPING_BASE_PATH = "${spring.data.rest.base-path}";
+	public static final String CONTROLLER_SIMPLE_REQUEST_MAPPING_BASE_PATH = "${coreapi.framework.simple.rest.base-path}";
+
+	// CONTROLLER PATH //
 	public static final String CONTROLLER_GET_FIND_BY_ID = "/findOne/id";
 	public static final String CONTROLLER_GET_FIND_ONE_BY_ID = CONTROLLER_GET_FIND_BY_ID + "/{id}";
 	public static final String CONTROLLER_GET_FIND_BY_NAME = "/findOne/name";

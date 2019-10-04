@@ -14,9 +14,16 @@ import org.springframework.web.client.RestTemplate;
 @Configuration
 public class CoreApiFrameworkWebConfiguration {
 
+	/**
+	 * RestTemplate configuration
+	 * 
+	 * @param builder Builder
+	 * @return RestTemplate
+	 */
 	@Bean
 	public RestTemplate restTemplate(final RestTemplateBuilder builder) {
 		// Do any additional configuration here
 		return builder.build();
 	}
+
 }
