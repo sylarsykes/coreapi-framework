@@ -25,10 +25,10 @@ public abstract class BaseEntityResourceAssembler<C extends BaseEntityController
 	protected Class<C> controllerClass;
 	/** The entity class. */
 	protected Class<T> entityClass;
-	
+
 	/** The parameters. */
 	protected Object[] parameters;
-	
+
 	/**
 	 * Instantiates a new base resource assembler.
 	 *
@@ -42,7 +42,7 @@ public abstract class BaseEntityResourceAssembler<C extends BaseEntityController
 		this.entityClass = entityClass;
 		parameters = new Object[0];
 	}
-	
+
 	/**
 	 * Instantiates a new base resource assembler.
 	 *
@@ -57,10 +57,10 @@ public abstract class BaseEntityResourceAssembler<C extends BaseEntityController
 		this.entityClass = entityClass;
 		this.parameters = parameters;
 	}
-	
+
 	/** The base entity resource model mapper function. */
 	public abstract ModelMapperFunction<T, R> getEntityMapperToResourceFunction();
-	
+
 	/**
 	 * To resource.
 	 *
@@ -71,7 +71,7 @@ public abstract class BaseEntityResourceAssembler<C extends BaseEntityController
 	public R toResource(final T entity) {
 		final R instance = getEntityMapperToResourceFunction().apply(entity);
 		final List<Link> links = new ArrayList<>();
-		
+
 		final Link idLink = linkTo(methodOn(controllerClass).findById(instance.getEntityId())).withSelfRel();
 		idLink.withType("GET");
 		final Link findOneByExampleLink = linkTo(methodOn(controllerClass).findOneByExample(instance)).withRel("findOneByExample");
@@ -85,9 +85,10 @@ public abstract class BaseEntityResourceAssembler<C extends BaseEntityController
 		findAllByExampleSortableLink.withType("POST");
 		final Link createLink = linkTo(methodOn(controllerClass).create(instance)).withRel("create");
 		createLink.withType("POST");
-		final Link updateLink = linkTo(methodOn(controllerClass).update(instance, instance.getEntityId())).withRel("update");
+		final Link updateLink = linkTo(methodOn(controllerClass).update(instance.getEntityId(), instance))
+				.withRel("update");
 		updateLink.withType("POST");
-		
+
 		links.add(idLink);
 		links.add(findOneByExampleLink);
 		links.add(findAllLink);
@@ -95,9 +96,9 @@ public abstract class BaseEntityResourceAssembler<C extends BaseEntityController
 		links.add(findAllByExampleSortableLink);
 		links.add(createLink);
 		links.add(updateLink);
-		
+
 		instance.add(links);
-		
+
 		return instance;
 	}
 

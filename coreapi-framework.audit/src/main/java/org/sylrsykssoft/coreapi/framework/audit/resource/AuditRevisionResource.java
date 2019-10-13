@@ -1,45 +1,41 @@
 package org.sylrsykssoft.coreapi.framework.audit.resource;
 
-import javax.persistence.Column;
-import javax.persistence.Entity;
-import javax.persistence.MappedSuperclass;
-import javax.persistence.Table;
+import java.io.Serializable;
 
-import org.hibernate.envers.DefaultRevisionEntity;
-import org.hibernate.envers.RevisionEntity;
-import org.sylrsykssoft.coreapi.framework.audit.domain.listener.AuditRevisionListener;
-
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
-import lombok.Builder;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
 import lombok.ToString;
 import lombok.experimental.FieldDefaults;
+import lombok.experimental.SuperBuilder;
 
 /**
- * Entity audit revision.
+ * Audit revision.
  * 
  * @author juan.gonzalez.fernandez.jgf
  */
-@Table(name = "audit_revision")
-@Entity(name = "AuditRevision")
-@MappedSuperclass
 @Data
 @FieldDefaults(level = AccessLevel.PROTECTED)
-@Builder(toBuilder = true)
+@SuperBuilder
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
-@EqualsAndHashCode(callSuper = true, doNotUseGetters = true)
-@ToString
-@RevisionEntity(AuditRevisionListener.class)
-public class AuditRevisionResource extends DefaultRevisionEntity {
+@EqualsAndHashCode(doNotUseGetters = true)
+@ToString(callSuper = true, includeFieldNames = true)
+public class AuditRevisionResource implements Serializable {
 
 	private static final long serialVersionUID = 1049095879642363065L;
 
-	@Column(name = "name", nullable = false, unique = true, length = 60)
+	@ApiModelProperty(name = "id", value = "The rrevision audit id value", dataType = "int", required = true)
+	int id;
+
+	@ApiModelProperty(name = "timestanp", value = "The timestanp audit value", dataType = "long", required = true)
+	long timestamp;
+
+	@ApiModelProperty(name = "username", value = "The username audit value", dataType = "String", required = true)
 	@NonNull
 	String username;
 

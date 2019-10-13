@@ -6,21 +6,34 @@ module coreapi.framework.web {
 	exports org.sylrsykssoft.coreapi.framework.web.rest;
 	exports org.sylrsykssoft.coreapi.framework.web.resource.assembler;
 
+	requires java.desktop;
+	requires java.validation;
+
+	// Core API Framework Module Dependencies
 	requires coreapi.framework.library;
+	requires coreapi.framework.swagger;
 	requires coreapi.framework.api;
 	requires coreapi.framework.database;
 	requires coreapi.framework.service;
 
-	requires java.desktop;
-	requires java.validation;
 	requires lombok;
+
 	requires spring.core;
 	requires spring.beans;
 	requires transitive spring.context;
 	requires transitive spring.boot;
+	requires spring.boot.autoconfigure;
 	requires transitive spring.data.commons;
 	requires transitive spring.web;
 	requires spring.hateoas;
 	requires transitive spring.webmvc;
-	requires spring.boot.autoconfigure;
+
+	// Swagger dependencies
+	requires com.google.common;
+	requires spring.plugin.core;
+	requires springfox.swagger2;
+	requires springfox.core;
+	requires springfox.spi;
+	requires swagger.annotations;
+	requires transitive springfox.spring.web;
 }

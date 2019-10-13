@@ -1,0 +1,6 @@
+{"properties": [{
+  "name": "coreapi.framework.audit.basePath",
+  "type": "java.lang.String",
+  "description": "A base path for rest controller",
+  "defaultValue": ""
+}]}

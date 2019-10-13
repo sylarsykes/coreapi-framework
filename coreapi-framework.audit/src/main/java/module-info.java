@@ -15,12 +15,14 @@ module coreapi.framework.audit {
 	requires java.xml.bind;
 
 	requires coreapi.framework.library;
+	requires coreapi.framework.swagger;
 	requires coreapi.framework.api;
 	requires coreapi.framework.database;
 	requires coreapi.framework.service;
 	requires coreapi.framework.web;
 
 	requires lombok;
+
 	requires spring.boot.autoconfigure;
 	requires spring.context;
 	requires spring.core;
@@ -30,4 +32,13 @@ module coreapi.framework.audit {
 	requires spring.data.jpa;
 	requires hibernate.jpa;
 	requires spring.hateoas;
+
+	// Swagger dependencies
+	requires com.google.common;
+	requires spring.plugin.core;
+	requires springfox.swagger2;
+	requires springfox.core;
+	requires springfox.spi;
+	requires swagger.annotations;
+	requires transitive springfox.spring.web;
 }

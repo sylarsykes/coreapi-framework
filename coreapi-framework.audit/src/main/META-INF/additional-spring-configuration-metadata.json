@@ -1,6 +1,116 @@
-{"properties": [{
-  "name": "coreapi.framework.audit.basePath",
-  "type": "java.lang.String",
-  "description": "A base path for rest controller",
-  "defaultValue": ""
-}]}
+{"properties": [
+	{
+	  "name": "coreapi.framework.swagger.apiVersion",
+	  "type": "java.lang.String",
+	  "description": "Api Version value",
+	  "defaultValue": ""
+	},
+	{
+	  "name": "coreapi.framework.swagger.enabled",
+	  "type": "java.lang.String",
+	  "description": "Enable Swagger2, values true or false",
+	  "defaultValue": "en"
+	},
+	{
+	  "name": "coreapi.framework.swagger.title",
+	  "type": "java.lang.String",
+	  "description": "Api title value",
+	  "defaultValue": ""
+	},
+	{
+	  "name": "coreapi.framework.swagger.description",
+	  "type": "java.lang.String",
+	  "description": "Api description value",
+	  "defaultValue": ""
+	},
+	{
+	  "name": "coreapi.framework.swagger.contactName",
+	  "type": "java.lang.String",
+	  "description": "Api contact name value",
+	  "defaultValue": "messages/"
+	},
+	{
+	  "name": "coreapi.framework.swagger.contactUri",
+	  "type": "java.lang.String",
+	  "description": "Api contact uri value",
+	  "defaultValue": ""
+	},
+	{
+	  "name": "coreapi.framework.swagger.contactEmail",
+	  "type": "java.lang.String",
+	  "description": "Api contact email value",
+	  "defaultValue": ""
+	},
+	{
+	  "name": "coreapi.framework.swagger.license",
+	  "type": "java.lang.String",
+	  "description": "Api license value",
+	  "defaultValue": "messages"
+	},
+	{
+	  "name": "coreapi.framework.swagger.licenseUri",
+	  "type": "java.lang.String",
+	  "description": "Api license url value",
+	  "defaultValue": ""
+	},
+	{
+	  "name": "coreapi.framework.swagger.useDefaultResponseMessages",
+	  "type": "java.lang.String",
+	  "description": "Configure Swagger2 use default response messages value, values true or false",
+	  "defaultValue": ""
+	},
+	{
+	  "name": "coreapi.framework.swagger.enableUrlTemplating",
+	  "type": "java.lang.String",
+	  "description": "Configure Swagger2 enable url templating value, values true or false",
+	  "defaultValue": ""
+	},
+	{
+	  "name": "coreapi.framework.swagger.deepLinking",
+	  "type": "java.lang.String",
+	  "description": "Configure Swagger2 deep linking value, values true or false",
+	  "defaultValue": ""
+	},
+	{
+	  "name": "coreapi.framework.swagger.defaultModelsExpandDepth",
+	  "type": "java.lang.String",
+	  "description": "Configure Swagger2 default models expand depth value, set integer values",
+	  "defaultValue": ""
+	},
+	{
+	  "name": "coreapi.framework.swagger.defaultModelExpandDepth",
+	  "type": "java.lang.String",
+	  "description": "Configure Swagger2 default model expand depth value, set integer values",
+	  "defaultValue": "messages"
+	},
+	{
+	  "name": "coreapi.framework.swagger.displayOperationId",
+	  "type": "java.lang.String",
+	  "description": "Configure Swagger2 display operation id value, values true or false",
+	  "defaultValue": ""
+	},
+	{
+	  "name": "coreapi.framework.swagger.displayRequestDuration",
+	  "type": "java.lang.String",
+	  "description": "Configure Swagger2 display request duration value, values true or false",
+	  "defaultValue": ""
+	},
+	{
+	  "name": "coreapi.framework.swagger.filter",
+	  "type": "java.lang.String",
+	  "description": "Configure Swagger2 filter value, values true or false",
+	  "defaultValue": ""
+	},
+	{
+	  "name": "coreapi.framework.swagger.maxDisplayedTags",
+	  "type": "java.lang.String",
+	  "description": "Configure Swagger2 max displayed tags value, set integer value",
+	  "defaultValue": ""
+	},
+	{
+	  "name": "coreapi.framework.swagger.showExtensions",
+	  "type": "java.lang.String",
+	  "description": "Configure Swagger2 show extensions value, values true or false",
+	  "defaultValue": ""
+	}
+]}

@@ -8,7 +8,10 @@ import lombok.Setter;
 import lombok.experimental.FieldDefaults;
 
 /**
- * Configuration properties for audit module.
+ * Configuration properties for web module.
+ * 
+ * Add @EnableConfigurationProperties(CoreApiFrameworkWebConfigurationLocaleProperties.class)
+ * in @Configuration class
  *
  * @author juan.gonzalez.fernandez.jgf
  */

@@ -1,0 +1,78 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd" xmlns="http://maven.apache.org/POM/4.0.0"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+  <modelVersion>4.0.0</modelVersion>
+  
+  <parent>
+    <groupId>org.sylrsykssoft</groupId>
+    <artifactId>coreapi-framework</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
+    <relativePath>../</relativePath>
+  </parent>
+  
+  <artifactId>coreapi-framework.swagger</artifactId>
+  <packaging>jar</packaging>
+  <name>coreapi-framework.swagger</name>
+  <description>Core API Framework Swagger. Library define the basic configurations for Swagger2.</description>
+  <url>https://github.com/sylarsykes/coreapi-framework/tree/develop/coreapi-framework.swagger</url>
+  
+  <properties>
+    <main.basedir>${basedir}/../</main.basedir>
+    <java-module-name>coreapi.framework.swagger</java-module-name>
+  </properties>
+  
+  <dependencies>
+	<!-- Dependecies for spring boot starter module -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-configuration-processor</artifactId>
+		<optional>true</optional>
+		<version>${spring-boot.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-autoconfigure-processor</artifactId>
+		<optional>true</optional>
+		<version>${spring-boot.version}</version>
+	</dependency>
+
+	<dependency>
+	    <groupId>org.springframework.boot</groupId>
+	    <artifactId>spring-boot</artifactId>
+	    <version>${spring-boot.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework</groupId>
+	    <artifactId>spring-web</artifactId>
+	    <version>${springframework.version}</version>
+	</dependency>
+	
+	<!-- Swagger dependencies -->	
+	<dependency>
+	    <groupId>io.springfox</groupId>
+	    <artifactId>springfox-swagger2</artifactId>
+	    <version>${springfox-swagger2.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>io.springfox</groupId>
+	    <artifactId>springfox-swagger-ui</artifactId>
+	    <version>${springfox-swagger-ui.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>io.springfox</groupId>
+	    <artifactId>springfox-bean-validators</artifactId>
+	    <version>${springfox-swagger-ui.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>com.google.guava</groupId>
+	    <artifactId>guava</artifactId>
+	    <version>${guava.version}</version>
+	</dependency>
+	<dependency>
+	    <groupId>org.springframework.plugin</groupId>
+	    <artifactId>spring-plugin-core</artifactId>
+	    <version>${spring-plugin-core.version}</version>
+	</dependency>
+	
+  </dependencies>
+</project>

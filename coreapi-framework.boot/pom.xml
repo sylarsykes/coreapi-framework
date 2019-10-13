@@ -52,6 +52,7 @@
 		<!-- Core API Dependencies -->
 		<coreapi-framework.library.version>${project.version}</coreapi-framework.library.version>
 		<coreapi-framework.aop.version>${project.version}</coreapi-framework.aop.version>
+		<coreapi-framework.swagger.version>${project.version}</coreapi-framework.swagger.version>
 		<coreapi-framework.api.version>${project.version}</coreapi-framework.api.version>
 		<coreapi-framework.audit.version>${project.version}</coreapi-framework.audit.version>
 		<coreapi-framework.database.version>${project.version}</coreapi-framework.database.version>
@@ -62,6 +63,7 @@
 	    <!-- Dependency versions -->
 		<commons-collections4.version>4.4</commons-collections4.version>
 	    <commons-lang3.version>3.8.1</commons-lang3.version>
+	    <guava.version>28.1-jre</guava.version>
 		<jasypt-spring-boot-starter.version>2.1.1</jasypt-spring-boot-starter.version>
 		<junit-jupiter.version>5.5.1</junit-jupiter.version>
 		<junit-platform.version>1.5.1</junit-platform.version>
@@ -70,6 +72,9 @@
 		<modelmapper-spring.version>2.3.5</modelmapper-spring.version>
 		<slf4j.version>1.7.28</slf4j.version>
 	    <spring-boot.version>2.1.9.RELEASE</spring-boot.version>
+	    <spring-plugin-core.version>1.2.0.RELEASE</spring-plugin-core.version>
+	    <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+	    <springfox-swagger-ui.version>2.9.2</springfox-swagger-ui.version>
 	</properties>
 	
 	<dependencies>
@@ -107,11 +112,17 @@
 		    <groupId>org.apache.logging.log4j</groupId>
 		    <artifactId>log4j-core</artifactId>
 		</dependency>		
+
 		<!-- Core API Dependencies -->
 		<dependency>
 			<groupId>org.sylrsykssoft</groupId>
 	    	<artifactId>coreapi-framework.library</artifactId>
 	    	<version>${coreapi-framework.library.version}</version>
+		</dependency>
+		<dependency>
+			<groupId>org.sylrsykssoft</groupId>
+	    	<artifactId>coreapi-framework.swagger</artifactId>
+	    	<version>${coreapi-framework.swagger.version}</version>
 		</dependency>
 		<dependency>
 			<groupId>org.sylrsykssoft</groupId>

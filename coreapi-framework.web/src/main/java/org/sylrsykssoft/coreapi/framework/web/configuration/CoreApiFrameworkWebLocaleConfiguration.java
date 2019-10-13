@@ -43,7 +43,7 @@ public class CoreApiFrameworkWebLocaleConfiguration implements WebMvcConfigurer 
 	 * 
 	 * @return LocaleChangeInterceptor
 	 */
-	@Bean("localeChangeInterceptor")
+	@Bean(name = "localeChangeInterceptor")
 	@ConditionalOnProperty(prefix = "coreapi.framework.web.locale", name = "localeParamName", matchIfMissing = true)
 	public LocaleChangeInterceptor localeChangeInterceptor() {
 		final LocaleChangeInterceptor localeChangeInterceptor = new LocaleChangeInterceptor();
@@ -57,7 +57,7 @@ public class CoreApiFrameworkWebLocaleConfiguration implements WebMvcConfigurer 
 	 * 
 	 * @return LocaleResolver
 	 */
-	@Bean("localeResolver")
+	@Bean(name = "localeResolver")
 	@ConditionalOnProperty(prefix = "coreapi.framework.web.locale", name = { "defaultLanguage",
 	"defaultCountry" }, matchIfMissing = true)
 	public LocaleResolver localeResolver() {
