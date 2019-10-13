@@ -1,6 +1,7 @@
 package org.sylrsykssoft.coreapi.framework.library.error;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -25,7 +26,7 @@ import lombok.experimental.FieldDefaults;
 @RequiredArgsConstructor(access = AccessLevel.PUBLIC)
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
-@ToString
+@ToString(includeFieldNames = true)
 public class ErrorTO implements Serializable {
 	/** The Constant serialVersionUID. */
 	private static final long serialVersionUID = 4675257088995071827L;
@@ -41,4 +42,5 @@ public class ErrorTO implements Serializable {
 	/** The exception. */
 	Throwable exception;
 
+	LocalDateTime timestamp;
 }

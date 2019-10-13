@@ -4,6 +4,7 @@ import java.beans.ConstructorProperties;
 
 import org.springframework.lang.Nullable;
 
+import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
@@ -27,6 +28,7 @@ import lombok.experimental.FieldDefaults;
 @ToString(callSuper = true, includeFieldNames = true)
 public class BaseAdminResource extends BaseAdminSimpleResource {
 
+	@ApiModelProperty(name = "description", value = "The resource description value", dataType = "String")
 	@Nullable
 	String description;
 

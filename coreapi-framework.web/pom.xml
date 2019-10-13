@@ -51,6 +51,11 @@
 	<!-- Core API Framework Libraries -->
     <dependency>
 		<groupId>org.sylrsykssoft</groupId>
+		<artifactId>coreapi-framework.swagger</artifactId>
+		<version>${coreapi-framework.swagger.version}</version>
+	</dependency>
+    <dependency>
+		<groupId>org.sylrsykssoft</groupId>
 		<artifactId>coreapi-framework.service</artifactId>
 		<version>${coreapi-framework.service.version}</version>
 	</dependency>

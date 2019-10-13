@@ -23,6 +23,20 @@
   </properties>
 
   <dependencies>
+  	<!-- Dependecies for spring boot starter module -->
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-configuration-processor</artifactId>
+		<optional>true</optional>
+		<version>${spring-boot.version}</version>
+	</dependency>
+	<dependency>
+		<groupId>org.springframework.boot</groupId>
+		<artifactId>spring-boot-autoconfigure-processor</artifactId>
+		<optional>true</optional>
+		<version>${spring-boot.version}</version>
+	</dependency>
+  
   	<!-- JAXB library dependency, for hibernate-envers in java 11 -->
 	<dependency>
 	    <groupId>org.glassfish.jaxb</groupId>
@@ -32,15 +46,15 @@
 	</dependency>
 	
 	<dependency>
-	    <groupId>org.springframework.data</groupId>
-	    <artifactId>spring-data-envers</artifactId>
-	    <version>${springframework.data.version}</version>
-	</dependency>
-	
-	<dependency>
     	<groupId>org.apache.commons</groupId>
     	<artifactId>commons-collections4</artifactId>
     	<version>${commons-collections4.version}</version>
+	</dependency>
+
+	<dependency>
+	    <groupId>org.springframework.data</groupId>
+	    <artifactId>spring-data-envers</artifactId>
+	    <version>${springframework.data.version}</version>
 	</dependency>
 
     <!-- Corea API Framework Libraries -->
@@ -50,6 +64,12 @@
 		<version>${coreapi-framework.library.version}</version>
 	</dependency>
 	
+    <dependency>
+		<groupId>org.sylrsykssoft</groupId>
+		<artifactId>coreapi-framework.swagger</artifactId>
+		<version>${coreapi-framework.swagger.version}</version>
+	</dependency>
+
     <dependency>
 		<groupId>org.sylrsykssoft</groupId>
 		<artifactId>coreapi-framework.api</artifactId>
@@ -74,18 +94,6 @@
 		<version>${coreapi-framework.web.version}</version>
 	</dependency>
 
-	<!-- Dependecies for spring boot starter module -->
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-configuration-processor</artifactId>
-		<optional>true</optional>
-		<version>${spring-boot.version}</version>
-	</dependency>
-	<dependency>
-		<groupId>org.springframework.boot</groupId>
-		<artifactId>spring-boot-autoconfigure-processor</artifactId>
-		<optional>true</optional>
-		<version>${spring-boot.version}</version>
-	</dependency>
+	
   </dependencies>
 </project>

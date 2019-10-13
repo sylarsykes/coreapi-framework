@@ -1,10 +1,11 @@
 # Coreapi-Framework Boot
 
-Core API Framework Boot it is a parent project with the dependence of the latest stable version of Spring Boot, for use in other projects. This project includes the modules [Library](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.library), [API](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.api), [Database](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.database), [Service](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.service), [Web](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.web), [Mail](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.mail).
+Core API Framework Boot it is a parent project with the dependence of the latest stable version of Spring Boot, for use in other projects. This project includes the modules [Library](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.library), [Swagger2](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.swagger), [API](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.api), [Database](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.database), [Service](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.service), [Web](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.web), [Mail](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.mail).
 
 ## Features
 
 * [Library](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.library) Library of utilities
+* [Swagger2](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.swagger) Library with Swagger2 basic configuratons
 * [API](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.api) Library define the basic classes for entities and dtos of projects
 * [Database](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.database) Library with repository basic classes
 * [Service](https://github.com/sylarsykes/coreapi-framework/tree/master/coreapi-framework.service) Library with service basic classes
@@ -44,11 +45,13 @@ Core API Framework Boot it is a parent project with the dependence of the latest
 ## Built with
 
 * [Maven](https://mvnrepository.com/) Dependency manager
-* [Spring Framework](https://github.com/spring-projects/spring-framework)
 * [Apache Commons](https://github.com/apache/commons-lang)
 * [Apache Commons Collections](https://github.com/apache/commons-collections/)
 * [Lombok](https://projectlombok.org/)
 * [Modelmapper](http://modelmapper.org/getting-started/)
+* [Spring Framework](https://github.com/spring-projects/spring-framework)
+* [Spring boot](https://spring.io/projects/spring-boot)
+* [Swagger2](https://swagger.io/)
 
 ## Version
 

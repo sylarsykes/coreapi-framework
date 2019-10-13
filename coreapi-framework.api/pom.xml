@@ -41,6 +41,11 @@
     	<artifactId>coreapi-framework.library</artifactId>
     	<version>${coreapi-framework.library.version}</version>
 	</dependency>
+    <dependency>
+		<groupId>org.sylrsykssoft</groupId>
+    	<artifactId>coreapi-framework.swagger</artifactId>
+    	<version>${coreapi-framework.swagger.version}</version>
+	</dependency>
     
     <dependency>
         <groupId>org.springframework.boot</groupId>

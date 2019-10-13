@@ -31,6 +31,11 @@ import org.sylrsykssoft.coreapi.framework.library.util.LoggerUtil.LogMessageLeve
 import org.sylrsykssoft.coreapi.framework.service.BaseEntityService;
 import org.sylrsykssoft.coreapi.framework.web.configuration.BaseEntityConstants;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 /**
  * Base admin controller
  *
@@ -51,9 +56,14 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 * 
 	 * @return T entity.
 	 */
+	@ApiOperation(value = "Create an entry", httpMethod = "POST", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully created entry"),
+			@ApiResponse(code = 201, message = "Successfully created entry"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(HttpStatus.CREATED)
-	public R create(final @Valid @RequestBody R entity) {
+	public R create(
+			final @ApiParam(name = "resource", value = "Entry object store in database table", required = true) @Valid @RequestBody R entity) {
 		LoggerUtil.message(LogMessageLevel.INFO,
 				"BaseEntityController::create Creating a new todo entry by using information: {}", entity);
 
@@ -73,9 +83,16 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 * @throws NotFoundEntityException
 	 * @throws AppException
 	 */
+	@ApiOperation(value = "Delete an entry", httpMethod = "DELETE")
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully created entry"),
+			@ApiResponse(code = 204, message = "Successfully created entry"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found"),
+			@ApiResponse(code = 500, message = "The resource you were trying to reach is not found") })
 	@DeleteMapping(path = BaseEntityConstants.CONTROLLER_DELETE_DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
-	public void delete(final @PathVariable Long id) throws NotFoundEntityException, CoreApiFrameworkLibraryException {
+	public void delete(
+			final @ApiParam(name = "id", value = "Entry id value", type = "Integer", required = true) @PathVariable Long id)
+					throws NotFoundEntityException, CoreApiFrameworkLibraryException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::delete Deleting a entry with id: {}", id);
 
 		final Optional<R> old = getEntityService().findById(id);
@@ -98,6 +115,10 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 * 
 	 * @throws NotFoundEntityException
 	 */
+	@ApiOperation(value = "View a list of all available entries", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_VALUE, response = Iterable.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
+			@ApiResponse(code = 302, message = "Successfully retrieved list"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@GetMapping(produces = { MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.FOUND)
 	public Iterable<R> findAll() throws NotFoundEntityException {
@@ -188,9 +209,15 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 * 
 	 * @throws NotFoundEntityException
 	 */
+	@ApiOperation(value = "Find a entry for your id", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved entry"),
+			@ApiResponse(code = 302, message = "Successfully retrieved try"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@GetMapping(path = BaseEntityConstants.CONTROLLER_GET_FIND_ONE_BY_ID, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(HttpStatus.FOUND)
-	public R findById(final @PathVariable Long id) throws NotFoundEntityException {
+	public R findById(
+			final @ApiParam(name = "id", value = "Entry id value", type = "Integer", required = true) @PathVariable Long id)
+					throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::findById Finding a entry with id: {}", id);
 
 		final Optional<R> result = getEntityService().findById(id);
@@ -215,9 +242,16 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 * 
 	 * @throws NotFoundEntityException
 	 */
-	@PostMapping(path = BaseEntityConstants.CONTROLLER_GET_FIND_BY_EXAMPLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@ApiOperation(value = "Find a entry for resource example", httpMethod = "POST", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved entry"),
+			@ApiResponse(code = 302, message = "Successfully retrieved try"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
+	@PostMapping(path = BaseEntityConstants.CONTROLLER_GET_FIND_BY_EXAMPLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
+			MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.FOUND)
-	public R findOneByExample(final @RequestBody R resource) throws NotFoundEntityException {
+	public R findOneByExample(
+			final @ApiParam(name = "resource", value = "Resource example", required = true) @RequestBody R resource)
+					throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::findOneByExample Finding a entry : {}",
 				resource);
 
@@ -256,9 +290,15 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 * @throws NotIdMismatchEntityException
 	 * @throws NotFoundEntityException
 	 */
+	@ApiOperation(value = "Update an entry", httpMethod = "PUT", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved entry"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PutMapping(path = BaseEntityConstants.CONTROLLER_PUT_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(HttpStatus.OK)
-	public R update(final @Valid @RequestBody R entity, final @PathVariable Long id) throws NotIdMismatchEntityException, NotFoundEntityException {
+	public R update(
+			final @ApiParam(name = "id", value = "Entry id value", type = "Integer", required = true) @PathVariable Long id,
+			final @ApiParam(name = "resource", value = "Entry object store in database table", required = true) @Valid @RequestBody R entity)
+			throws NotIdMismatchEntityException, NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::update Updating a entry with id: {}", id);
 
 		if (entity.getEntityId() != id)

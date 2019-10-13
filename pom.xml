@@ -44,6 +44,7 @@
 		
 		<!-- Core API Dependencies -->
 		<coreapi-framework.library.version>${project.version}</coreapi-framework.library.version>
+		<coreapi-framework.swagger.version>${project.version}</coreapi-framework.swagger.version>
 		<coreapi-framework.api.version>${project.version}</coreapi-framework.api.version>
 		<coreapi-framework.database.version>${project.version}</coreapi-framework.database.version>
 		<coreapi-framework.service.version>${project.version}</coreapi-framework.service.version>
@@ -57,6 +58,7 @@
 		<descriptive-logger.version>1.0</descriptive-logger.version>
 		<commons-collections4.version>4.4</commons-collections4.version>
 	    <commons-lang3.version>3.9</commons-lang3.version>
+	    <guava.version>28.1-jre</guava.version>
 		<jaxb-runtime.version>2.3.1</jaxb-runtime.version>
 		<junit-jupiter.version>5.5.2</junit-jupiter.version>
 		<junit-platform.version>1.5.2</junit-platform.version>
@@ -69,6 +71,9 @@
 	    <springframework.version>5.2.0.RELEASE</springframework.version>
 	    <springframework.data.version>2.2.0.RELEASE</springframework.data.version>
 	    <spring-boot.version>2.1.9.RELEASE</spring-boot.version>
+		<spring-plugin-core.version>1.2.0.RELEASE</spring-plugin-core.version>
+	    <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
+	    <springfox-swagger-ui.version>2.9.2</springfox-swagger-ui.version>
 	</properties>
 	
 	<dependencies>		
@@ -95,6 +100,7 @@
     
 	<modules>
     	<module>coreapi-framework.library</module>
+    	<module>coreapi-framework.swagger</module>
     	<module>coreapi-framework.api</module>
 		<module>coreapi-framework.database</module>
 		<module>coreapi-framework.service</module>

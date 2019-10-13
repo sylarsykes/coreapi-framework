@@ -18,6 +18,11 @@ import org.sylrsykssoft.coreapi.framework.library.util.LoggerUtil.LogMessageLeve
 import org.sylrsykssoft.coreapi.framework.service.BaseAdminSimpleService;
 import org.sylrsykssoft.coreapi.framework.web.configuration.BaseAdminConstants;
 
+import io.swagger.annotations.ApiOperation;
+import io.swagger.annotations.ApiParam;
+import io.swagger.annotations.ApiResponse;
+import io.swagger.annotations.ApiResponses;
+
 /**
  * Base admin controller
  * 
@@ -37,6 +42,10 @@ public abstract class BaseAdminSimpleController<R extends BaseAdminSimpleResourc
 	 * 
 	 * @throws NotFoundEntityException
 	 */
+	@ApiOperation(value = "View a list of all available entries", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_VALUE, response = Iterable.class)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
+			@ApiResponse(code = 302, message = "Successfully retrieved list"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@GetMapping(produces = { MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.FOUND)
 	public Iterable<R> findAll() throws NotFoundEntityException {
@@ -63,9 +72,15 @@ public abstract class BaseAdminSimpleController<R extends BaseAdminSimpleResourc
 	 * 
 	 * @throws NotFoundEntityException
 	 */
+	@ApiOperation(value = "Find a entry for your id", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved entry"),
+			@ApiResponse(code = 302, message = "Successfully retrieved try"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@GetMapping(path = BaseAdminConstants.CONTROLLER_GET_FIND_ONE_BY_ID, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(HttpStatus.FOUND)
-	public R findById(final @PathVariable Integer id) throws NotFoundEntityException {
+	public R findById(
+			final @ApiParam(name = "id", value = "Entry id value", type = "Integer", required = true) @PathVariable Integer id)
+					throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminSimpleController::findById Finding a entry with id: {}", id);
 
 		final Optional<R> result = getAdminService().findById(id);
@@ -91,9 +106,15 @@ public abstract class BaseAdminSimpleController<R extends BaseAdminSimpleResourc
 	 * 
 	 * @throws NotFoundEntityException
 	 */
+	@ApiOperation(value = "Find a entry for your name", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_VALUE)
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved entry"),
+			@ApiResponse(code = 302, message = "Successfully retrieved try"),
+			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@GetMapping(path = BaseAdminConstants.CONTROLLER_GET_FIND_ONE_BY_NAME, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(HttpStatus.FOUND)
-	public R findByName(final @PathVariable String name) throws NotFoundEntityException {
+	public R findByName(
+			final @ApiParam(name = "name", value = "Entry name value", type = "String", required = true) @PathVariable String name)
+			throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminSimpleController::findByName Finding a entry with name: {}",
 				name);
 

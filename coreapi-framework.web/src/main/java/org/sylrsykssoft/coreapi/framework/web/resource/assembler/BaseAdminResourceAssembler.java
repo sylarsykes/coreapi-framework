@@ -20,7 +20,7 @@ import org.sylrsykssoft.coreapi.framework.web.BaseAdminController;
  * @author juan.gonzalez.fernandez.jgf
  */
 public abstract class BaseAdminResourceAssembler<C extends BaseAdminController<R, T>, T extends BaseAdmin, R extends BaseAdminResource>
-		extends BaseAdminSimpleResourceAssembler<C, T, R> {
+extends BaseAdminSimpleResourceAssembler<C, T, R> {
 
 	/**
 	 * Instantiates a new base resource assembler.
@@ -75,7 +75,8 @@ public abstract class BaseAdminResourceAssembler<C extends BaseAdminController<R
 		findAllByExampleSortableLink.withType("POST");
 		final Link createLink = linkTo(methodOn(controllerClass).create(instance)).withRel("create");
 		createLink.withType("POST");
-		final Link updateLink = linkTo(methodOn(controllerClass).update(instance, instance.getEntityId())).withRel("update");
+		final Link updateLink = linkTo(methodOn(controllerClass).update(instance.getEntityId(), instance))
+				.withRel("update");
 		updateLink.withType("POST");
 
 		links.add(idLink);
