@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import org.sylrsykssoft.coreapi.framework.api.resource.BaseAdminResource;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -27,6 +28,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = true, doNotUseGetters = true)
 @ToString(callSuper = true, includeFieldNames = true)
+@ApiModel(value = "BaseAdminAuditResource", description = "Base admin audit resource.", parent = BaseAdminResource.class)
 public class BaseAdminAuditResource extends BaseAdminResource {
 
 	@ApiModelProperty(name = "version", value = "The resource version value", dataType = "Integer", required = true)

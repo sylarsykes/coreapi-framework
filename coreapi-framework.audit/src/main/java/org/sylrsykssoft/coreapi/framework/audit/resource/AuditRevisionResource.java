@@ -2,6 +2,7 @@ package org.sylrsykssoft.coreapi.framework.audit.resource;
 
 import java.io.Serializable;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -25,6 +26,7 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(doNotUseGetters = true)
 @ToString(callSuper = true, includeFieldNames = true)
+@ApiModel(value = "AuditRevisionResource", description = "Audit revision resource.")
 public class AuditRevisionResource implements Serializable {
 
 	private static final long serialVersionUID = 1049095879642363065L;

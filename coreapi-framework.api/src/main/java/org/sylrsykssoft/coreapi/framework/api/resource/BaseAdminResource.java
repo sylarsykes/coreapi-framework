@@ -4,6 +4,7 @@ import java.beans.ConstructorProperties;
 
 import org.springframework.lang.Nullable;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -26,6 +27,7 @@ import lombok.experimental.FieldDefaults;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = true, doNotUseGetters = true)
 @ToString(callSuper = true, includeFieldNames = true)
+@ApiModel(value = "BaseAdminResource", description = "Base admin resource.", parent = BaseAdminSimpleResource.class)
 public class BaseAdminResource extends BaseAdminSimpleResource {
 
 	@ApiModelProperty(name = "description", value = "The resource description value", dataType = "String")

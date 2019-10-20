@@ -5,6 +5,7 @@ import java.time.LocalDateTime;
 
 import org.sylrsykssoft.coreapi.framework.api.resource.BaseEntityResource;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -23,6 +24,7 @@ import lombok.ToString;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = true, doNotUseGetters = true)
 @ToString(callSuper = true, includeFieldNames = true)
+@ApiModel(value = "BaseEntityAuditResource", description = "Base entity resource.", parent = BaseEntityResource.class)
 public class BaseEntityAuditResource extends BaseEntityResource {
 
 	@ApiModelProperty(name = "version", value = "The resource version value", dataType = "Integer", required = true)

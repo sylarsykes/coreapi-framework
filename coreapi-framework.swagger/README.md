@@ -17,6 +17,10 @@ Library with Swagger2 basic configuratons.
 * Configuration class, add annotations in configuration class
 
 ```java
+// Scan packages for create Docket (@see musbandsAdminApi)
+@ComponentScan({ "org.sylrsykssoft.coreapi.framework.api.*", "org.sylrsykssoft.coreapi.framework.audit.*",
+	"org.sylrsykssoft.coreapi.framework.web.*", "org.sylrsykssoft.java.musbands.admin.function.member.*",
+	"org.sylrsykssoft.java.musbands.admin.instrument.*", "org.sylrsykssoft.java.musbands.admin.musical.genre.*" })
 @PropertySource("classpath:swagger2.properties")
 @EnableConfigurationProperties(CoreApiFrameworkSwagger2ConfigProperties.class)
 @EnableSwagger2
