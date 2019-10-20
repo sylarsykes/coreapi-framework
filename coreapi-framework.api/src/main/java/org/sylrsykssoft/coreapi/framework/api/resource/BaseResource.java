@@ -4,6 +4,7 @@ import java.beans.ConstructorProperties;
 
 import org.springframework.hateoas.ResourceSupport;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -24,6 +25,7 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
 @ToString(includeFieldNames = true)
+@ApiModel(value = "BaseResource", description = "Base resource.", subTypes = {BaseAdminSimpleResource.class, BaseEntityResource.class })
 public class BaseResource<N extends Number> extends ResourceSupport {
 
     @ApiModelProperty(name = "entityId", value = "The database generated ID", dataType = "Number")

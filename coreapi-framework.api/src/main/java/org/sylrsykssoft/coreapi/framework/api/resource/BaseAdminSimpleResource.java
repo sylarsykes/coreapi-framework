@@ -2,6 +2,7 @@ package org.sylrsykssoft.coreapi.framework.api.resource;
 
 import java.beans.ConstructorProperties;
 
+import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.AccessLevel;
 import lombok.Builder;
@@ -23,6 +24,8 @@ import lombok.experimental.FieldDefaults;
 @NoArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = true, doNotUseGetters = true)
 @ToString(callSuper = true, includeFieldNames = true)
+@ApiModel(value = "BaseAdminSimpleResource", description = "Base admin simple resource.", subTypes = {
+		BaseAdminResource.class }, parent = BaseResource.class)
 public class BaseAdminSimpleResource extends BaseResource<Integer> {
 
 	@ApiModelProperty(name = "name", value = "The resource name value", dataType = "String", required = true)

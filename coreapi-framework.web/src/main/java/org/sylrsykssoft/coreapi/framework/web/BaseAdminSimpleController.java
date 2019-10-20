@@ -22,6 +22,8 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.Example;
+import io.swagger.annotations.ExampleProperty;
 
 /**
  * Base admin controller
@@ -43,8 +45,10 @@ public abstract class BaseAdminSimpleController<R extends BaseAdminSimpleResourc
 	 * @throws NotFoundEntityException
 	 */
 	@ApiOperation(value = "View a list of all available entries", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_VALUE, response = Iterable.class)
-	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
-			@ApiResponse(code = 302, message = "Successfully retrieved list"),
+	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list", examples = @Example({
+			@ExampleProperty(value = "{'entityId': 1, 'name': 'Musician'}", mediaType = MediaType.APPLICATION_JSON_VALUE) }), response = BaseAdminSimpleResource.class),
+			@ApiResponse(code = 302, message = "Successfully retrieved list", examples = @Example({
+				@ExampleProperty(value = "{'entityId': 1, 'name': 'Musician'}", mediaType = MediaType.APPLICATION_JSON_VALUE) }), response = BaseAdminSimpleResource.class),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@GetMapping(produces = { MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.FOUND)
@@ -114,7 +118,7 @@ public abstract class BaseAdminSimpleController<R extends BaseAdminSimpleResourc
 	@ResponseStatus(HttpStatus.FOUND)
 	public R findByName(
 			final @ApiParam(name = "name", value = "Entry name value", type = "String", required = true) @PathVariable String name)
-			throws NotFoundEntityException {
+					throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminSimpleController::findByName Finding a entry with name: {}",
 				name);
 
