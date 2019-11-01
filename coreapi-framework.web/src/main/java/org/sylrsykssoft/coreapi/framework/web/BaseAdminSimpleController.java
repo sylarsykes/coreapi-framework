@@ -46,7 +46,7 @@ public abstract class BaseAdminSimpleController<R extends BaseAdminSimpleResourc
 	 */
 	@ApiOperation(value = "View a list of all available entries", httpMethod = "GET", produces = MediaType.APPLICATION_JSON_VALUE, response = Iterable.class)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list", examples = @Example({
-			@ExampleProperty(value = "{'entityId': 1, 'name': 'Musician'}", mediaType = MediaType.APPLICATION_JSON_VALUE) }), response = BaseAdminSimpleResource.class),
+		@ExampleProperty(value = "{'entityId': 1, 'name': 'Musician'}", mediaType = MediaType.APPLICATION_JSON_VALUE) }), response = BaseAdminSimpleResource.class),
 			@ApiResponse(code = 302, message = "Successfully retrieved list", examples = @Example({
 				@ExampleProperty(value = "{'entityId': 1, 'name': 'Musician'}", mediaType = MediaType.APPLICATION_JSON_VALUE) }), response = BaseAdminSimpleResource.class),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
@@ -83,7 +83,7 @@ public abstract class BaseAdminSimpleController<R extends BaseAdminSimpleResourc
 	@GetMapping(path = BaseAdminConstants.CONTROLLER_GET_FIND_ONE_BY_ID, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(HttpStatus.FOUND)
 	public R findById(
-			final @ApiParam(name = "id", value = "Entry id value", type = "Integer", required = true) @PathVariable Integer id)
+			final @ApiParam(name = "id", value = "Entry id value", type = "Integer", required = true, example = "1") @PathVariable Integer id)
 					throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminSimpleController::findById Finding a entry with id: {}", id);
 
@@ -117,7 +117,7 @@ public abstract class BaseAdminSimpleController<R extends BaseAdminSimpleResourc
 	@GetMapping(path = BaseAdminConstants.CONTROLLER_GET_FIND_ONE_BY_NAME, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(HttpStatus.FOUND)
 	public R findByName(
-			final @ApiParam(name = "name", value = "Entry name value", type = "String", required = true) @PathVariable String name)
+			final @ApiParam(name = "name", value = "Entry name value", type = "String", required = true, example = "Entity name") @PathVariable String name)
 					throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminSimpleController::findByName Finding a entry with name: {}",
 				name);

@@ -32,6 +32,7 @@ import io.swagger.annotations.ApiOperation;
 import io.swagger.annotations.ApiParam;
 import io.swagger.annotations.ApiResponse;
 import io.swagger.annotations.ApiResponses;
+import io.swagger.annotations.ExampleProperty;
 
 /**
  * Base admin controller
@@ -46,8 +47,7 @@ extends BaseAdminSimpleController<R, T> {
 	/**
 	 * Create entry.
 	 * 
-	 * @param entity
-	 *            Entity.
+	 * @param entity Entity.
 	 * 
 	 * @return T entity.
 	 */
@@ -55,11 +55,13 @@ extends BaseAdminSimpleController<R, T> {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully created entry"),
 			@ApiResponse(code = 201, message = "Successfully created entry"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = { MediaTypes.HAL_JSON_VALUE,
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.CREATED)
 	public R create(
-			final @ApiParam(name = "resource", value = "Entry object store in database table", required = true) @Valid @RequestBody R entity)
-					throws NotFoundEntityException, CoreApiFrameworkLibraryException {
+			final @ApiParam(name = "resource", value = "Entry object store in database table", required = true, examples = @io.swagger.annotations.Example(value = @ExampleProperty(value = "{'name': 'Entity name', 'description': 'Entity description'}", mediaType = MediaType.APPLICATION_JSON_VALUE)))
+
+			@Valid @RequestBody R entity) throws NotFoundEntityException, CoreApiFrameworkLibraryException {
 		LoggerUtil.message(LogMessageLevel.INFO,
 				"BaseAdminController::create Creating a new todo entry by using information: {}", entity);
 
@@ -73,8 +75,7 @@ extends BaseAdminSimpleController<R, T> {
 	/**
 	 * Delete entry.
 	 * 
-	 * @param id
-	 *            Id.
+	 * @param id Id.
 	 * 
 	 * @throws NotFoundEntityException
 	 * @throws AppException
@@ -87,7 +88,7 @@ extends BaseAdminSimpleController<R, T> {
 	@DeleteMapping(path = BaseAdminConstants.CONTROLLER_DELETE_DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
 	public void delete(
-			final @ApiParam(name = "id", value = "Entry id value", type = "Integer", required = true) @PathVariable Integer id)
+			final @ApiParam(name = "id", value = "Entry id value", type = "Integer", required = true, example = "1") @PathVariable Integer id)
 					throws NotFoundEntityException, CoreApiFrameworkLibraryException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::delete Deleting a entry with id: {}", id);
 
@@ -115,10 +116,11 @@ extends BaseAdminSimpleController<R, T> {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
 			@ApiResponse(code = 302, message = "Successfully retrieved list"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	@PostMapping(path = BaseAdminConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@PostMapping(path = BaseAdminConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
+			MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.FOUND)
 	public Iterable<R> findAllByExample(
-			final @ApiParam(name = "resource", value = "Resource example", required = true) @RequestBody R resource)
+			final @ApiParam(name = "resource", value = "Resource example", required = true, examples = @io.swagger.annotations.Example(value = @ExampleProperty(value = "{'name': 'Entity name', 'description': 'Entity description'}", mediaType = MediaType.APPLICATION_JSON_VALUE))) @RequestBody R resource)
 					throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO,
 				"BaseAdminController::findAllByExample Finding all entries for example: {}", resource);
@@ -140,8 +142,8 @@ extends BaseAdminSimpleController<R, T> {
 	/**
 	 * Find all entries by example.
 	 * 
-	 * @param resource MusicalGenreResource object
-	 * @param direction Sorting direction values "asc" or "desc"
+	 * @param resource   MusicalGenreResource object
+	 * @param direction  Sorting direction values "asc" or "desc"
 	 * @param properties List of properties
 	 * 
 	 * @return List<MusicalGenreResource> entries.
@@ -152,12 +154,13 @@ extends BaseAdminSimpleController<R, T> {
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved list"),
 			@ApiResponse(code = 302, message = "Successfully retrieved list"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	@PostMapping(path = BaseAdminConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE_SORTABLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@PostMapping(path = BaseAdminConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE_SORTABLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
+			MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.FOUND)
 	public Iterable<R> findAllByExampleSortable(
-			final @ApiParam(name = "resource", value = "Entry object store in database table", required = true) @RequestBody R resource,
-			final @ApiParam(name = "direction", value = "Direction for sort", allowableValues = "ASC, DESC", required = true) @PathVariable String direction,
-			final @ApiParam(name = "properties", value = "List with property names", required = true) @PathVariable List<String> properties)
+			final @ApiParam(name = "resource", value = "Entry object store in database table", required = true, examples = @io.swagger.annotations.Example(value = @ExampleProperty(value = "{'name': 'Entity name', 'description': 'Entity description'}", mediaType = MediaType.APPLICATION_JSON_VALUE))) @RequestBody R resource,
+			final @ApiParam(name = "direction", value = "Direction for sort", type = "String", allowableValues = "ASC, DESC", required = true, example = "ASC") @PathVariable String direction,
+			final @ApiParam(name = "properties", value = "List with property names", type = "List", required = true) @PathVariable List<String> properties)
 					throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO,
 				"BaseAdminController::findAllByExampleSortable Finding all entries with example {} with direction {} and properties {}",
@@ -184,8 +187,7 @@ extends BaseAdminSimpleController<R, T> {
 	/**
 	 * Find by example
 	 * 
-	 * @param resource
-	 *            Entity to find.
+	 * @param resource Entity to find.
 	 * 
 	 * @return T entity.
 	 * 
@@ -199,7 +201,7 @@ extends BaseAdminSimpleController<R, T> {
 			MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.FOUND)
 	public R findOneByExample(
-			final @ApiParam(name = "resource", value = "Resource example", required = true) @RequestBody R resource)
+			final @ApiParam(name = "resource", value = "Resource example", required = true, examples = @io.swagger.annotations.Example(value = @ExampleProperty(value = "{'name': 'Entity name', 'description': 'Entity description'}", mediaType = MediaType.APPLICATION_JSON_VALUE))) @RequestBody R resource)
 					throws NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findOneByExample Finding a entry with: {}",
 				resource);
@@ -230,10 +232,8 @@ extends BaseAdminSimpleController<R, T> {
 	/**
 	 * Update entity.
 	 * 
-	 * @param entity
-	 *            Entity.
-	 * @param id
-	 *            Id.
+	 * @param entity Entity.
+	 * @param id     Id.
 	 * 
 	 * @return T entity.
 	 * 
@@ -243,11 +243,12 @@ extends BaseAdminSimpleController<R, T> {
 	@ApiOperation(value = "Update an entry", httpMethod = "PUT", consumes = MediaType.APPLICATION_JSON_VALUE, produces = MediaType.APPLICATION_JSON_VALUE)
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved entry"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	@PutMapping(path = BaseAdminConstants.CONTROLLER_PUT_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@PutMapping(path = BaseAdminConstants.CONTROLLER_PUT_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
+			MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.OK)
 	public R update(
-			final @ApiParam(name = "id", value = "Entry id value", type = "Integer", required = true) @PathVariable Integer id,
-			final @ApiParam(name = "resource", value = "Entry object store in database table", required = true) @Valid @RequestBody R entity)
+			final @ApiParam(name = "id", value = "Entry id value", type = "Integer", required = true, example = "1") @PathVariable Integer id,
+			final @ApiParam(name = "resource", value = "Entry object store in database table", required = true, examples = @io.swagger.annotations.Example(value = @ExampleProperty(value = "{'name': 'Entity name', 'description': 'Entity description'}", mediaType = MediaType.APPLICATION_JSON_VALUE))) @Valid @RequestBody R entity)
 					throws NotIdMismatchEntityException, NotFoundEntityException {
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::update Updating a entry with id: {}", id);
 
