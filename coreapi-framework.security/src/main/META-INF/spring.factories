@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\org.sylrsykssoft.coreapi.framework.security.configuration.CoreApiFrameworkSecurityWebSecurityConfiguration,
+\org.sylrsykssoft.coreapi.framework.security.configuration.CoreApiFrameworkSecurityCorsFilter

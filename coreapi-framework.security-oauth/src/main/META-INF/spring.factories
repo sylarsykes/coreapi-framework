@@ -1,0 +1,2 @@
+org.springframework.boot.autoconfigure.EnableAutoConfiguration=\org.sylrsykssoft.coreapi.framework.security.oauth.configuration.CoreaApiFrameworkSecurityOAuth2Configuration,
+\org.sylrsykssoft.coreapi.framework.security.oauth.configuration.CoreApiFrameworkSecurityOAuth2DataSourceConfiguration

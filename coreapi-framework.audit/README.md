@@ -54,7 +54,7 @@ public class Example extends BaseAdminAudit
 * application.properties configure rest base path
 
 ```
-coreapi.framework.audit.rest.basePath = /api/admin/audit/v1
+coreapi.framework.audit.rest.basePath=
 ```
 
 ## Built with
