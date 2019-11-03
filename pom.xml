@@ -48,6 +48,8 @@
 		<coreapi-framework.api.version>${project.version}</coreapi-framework.api.version>
 		<coreapi-framework.database.version>${project.version}</coreapi-framework.database.version>
 		<coreapi-framework.service.version>${project.version}</coreapi-framework.service.version>
+		<coreapi-framework.security.version>${project.version}</coreapi-framework.security.version>
+		<coreapi-framework.security.oauth.version>${project.version}</coreapi-framework.security.oauth.version>
 		<coreapi-framework.web.version>${project.version}</coreapi-framework.web.version>
 		<coreapi-framework.mail.version>${project.version}</coreapi-framework.mail.version>
 		<coreapi-framework.audit.version>${project.version}</coreapi-framework.audit.version>
@@ -71,6 +73,7 @@
 	    <springframework.version>5.2.0.RELEASE</springframework.version>
 	    <springframework.data.version>2.2.0.RELEASE</springframework.data.version>
 	    <spring-boot.version>2.1.9.RELEASE</spring-boot.version>
+	    <spring-security-oauth2.version>2.3.7.RELEASE</spring-security-oauth2.version>
 		<spring-plugin-core.version>1.2.0.RELEASE</spring-plugin-core.version>
 	    <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
 	    <springfox-swagger-ui.version>2.9.2</springfox-swagger-ui.version>
@@ -104,6 +107,8 @@
     	<module>coreapi-framework.api</module>
 		<module>coreapi-framework.database</module>
 		<module>coreapi-framework.service</module>
+    	<module>coreapi-framework.security</module>
+    	<module>coreapi-framework.security-oauth</module>
 		<module>coreapi-framework.web</module>
     	<module>coreapi-framework.audit</module>
     	<module>coreapi-framework.mail</module>
