@@ -56,6 +56,11 @@
 	</dependency>
     <dependency>
 		<groupId>org.sylrsykssoft</groupId>
+		<artifactId>coreapi-framework.security</artifactId>
+		<version>${coreapi-framework.security.version}</version>
+	</dependency>
+    <dependency>
+		<groupId>org.sylrsykssoft</groupId>
 		<artifactId>coreapi-framework.service</artifactId>
 		<version>${coreapi-framework.service.version}</version>
 	</dependency>

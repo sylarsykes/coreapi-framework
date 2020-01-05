@@ -36,4 +36,7 @@ module coreapi.framework.web {
 	requires springfox.spi;
 	requires swagger.annotations;
 	requires transitive springfox.spring.web;
+	requires transitive org.apache.tomcat.embed.core;
+	requires coreapi.framework.security;
+	requires spring.security.config;
 }

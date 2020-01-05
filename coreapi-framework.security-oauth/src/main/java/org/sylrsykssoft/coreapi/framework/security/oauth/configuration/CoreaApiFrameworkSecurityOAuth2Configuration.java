@@ -77,7 +77,7 @@ public class CoreaApiFrameworkSecurityOAuth2Configuration extends AuthorizationS
 		final TokenEnhancerChain tokenEnhancerChain = new TokenEnhancerChain();
 		tokenEnhancerChain.setTokenEnhancers(Arrays.asList(tokenEnhancer()));
 		endpoints.tokenStore(tokenStore()).tokenEnhancer(tokenEnhancerChain)
-		.authenticationManager(authenticationManager);
+				.authenticationManager(authenticationManager);
 	}
 
 	/**

@@ -25,6 +25,9 @@ import org.sylrsykssoft.coreapi.framework.database.exception.NotIdMismatchEntity
 import org.sylrsykssoft.coreapi.framework.library.error.exception.CoreApiFrameworkLibraryException;
 import org.sylrsykssoft.coreapi.framework.library.util.LoggerUtil;
 import org.sylrsykssoft.coreapi.framework.library.util.LoggerUtil.LogMessageLevel;
+import org.sylrsykssoft.coreapi.framework.security.annotation.AuthorizedIfHaveRole;
+import org.sylrsykssoft.coreapi.framework.security.annotation.AuthorizedIfHaveRoleAdmin;
+import org.sylrsykssoft.coreapi.framework.security.util.LoggerUserUtil;
 import org.sylrsykssoft.coreapi.framework.service.BaseAdminService;
 import org.sylrsykssoft.coreapi.framework.web.configuration.BaseAdminConstants;
 
@@ -42,7 +45,7 @@ import io.swagger.annotations.ExampleProperty;
  * @author juan.gonzalez.fernandez.jgf
  */
 public abstract class BaseAdminController<R extends BaseAdminResource, T extends BaseAdmin>
-extends BaseAdminSimpleController<R, T> {
+		extends BaseAdminSimpleController<R, T> {
 
 	/**
 	 * Create entry.
@@ -58,10 +61,13 @@ extends BaseAdminSimpleController<R, T> {
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = { MediaTypes.HAL_JSON_VALUE,
 			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.CREATED)
+	@AuthorizedIfHaveRoleAdmin
 	public R create(
 			final @ApiParam(name = "resource", value = "Entry object store in database table", required = true, examples = @io.swagger.annotations.Example(value = @ExampleProperty(value = "{'name': 'Entity name', 'description': 'Entity description'}", mediaType = MediaType.APPLICATION_JSON_VALUE)))
 
 			@Valid @RequestBody R entity) throws NotFoundEntityException, CoreApiFrameworkLibraryException {
+		LoggerUserUtil.log(LogMessageLevel.INFO, authenticationFacade.getAuthentication(),
+				"BaseAdminSimpleController::create");
 		LoggerUtil.message(LogMessageLevel.INFO,
 				"BaseAdminController::create Creating a new todo entry by using information: {}", entity);
 
@@ -87,9 +93,12 @@ extends BaseAdminSimpleController<R, T> {
 			@ApiResponse(code = 500, message = "The resource you were trying to reach is not found") })
 	@DeleteMapping(path = BaseAdminConstants.CONTROLLER_DELETE_DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@AuthorizedIfHaveRoleAdmin
 	public void delete(
 			final @ApiParam(name = "id", value = "Entry id value", type = "Integer", required = true, example = "1") @PathVariable Integer id)
 					throws NotFoundEntityException, CoreApiFrameworkLibraryException {
+		LoggerUserUtil.log(LogMessageLevel.INFO, authenticationFacade.getAuthentication(),
+				"BaseAdminSimpleController::delete");
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::delete Deleting a entry with id: {}", id);
 
 		final Optional<R> old = getAdminService().findById(id);
@@ -119,9 +128,12 @@ extends BaseAdminSimpleController<R, T> {
 	@PostMapping(path = BaseAdminConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
 			MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.FOUND)
+	@AuthorizedIfHaveRole
 	public Iterable<R> findAllByExample(
 			final @ApiParam(name = "resource", value = "Resource example", required = true, examples = @io.swagger.annotations.Example(value = @ExampleProperty(value = "{'name': 'Entity name', 'description': 'Entity description'}", mediaType = MediaType.APPLICATION_JSON_VALUE))) @RequestBody R resource)
 					throws NotFoundEntityException {
+		LoggerUserUtil.log(LogMessageLevel.INFO, authenticationFacade.getAuthentication(),
+				"BaseAdminSimpleController::findAllByExample");
 		LoggerUtil.message(LogMessageLevel.INFO,
 				"BaseAdminController::findAllByExample Finding all entries for example: {}", resource);
 
@@ -157,11 +169,14 @@ extends BaseAdminSimpleController<R, T> {
 	@PostMapping(path = BaseAdminConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE_SORTABLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
 			MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.FOUND)
+	@AuthorizedIfHaveRole
 	public Iterable<R> findAllByExampleSortable(
 			final @ApiParam(name = "resource", value = "Entry object store in database table", required = true, examples = @io.swagger.annotations.Example(value = @ExampleProperty(value = "{'name': 'Entity name', 'description': 'Entity description'}", mediaType = MediaType.APPLICATION_JSON_VALUE))) @RequestBody R resource,
 			final @ApiParam(name = "direction", value = "Direction for sort", type = "String", allowableValues = "ASC, DESC", required = true, example = "ASC") @PathVariable String direction,
 			final @ApiParam(name = "properties", value = "List with property names", type = "List", required = true) @PathVariable List<String> properties)
 					throws NotFoundEntityException {
+		LoggerUserUtil.log(LogMessageLevel.INFO, authenticationFacade.getAuthentication(),
+				"BaseAdminSimpleController::findAllByExampleSortable");
 		LoggerUtil.message(LogMessageLevel.INFO,
 				"BaseAdminController::findAllByExampleSortable Finding all entries with example {} with direction {} and properties {}",
 				resource, direction, properties);
@@ -200,9 +215,12 @@ extends BaseAdminSimpleController<R, T> {
 	@PostMapping(path = BaseAdminConstants.CONTROLLER_GET_FIND_BY_EXAMPLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
 			MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.FOUND)
+	@AuthorizedIfHaveRole
 	public R findOneByExample(
 			final @ApiParam(name = "resource", value = "Resource example", required = true, examples = @io.swagger.annotations.Example(value = @ExampleProperty(value = "{'name': 'Entity name', 'description': 'Entity description'}", mediaType = MediaType.APPLICATION_JSON_VALUE))) @RequestBody R resource)
 					throws NotFoundEntityException {
+		LoggerUserUtil.log(LogMessageLevel.INFO, authenticationFacade.getAuthentication(),
+				"BaseAdminSimpleController::findOneByExample");
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::findOneByExample Finding a entry with: {}",
 				resource);
 
@@ -246,10 +264,13 @@ extends BaseAdminSimpleController<R, T> {
 	@PutMapping(path = BaseAdminConstants.CONTROLLER_PUT_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
 			MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.OK)
+	@AuthorizedIfHaveRoleAdmin
 	public R update(
 			final @ApiParam(name = "id", value = "Entry id value", type = "Integer", required = true, example = "1") @PathVariable Integer id,
 			final @ApiParam(name = "resource", value = "Entry object store in database table", required = true, examples = @io.swagger.annotations.Example(value = @ExampleProperty(value = "{'name': 'Entity name', 'description': 'Entity description'}", mediaType = MediaType.APPLICATION_JSON_VALUE))) @Valid @RequestBody R entity)
 					throws NotIdMismatchEntityException, NotFoundEntityException {
+		LoggerUserUtil.log(LogMessageLevel.INFO, authenticationFacade.getAuthentication(),
+				"BaseAdminSimpleController::update");
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminController::update Updating a entry with id: {}", id);
 
 		if (entity.getEntityId() != id)

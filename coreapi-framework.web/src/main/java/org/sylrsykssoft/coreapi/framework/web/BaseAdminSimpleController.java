@@ -15,6 +15,8 @@ import org.sylrsykssoft.coreapi.framework.api.resource.BaseAdminSimpleResource;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityException;
 import org.sylrsykssoft.coreapi.framework.library.util.LoggerUtil;
 import org.sylrsykssoft.coreapi.framework.library.util.LoggerUtil.LogMessageLevel;
+import org.sylrsykssoft.coreapi.framework.security.util.AuthenticationFacade;
+import org.sylrsykssoft.coreapi.framework.security.util.LoggerUserUtil;
 import org.sylrsykssoft.coreapi.framework.service.BaseAdminSimpleService;
 import org.sylrsykssoft.coreapi.framework.web.configuration.BaseAdminConstants;
 
@@ -37,6 +39,9 @@ public abstract class BaseAdminSimpleController<R extends BaseAdminSimpleResourc
 	@Autowired
 	protected MessageSource messageSource;
 
+	@Autowired
+	protected AuthenticationFacade authenticationFacade;
+
 	/**
 	 * Find all entries.
 	 * 
@@ -53,6 +58,8 @@ public abstract class BaseAdminSimpleController<R extends BaseAdminSimpleResourc
 	@GetMapping(produces = { MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.FOUND)
 	public Iterable<R> findAll() throws NotFoundEntityException {
+		LoggerUserUtil.log(LogMessageLevel.INFO, authenticationFacade.getAuthentication(),
+				"BaseAdminSimpleController::findAll");
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminSimpleController::findAll Finding all entries");
 
 		final Iterable<R> entities = getAdminService().findAll();
@@ -69,8 +76,7 @@ public abstract class BaseAdminSimpleController<R extends BaseAdminSimpleResourc
 	/**
 	 * Find one entry.
 	 * 
-	 * @param id
-	 *            Id
+	 * @param id Id
 	 * 
 	 * @return T entry.
 	 * 
@@ -80,11 +86,14 @@ public abstract class BaseAdminSimpleController<R extends BaseAdminSimpleResourc
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved entry"),
 			@ApiResponse(code = 302, message = "Successfully retrieved try"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	@GetMapping(path = BaseAdminConstants.CONTROLLER_GET_FIND_ONE_BY_ID, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@GetMapping(path = BaseAdminConstants.CONTROLLER_GET_FIND_ONE_BY_ID, produces = { MediaTypes.HAL_JSON_VALUE,
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.FOUND)
 	public R findById(
 			final @ApiParam(name = "id", value = "Entry id value", type = "Integer", required = true, example = "1") @PathVariable Integer id)
 					throws NotFoundEntityException {
+		LoggerUserUtil.log(LogMessageLevel.INFO, authenticationFacade.getAuthentication(),
+				"BaseAdminSimpleController::findById");
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminSimpleController::findById Finding a entry with id: {}", id);
 
 		final Optional<R> result = getAdminService().findById(id);
@@ -114,11 +123,14 @@ public abstract class BaseAdminSimpleController<R extends BaseAdminSimpleResourc
 	@ApiResponses(value = { @ApiResponse(code = 200, message = "Successfully retrieved entry"),
 			@ApiResponse(code = 302, message = "Successfully retrieved try"),
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
-	@GetMapping(path = BaseAdminConstants.CONTROLLER_GET_FIND_ONE_BY_NAME, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
+	@GetMapping(path = BaseAdminConstants.CONTROLLER_GET_FIND_ONE_BY_NAME, produces = { MediaTypes.HAL_JSON_VALUE,
+			MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.FOUND)
 	public R findByName(
 			final @ApiParam(name = "name", value = "Entry name value", type = "String", required = true, example = "Entity name") @PathVariable String name)
 					throws NotFoundEntityException {
+		LoggerUserUtil.log(LogMessageLevel.INFO, authenticationFacade.getAuthentication(),
+				"BaseAdminSimpleController::findByName");
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseAdminSimpleController::findByName Finding a entry with name: {}",
 				name);
 
@@ -126,8 +138,7 @@ public abstract class BaseAdminSimpleController<R extends BaseAdminSimpleResourc
 
 		if (!result.isPresent()) {
 			LoggerUtil.message(LogMessageLevel.WARN,
-					"BaseAdminSimpleController::findByName not find result for name -> {}",
-					name);
+					"BaseAdminSimpleController::findByName not find result for name -> {}", name);
 			throw new NotFoundEntityException();
 		}
 
