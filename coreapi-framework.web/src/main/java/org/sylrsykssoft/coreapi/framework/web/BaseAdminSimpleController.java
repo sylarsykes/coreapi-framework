@@ -15,7 +15,7 @@ import org.sylrsykssoft.coreapi.framework.api.resource.BaseAdminSimpleResource;
 import org.sylrsykssoft.coreapi.framework.database.exception.NotFoundEntityException;
 import org.sylrsykssoft.coreapi.framework.library.util.LoggerUtil;
 import org.sylrsykssoft.coreapi.framework.library.util.LoggerUtil.LogMessageLevel;
-import org.sylrsykssoft.coreapi.framework.security.util.AuthenticationFacade;
+import org.sylrsykssoft.coreapi.framework.security.util.IAuthenticationFacade;
 import org.sylrsykssoft.coreapi.framework.security.util.LoggerUserUtil;
 import org.sylrsykssoft.coreapi.framework.service.BaseAdminSimpleService;
 import org.sylrsykssoft.coreapi.framework.web.configuration.BaseAdminConstants;
@@ -40,7 +40,7 @@ public abstract class BaseAdminSimpleController<R extends BaseAdminSimpleResourc
 	protected MessageSource messageSource;
 
 	@Autowired
-	protected AuthenticationFacade authenticationFacade;
+	protected IAuthenticationFacade authenticationFacade;
 
 	/**
 	 * Find all entries.
