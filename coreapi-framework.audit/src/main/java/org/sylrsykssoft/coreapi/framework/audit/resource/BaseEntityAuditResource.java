@@ -52,8 +52,7 @@ public class BaseEntityAuditResource extends BaseEntityResource {
 	 * @param updatedAt
 	 */
 	@Builder(builderMethodName = "baseEntityAuditResourceBuilder")
-	@ConstructorProperties({ "entityId", "name", "version", "createdBy", "createdDate", "lastModifiedBy",
-	"lastModifiedDate" })
+	@ConstructorProperties({ "entityId", "version", "createdBy", "createdDate", "lastModifiedBy", "lastModifiedDate" })
 	public BaseEntityAuditResource(final Long entityId, final Integer version, final String createdBy,
 			final LocalDateTime createdDate, final String lastModifiedBy, final LocalDateTime lastModifiedDate) {
 		super(entityId);

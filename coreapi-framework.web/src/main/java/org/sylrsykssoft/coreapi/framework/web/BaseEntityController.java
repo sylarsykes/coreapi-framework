@@ -28,6 +28,10 @@ import org.sylrsykssoft.coreapi.framework.database.exception.NotIdMismatchEntity
 import org.sylrsykssoft.coreapi.framework.library.error.exception.CoreApiFrameworkLibraryException;
 import org.sylrsykssoft.coreapi.framework.library.util.LoggerUtil;
 import org.sylrsykssoft.coreapi.framework.library.util.LoggerUtil.LogMessageLevel;
+import org.sylrsykssoft.coreapi.framework.security.annotation.AuthorizedIfHaveRole;
+import org.sylrsykssoft.coreapi.framework.security.annotation.AuthorizedIfHaveRoleAdmin;
+import org.sylrsykssoft.coreapi.framework.security.util.AuthenticationFacade;
+import org.sylrsykssoft.coreapi.framework.security.util.LoggerUserUtil;
 import org.sylrsykssoft.coreapi.framework.service.BaseEntityService;
 import org.sylrsykssoft.coreapi.framework.web.configuration.BaseEntityConstants;
 
@@ -48,6 +52,9 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	@Autowired
 	protected MessageSource messageSource;
 
+	@Autowired
+	protected AuthenticationFacade authenticationFacade;
+
 	/**
 	 * Create entry.
 	 * 
@@ -62,8 +69,11 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(HttpStatus.CREATED)
+	@AuthorizedIfHaveRoleAdmin
 	public R create(
 			final @ApiParam(name = "resource", value = "Entry object store in database table", required = true) @Valid @RequestBody R entity) {
+		LoggerUserUtil.log(LogMessageLevel.INFO, authenticationFacade.getAuthentication(),
+				"BaseAdminSimpleController::create");
 		LoggerUtil.message(LogMessageLevel.INFO,
 				"BaseEntityController::create Creating a new todo entry by using information: {}", entity);
 
@@ -90,9 +100,12 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 			@ApiResponse(code = 500, message = "The resource you were trying to reach is not found") })
 	@DeleteMapping(path = BaseEntityConstants.CONTROLLER_DELETE_DELETE)
 	@ResponseStatus(HttpStatus.NO_CONTENT)
+	@AuthorizedIfHaveRoleAdmin
 	public void delete(
 			final @ApiParam(name = "id", value = "Entry id value", type = "Integer", required = true) @PathVariable Long id)
 					throws NotFoundEntityException, CoreApiFrameworkLibraryException {
+		LoggerUserUtil.log(LogMessageLevel.INFO, authenticationFacade.getAuthentication(),
+				"BaseAdminSimpleController::delete");
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::delete Deleting a entry with id: {}", id);
 
 		final Optional<R> old = getEntityService().findById(id);
@@ -122,6 +135,8 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	@GetMapping(produces = { MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.FOUND)
 	public Iterable<R> findAll() throws NotFoundEntityException {
+		LoggerUserUtil.log(LogMessageLevel.INFO, authenticationFacade.getAuthentication(),
+				"BaseAdminSimpleController::findAll");
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::findAll Finding all entries");
 
 		final Iterable<R> entities = getEntityService().findAll();
@@ -144,7 +159,10 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 */
 	@PostMapping(path = BaseEntityConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(HttpStatus.FOUND)
+	@AuthorizedIfHaveRole
 	public Iterable<R> findAllByExample(final @RequestBody R resource) throws NotFoundEntityException {
+		LoggerUserUtil.log(LogMessageLevel.INFO, authenticationFacade.getAuthentication(),
+				"BaseAdminSimpleController::findAllByExample");
 		LoggerUtil.message(LogMessageLevel.INFO,
 				"BaseEntityController::findAllByExample Finding all entries for example: {}", resource);
 
@@ -175,8 +193,11 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	 */
 	@PostMapping(path = BaseEntityConstants.CONTROLLER_POST_FIND_ALL_BY_EXAMPLE_SORTABLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(HttpStatus.FOUND)
+	@AuthorizedIfHaveRole
 	public Iterable<R> findAllByExampleSortable(final @RequestBody R resource,
 			final @PathVariable String direction, final @PathVariable List<String> properties) throws NotFoundEntityException {
+		LoggerUserUtil.log(LogMessageLevel.INFO, authenticationFacade.getAuthentication(),
+				"BaseAdminSimpleController::findAllByExampleSortable");
 		LoggerUtil.message(LogMessageLevel.INFO,
 				"BaseEntityController::findAllByExampleSortable Finding all entries with example {} with direction {} and properties {}",
 				resource, direction, properties);
@@ -218,6 +239,8 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	public R findById(
 			final @ApiParam(name = "id", value = "Entry id value", type = "Integer", required = true) @PathVariable Long id)
 					throws NotFoundEntityException {
+		LoggerUserUtil.log(LogMessageLevel.INFO, authenticationFacade.getAuthentication(),
+				"BaseAdminSimpleController::findById");
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::findById Finding a entry with id: {}", id);
 
 		final Optional<R> result = getEntityService().findById(id);
@@ -249,9 +272,12 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 	@PostMapping(path = BaseEntityConstants.CONTROLLER_GET_FIND_BY_EXAMPLE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {
 			MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE })
 	@ResponseStatus(HttpStatus.FOUND)
+	@AuthorizedIfHaveRole
 	public R findOneByExample(
 			final @ApiParam(name = "resource", value = "Resource example", required = true) @RequestBody R resource)
 					throws NotFoundEntityException {
+		LoggerUserUtil.log(LogMessageLevel.INFO, authenticationFacade.getAuthentication(),
+				"BaseAdminSimpleController::findOneByExample");
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::findOneByExample Finding a entry : {}",
 				resource);
 
@@ -295,10 +321,13 @@ public abstract class BaseEntityController<R extends BaseEntityResource, T exten
 			@ApiResponse(code = 404, message = "The resource you were trying to reach is not found") })
 	@PutMapping(path = BaseEntityConstants.CONTROLLER_PUT_UPDATE, consumes = MediaType.APPLICATION_JSON_VALUE, produces = {MediaTypes.HAL_JSON_VALUE, MediaType.APPLICATION_JSON_VALUE})
 	@ResponseStatus(HttpStatus.OK)
+	@AuthorizedIfHaveRoleAdmin
 	public R update(
 			final @ApiParam(name = "id", value = "Entry id value", type = "Integer", required = true) @PathVariable Long id,
 			final @ApiParam(name = "resource", value = "Entry object store in database table", required = true) @Valid @RequestBody R entity)
-			throws NotIdMismatchEntityException, NotFoundEntityException {
+					throws NotIdMismatchEntityException, NotFoundEntityException {
+		LoggerUserUtil.log(LogMessageLevel.INFO, authenticationFacade.getAuthentication(),
+				"BaseAdminSimpleController::update");
 		LoggerUtil.message(LogMessageLevel.INFO, "BaseEntityController::update Updating a entry with id: {}", id);
 
 		if (entity.getEntityId() != id)

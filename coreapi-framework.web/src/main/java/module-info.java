@@ -15,6 +15,7 @@ module coreapi.framework.web {
 	requires coreapi.framework.api;
 	requires coreapi.framework.database;
 	requires coreapi.framework.service;
+	requires transitive coreapi.framework.security;
 
 	requires lombok;
 
@@ -36,4 +37,6 @@ module coreapi.framework.web {
 	requires springfox.spi;
 	requires swagger.annotations;
 	requires transitive springfox.spring.web;
+	requires transitive org.apache.tomcat.embed.core;
+	requires spring.security.config;
 }

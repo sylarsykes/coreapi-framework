@@ -24,7 +24,7 @@ import org.sylrsykssoft.coreapi.framework.library.util.LoggerUtil.LogMessageLeve
  * @author juan.gonzalez.fernandez.jgf
  */
 public abstract class BaseAdminService<T extends BaseAdmin, R extends BaseAdminResource>
-extends BaseAdminSimpleService<T, R>
+		extends BaseAdminSimpleService<T, R>
 		implements IAdminSimpleService<T, R, Integer>, IAdminService<T, R, Integer>, IMapperFunction<T, R> {
 
 	/**

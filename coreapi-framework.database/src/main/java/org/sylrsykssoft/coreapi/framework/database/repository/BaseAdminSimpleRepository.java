@@ -9,7 +9,7 @@ import org.springframework.data.repository.query.Param;
 import org.sylrsykssoft.coreapi.framework.api.model.BaseAdminSimple;
 
 /**
- * The Interface BaseAdminRepository.
+ * The Interface BaseAdminSimpleRepository.
  * 
  * @param <T> the generic type
  * @author juan.gonzalez.fernandez.jgf

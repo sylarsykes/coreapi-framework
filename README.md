@@ -159,6 +159,7 @@ Core API Framework is a generic project that serves as the basis for other proje
 * [Spring boot](https://spring.io/projects/spring-boot)
 * [Spring Security](https://spring.io/projects/spring-security)
 * [Swagger2](https://swagger.io/)
+* [Jasypt Spring Boot](https://github.com/ulisesbocchio/jasypt-spring-boot)
 
 ## Version
 
