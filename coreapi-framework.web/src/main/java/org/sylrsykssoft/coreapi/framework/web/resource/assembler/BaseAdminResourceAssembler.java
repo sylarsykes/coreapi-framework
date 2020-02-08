@@ -20,7 +20,7 @@ import org.sylrsykssoft.coreapi.framework.web.BaseAdminController;
  * @author juan.gonzalez.fernandez.jgf
  */
 public abstract class BaseAdminResourceAssembler<C extends BaseAdminController<R, T>, T extends BaseAdmin, R extends BaseAdminResource>
-extends BaseAdminSimpleResourceAssembler<C, T, R> {
+		extends BaseAdminSimpleResourceAssembler<C, T, R> {
 
 	/**
 	 * Instantiates a new base resource assembler.

@@ -10,7 +10,6 @@ import org.sylrsykssoft.coreapi.framework.api.model.BaseAdmin;
  * @author juan.gonzalez.fernandez.jgf
  */
 @NoRepositoryBean
-public interface BaseAdminRepository<T extends BaseAdmin>
-extends BaseAdminSimpleRepository<T> {
+public interface BaseAdminRepository<T extends BaseAdmin> extends BaseAdminSimpleRepository<T> {
 
 }

@@ -1,14 +1,15 @@
 package org.sylrsykssoft.coreapi.framework.security.domain;
 
-import java.time.LocalDateTime;
-
 import javax.persistence.Column;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.MappedSuperclass;
 
 import org.springframework.data.domain.Persistable;
+import org.sylrsykssoft.coreapi.framework.security.configuration.CoreApiFrameworkSecurityConstants.AuthorityType;
 
 import lombok.AccessLevel;
 import lombok.AllArgsConstructor;
@@ -20,10 +21,9 @@ import lombok.experimental.FieldDefaults;
 import lombok.experimental.SuperBuilder;
 
 /**
- * User entity base.
- * 
- * @author juan.gonzalez.fernandez.jgf
- * 
+ * @author Juan
+ *
+ * @see https://stackoverflow.com/questions/56973048/how-to-fetch-custom-user-entity-for-custom-authentication-in-login-on-spring-sec
  */
 @MappedSuperclass
 @Data
@@ -33,39 +33,15 @@ import lombok.experimental.SuperBuilder;
 @AllArgsConstructor(access = AccessLevel.PUBLIC)
 @EqualsAndHashCode(callSuper = false, doNotUseGetters = true)
 @ToString(callSuper = false, includeFieldNames = true)
-public class BaseUser<N extends Number> implements Persistable<N> {
+public class BaseAuthority<N extends Number> implements Persistable<N> {
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", updatable = false, nullable = false)
 	N entityId;
-	
-	@Column(name = "username", nullable = false)
-	String username;
-	
-	@Column(name = "password", nullable = false)
-    String password;
 
-    @Column(name = "enabled", nullable = false)
-    boolean enabled;
-
-    @Column(name = "account_non_expired", nullable = false)
-    boolean accountNonExpired;
-
-    @Column(name = "credentials_non_expired", nullable = false)
-    boolean credentialsNonExpired;
-
-    @Column(name = "account_non_locked", nullable = false)
-    boolean accountNonLocked;
-
-    @Column(name = "creation_date_time")
-    LocalDateTime createDateTime;
-
-    @Column(name = "updated_date_time")
-    LocalDateTime updateDateTime;
-
-    @Column(name = "last_online_date_time", nullable = false)
-    LocalDateTime lastOnline;
+	@Enumerated(EnumType.STRING)
+	AuthorityType authority;
 
 	/**
 	 * {@inheritDoc}
@@ -82,4 +58,5 @@ public class BaseUser<N extends Number> implements Persistable<N> {
 	public boolean isNew() {
 		return null == getId();
 	}
+
 }

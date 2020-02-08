@@ -5,7 +5,7 @@
 	<parent>
 		<groupId>org.springframework.boot</groupId>
 		<artifactId>spring-boot-starter-parent</artifactId>
-		<version>2.1.11.RELEASE</version>
+		<version>2.1.12.RELEASE</version>
 		<relativePath/> <!-- lookup parent from repository -->
 	</parent>
 	
@@ -65,15 +65,15 @@
 	    <!-- Dependency versions -->
 		<commons-collections4.version>4.4</commons-collections4.version>
 	    <commons-lang3.version>3.9</commons-lang3.version>
-	    <guava.version>28.1-jre</guava.version>
-		<jasypt-spring-boot-starter.version>2.1.1</jasypt-spring-boot-starter.version>
-		<junit-jupiter.version>5.5.1</junit-jupiter.version>
-		<junit-platform.version>1.5.1</junit-platform.version>
-		<log4j-core.version>2.12.1</log4j-core.version>
+	    <guava.version>28.2-jre</guava.version>
+		<jasypt-spring-boot-starter.version>3.0.2</jasypt-spring-boot-starter.version>
+		<junit-jupiter.version>5.6.0</junit-jupiter.version>
+		<junit-platform.version>1.6.0</junit-platform.version>
+		<log4j-core.version>2.13.0</log4j-core.version>
 		<lombok-maven-plugin.version>1.18.10.0</lombok-maven-plugin.version>
-		<modelmapper-spring.version>2.3.5</modelmapper-spring.version>
-		<slf4j.version>1.7.28</slf4j.version>
-	    <spring-boot.version>2.1.11.RELEASE</spring-boot.version>
+		<modelmapper-spring.version>2.3.6</modelmapper-spring.version>
+		<slf4j.version>1.7.30</slf4j.version>
+	    <spring-boot.version>2.1.12.RELEASE</spring-boot.version>
 	    <spring-plugin-core.version>1.2.0.RELEASE</spring-plugin-core.version>
 	    <springfox-swagger2.version>2.9.2</springfox-swagger2.version>
 	    <springfox-swagger-ui.version>2.9.2</springfox-swagger-ui.version>
@@ -100,6 +100,7 @@
 			<scope>provided</scope>
 		</dependency>
 
+		<!-- https://github.com/ulisesbocchio/jasypt-spring-boot -->
 		<dependency>
 		    <groupId>com.github.ulisesbocchio</groupId>
 		    <artifactId>jasypt-spring-boot-starter</artifactId>
@@ -218,6 +219,11 @@
 			        	</annotationProcessorPaths>
 			        </configuration>
 				</plugin>
+			    <plugin>
+			      <groupId>com.github.ulisesbocchio</groupId>
+			      <artifactId>jasypt-maven-plugin</artifactId>
+			      <version>${jasypt-spring-boot-starter.version}</version>
+			    </plugin>
 			</plugins>
 		</pluginManagement>
     </build>

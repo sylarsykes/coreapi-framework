@@ -11,6 +11,7 @@ module coreapi.framework.security {
 
 	requires transitive coreapi.framework.library;
 	requires coreapi.framework.api;
+	requires coreapi.framework.database;
 
 	requires lombok;
 	requires org.slf4j;
@@ -23,4 +24,7 @@ module coreapi.framework.security {
 	requires spring.security.web;
 	requires spring.web;
 	requires spring.webmvc;
+	requires spring.data.jpa;
+	requires spring.hateoas;
+	requires org.hibernate.orm.core;
 }

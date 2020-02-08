@@ -14,7 +14,7 @@ import org.sylrsykssoft.coreapi.framework.web.BaseAdminSimpleController;
  * @author juan.gonzalez.fernandez.jgf
  */
 public abstract class BaseAdminSimpleResourceAssembler<C extends BaseAdminSimpleController<R, T>, T extends BaseAdminSimple, R extends BaseAdminSimpleResource>
-extends ResourceAssemblerSupport<T, R> {
+		extends ResourceAssemblerSupport<T, R> {
 
 	protected Class<C> controllerClass;
 	/** The entity class. */
