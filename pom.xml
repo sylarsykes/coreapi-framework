@@ -71,11 +71,11 @@
 		<lombok.version>1.18.10</lombok.version>
 		<lombok-maven-plugin.version>1.18.10.0</lombok-maven-plugin.version>
 		<modelmapper-spring.version>2.3.6</modelmapper-spring.version>
-		<io.jsonwebtoken.jjwt.version>0.9.1</io.jsonwebtoken.jjwt.version>
+		<io.jsonwebtoken.jjwt-api.version>0.11.0</io.jsonwebtoken.jjwt-api.version>
 		<slf4j.version>1.7.30</slf4j.version>
-	    <springframework.version>5.2.3.RELEASE</springframework.version>
+	    <springframework.version>5.2.4.RELEASE</springframework.version>
 	    <springframework.data.version>2.2.4.RELEASE</springframework.data.version>
-	    <spring-boot.version>2.1.12.RELEASE</spring-boot.version>
+	    <spring-boot.version>2.1.14.RELEASE</spring-boot.version>
 	    <spring-security-oauth2.version>2.4.0.RELEASE</spring-security-oauth2.version>
 		<spring-plugin-core.version>1.2.0.RELEASE</spring-plugin-core.version>
 	    <springfox-swagger2.version>2.9.2</springfox-swagger2.version>

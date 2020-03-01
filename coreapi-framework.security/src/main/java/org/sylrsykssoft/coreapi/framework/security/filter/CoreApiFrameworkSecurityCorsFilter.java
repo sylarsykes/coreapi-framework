@@ -1,6 +1,8 @@
-package org.sylrsykssoft.coreapi.framework.security.configuration;
+package org.sylrsykssoft.coreapi.framework.security.filter;
 
 import java.io.IOException;
+import java.util.Arrays;
+import java.util.List;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -11,6 +13,7 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
@@ -39,10 +42,14 @@ public class CoreApiFrameworkSecurityCorsFilter implements Filter {
 	@Override
 	public void doFilter(final ServletRequest req, final ServletResponse res, final FilterChain chain)
 			throws IOException, ServletException {
+		final List<String> allowMethods = Arrays.asList(HttpMethod.POST.name(), HttpMethod.PUT.name(),
+				HttpMethod.GET.name(), HttpMethod.OPTIONS.name(), HttpMethod.DELETE.name());
+		final List<String> allowHeaders = Arrays.asList("Authorization", "Content-Type");
+
 		final HttpServletResponse response = (HttpServletResponse) res;
 		response.setHeader("Access-Control-Allow-Origin", "*");
-		response.setHeader("Access-Control-Allow-Methods", "POST, PUT, GET, OPTIONS, DELETE");
-		response.setHeader("Access-Control-Allow-Headers", "Authorization, Content-Type");
+		response.setHeader("Access-Control-Allow-Methods", StringUtils.join(allowMethods, ","));
+		response.setHeader("Access-Control-Allow-Headers", StringUtils.join(allowHeaders, ","));
 		response.setHeader("Access-Control-Max-Age", "3600");
 		if (HttpMethod.OPTIONS.name().equalsIgnoreCase(((HttpServletRequest) req).getMethod())) {
 			response.setStatus(HttpServletResponse.SC_OK);
