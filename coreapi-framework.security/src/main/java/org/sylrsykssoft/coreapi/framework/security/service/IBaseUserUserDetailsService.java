@@ -19,7 +19,7 @@ import org.sylrsykssoft.coreapi.framework.security.resource.BaseUserResource;
  * @param <N> Id type class
  */
 public interface IBaseUserUserDetailsService<T extends BaseUser<N>, R extends BaseUserResource<N>, N extends Number>
-extends UserDetailsService {
+		extends UserDetailsService {
 
 	/**
 	 * Get all users

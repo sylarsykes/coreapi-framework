@@ -11,6 +11,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.sylrsykssoft.coreapi.framework.security.handler.LoginSuccessHandler;
 
@@ -40,6 +41,9 @@ public class CoreApiFrameworkSecurityWebSecurityConfiguration extends WebSecurit
 
 	@Autowired
 	private BCryptPasswordEncoder passwordEncoder;
+
+	@Autowired
+	private UserDetailsService userDetailsService;
 
 	/**
 	 * {@inheritDoc}
@@ -73,6 +77,8 @@ public class CoreApiFrameworkSecurityWebSecurityConfiguration extends WebSecurit
 		auth.inMemoryAuthentication().withUser(defaultUsername).password(passwordEncoder.encode(defaultUserPassword))
 		.roles(ROLES_DEFAULT_NAME).and().withUser(defaultAdminUsername)
 		.password(passwordEncoder.encode(defaultAdminUserPassword)).roles(ROLE_ADMIN_NAME, ROLES_DEFAULT_NAME);
+
+		auth.userDetailsService(userDetailsService).passwordEncoder(passwordEncoder);
 	}
 
 }
